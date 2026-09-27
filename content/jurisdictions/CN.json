@@ -1,0 +1,516 @@
+{
+  "id": "CN",
+  "name": "China (mainland)",
+  "laws": [
+    {
+      "title": "Personal Information Protection Law of the People's Republic of China (个人信息保护法)",
+      "shortName": "PIPL",
+      "citation": "PIPL, adopted 20 Aug 2021",
+      "officialUrl": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm",
+      "status": "in_force",
+      "effectiveDate": "2021-11-01"
+    },
+    {
+      "title": "Cybersecurity Law of the PRC, as amended by NPCSC Decision of 28 Oct 2025 (网络安全法)",
+      "shortName": "CSL",
+      "citation": "CSL (2016), amended 28 Oct 2025",
+      "officialUrl": "https://www.gov.cn/yaowen/liebiao/202510/content_7046194.htm",
+      "status": "in_force",
+      "effectiveDate": "2026-01-01"
+    },
+    {
+      "title": "Network Data Security Management Regulations (网络数据安全管理条例), State Council Decree No. 790",
+      "shortName": "NDSR",
+      "citation": "State Council Decree No. 790",
+      "officialUrl": "https://www.gov.cn/zhengce/content/202409/content_6977766.htm",
+      "status": "in_force",
+      "effectiveDate": "2025-01-01"
+    },
+    {
+      "title": "Provisions on Promoting and Regulating Cross-Border Data Flows (促进和规范数据跨境流动规定), CAC Order No. 16",
+      "shortName": "CBDF Provisions",
+      "citation": "CAC Order No. 16",
+      "officialUrl": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm",
+      "status": "in_force",
+      "effectiveDate": "2024-03-22"
+    },
+    {
+      "title": "Measures on the Standard Contract for Outbound Transfer of Personal Information (个人信息出境标准合同办法), CAC Order No. 13",
+      "shortName": "SCC Measures",
+      "citation": "CAC Order No. 13",
+      "officialUrl": "https://www.cac.gov.cn/2023-02/24/c_1678884830036813.htm",
+      "status": "in_force",
+      "effectiveDate": "2023-06-01"
+    },
+    {
+      "title": "Measures for Certification of Outbound Transfer of Personal Information (个人信息出境认证办法)",
+      "shortName": "Certification Measures",
+      "citation": "CAC and SAMR, published 17 Oct 2025",
+      "officialUrl": "https://www.cac.gov.cn/2025-10/17/c_1762449728720008.htm",
+      "status": "in_force",
+      "effectiveDate": "2026-01-01"
+    },
+    {
+      "title": "Measures for Personal Information Protection Compliance Audits (个人信息保护合规审计管理办法), CAC Order No. 18",
+      "shortName": "Audit Measures",
+      "citation": "CAC Order No. 18",
+      "officialUrl": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm",
+      "status": "in_force",
+      "effectiveDate": "2025-05-01"
+    },
+    {
+      "title": "Measures for the Administration of National Cybersecurity Incident Reporting (国家网络安全事件报告管理办法)",
+      "shortName": "Incident Reporting Measures",
+      "citation": "CAC, issued 11 Sept 2025",
+      "officialUrl": "https://www.cac.gov.cn/2025-09/15/c_1759583017717009.htm",
+      "status": "in_force",
+      "effectiveDate": "2025-11-01"
+    }
+  ],
+  "regulators": [
+    { "name": "Cyberspace Administration of China (CAC) and provincial/municipal cyberspace offices", "url": "https://www.cac.gov.cn" }
+  ],
+  "scopeNotes": "The PIPL applies to processing of personal information within mainland China and, extraterritorially, to processing abroad aimed at providing products or services to individuals in China or analysing their behaviour (Art. 3). Unlike the GDPR there is no 'legitimate interests' basis: processing rests on consent or on one of the listed alternatives, including human-resources management under lawfully adopted labour rules and collective contracts (Art. 13). Outbound transfers need a CAC security assessment, the CAC standard contract (filed with the provincial CAC) or certification, unless an exemption under the 2024 CBDF Provisions applies; thresholds count individuals transferred since 1 January of the current year. Hong Kong, Macau and Taiwan are outside this entry.",
+  "obligations": [
+    {
+      "id": "CN-LEGAL_BASIS-01",
+      "category": "legal_basis_consent",
+      "title": "Rely on a PIPL legal basis — there is no 'legitimate interests' ground",
+      "requirement": "Personal information may be processed only with the individual's consent or where necessary for a contract with the individual, for HR management under lawfully formulated labour rules and lawfully concluded collective contracts, for legal obligations, emergencies, news reporting, or reasonable use of lawfully public data. Where another PIPL provision requires consent, consent is not needed if one of the non-consent grounds applies. Processing that a GDPR programme bases on legitimate interests (e.g. CRM of B2B contacts, CCTV, analytics) needs a different basis in China.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies because the group has an entity in mainland China that processes personal information.",
+      "actionSteps": [
+        "Re-map every Chinese processing activity to an Art. 13 basis; flag those currently relying on GDPR legitimate interests.",
+        "For HR processing, confirm the employee handbook/labour rules were adopted through the democratic procedure required by labour law so the HR basis is available.",
+        "Where consent is the only option, design consent flows that are informed, voluntary and explicit."
+      ],
+      "owner": "local_entity",
+      "priority": "critical",
+      "gdprEquivalent": "Art. 6 GDPR (no Art. 6(1)(f) equivalent)",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 13" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-NOTICE-01",
+      "category": "notice",
+      "title": "Publish Chinese-law processing rules before collecting personal information",
+      "requirement": "Before processing, individuals must be told, prominently and in clear language, the handler's name and contact details, purposes, methods, categories, retention period and how to exercise rights. Where this is done through published processing rules, those rules must be centrally displayed and easy to access, list collected data and data provided to other handlers in list form, and explain the necessity and impact of any sensitive data processing.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies because the group processes personal information in mainland China.",
+      "actionSteps": [
+        "Localise group privacy notices into Chinese PIPL-compliant processing rules for employees, candidates, visitors and business contacts.",
+        "Add list-form disclosure of data categories and third-party recipients (including HQ).",
+        "State retention periods or the method for determining them."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 13–14 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 17" },
+        { "url": "https://www.gov.cn/zhengce/content/202409/content_6977766.htm", "pinpoint": "NDSR Art. 21" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-LEGAL_BASIS-02",
+      "category": "legal_basis_consent",
+      "title": "Inform individuals and obtain separate consent before sharing with other handlers",
+      "requirement": "When the Chinese entity provides personal information to another handler (including HQ or another group company acting as an independent handler), it must tell individuals the recipient's name, contact details, purposes, methods and data categories, and obtain separate consent. Under Art. 13 the consent element falls away where a non-consent ground (such as lawful HR management) covers the sharing, but the information duty and a prior impact assessment remain.",
+      "appliesIf": { "or": [{ "var": "flows.groupAccessFromAbroad" }, { "var": "flows.exportsOut" }] },
+      "appliesIfNote": "Applies because personal information collected in China is made available to other group entities.",
+      "actionSteps": [
+        "Identify which group recipients are independent handlers rather than entrusted processors.",
+        "Name each recipient in the processing rules and, where consent is the basis, collect a separate (stand-alone) consent.",
+        "Run a PIPIA before the sharing starts."
+      ],
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 13(1)(e), 26 GDPR",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 13, 23, 55(1)(3)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Justify, protect and separately consent to sensitive personal information",
+      "requirement": "Sensitive personal information (including biometrics, religious beliefs, specific identities, medical and health data, financial accounts, whereabouts/location tracks, and all data of children under 14) may be processed only for a specific purpose with sufficient necessity and strict protective measures. Consent-based processing requires separate consent (written consent where laws so require), individuals must be told why it is necessary and how it affects them, and a PIPIA is required beforehand.",
+      "appliesIf": { "or": [{ "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.financialAccounts" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] },
+      "appliesIfNote": "Applies because you process data that PIPL classes as sensitive (e.g. site-access biometrics, health, bank accounts, location).",
+      "actionSteps": [
+        "List every sensitive data element processed in China and document purpose and necessity.",
+        "Offer non-biometric alternatives where biometric site access or attendance is used, or document why none is feasible.",
+        "Collect separate consent where consent is the basis; add necessity/impact statements to the processing rules.",
+        "Apply encryption and restricted access; complete a PIPIA."
+      ],
+      "owner": "local_entity",
+      "priority": "critical",
+      "gdprEquivalent": "Art. 9 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 28–30, 55(1)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-IMPACT-01",
+      "category": "impact_assessment",
+      "title": "Conduct a PIPIA before sensitive, automated, shared, entrusted or cross-border processing",
+      "requirement": "A personal information protection impact assessment must be carried out in advance, and processing recorded, when handling sensitive data, making automated decisions, entrusting processing, providing data to other handlers, publicly disclosing data, transferring data abroad, or other processing with significant impact. The assessment covers legality and necessity, impact and risk, and adequacy of protective measures; reports and records must be kept for at least three years.",
+      "appliesIf": { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }, { "var": "flows.usesProcessors" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }] },
+      "appliesIfNote": "Applies because at least one PIPIA trigger is present (transfers, sharing, vendors, automated decisions or sensitive data).",
+      "actionSteps": [
+        "Adapt the group DPIA template to PIPIA content (Art. 56); the triggers are broader than GDPR's high-risk test.",
+        "Complete PIPIAs for each trigger, especially the transfer to HQ.",
+        "Retain PIPIA reports and processing records for at least three years."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 35 GDPR (DPIA)",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 55–56" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-TRANSFER-01",
+      "category": "cross_border_transfer",
+      "title": "Inform individuals and obtain separate consent for outbound transfers (where consent-based)",
+      "requirement": "Before transferring personal information outside mainland China, the handler must tell individuals the overseas recipient's name, contact details, purposes, methods, data categories and how to exercise rights against the recipient, and obtain separate consent. Under Art. 13 the consent element does not apply where a non-consent basis (e.g. lawful HR management) covers the transfer; the notice duty and PIPIA still apply. The handler must also ensure the recipient meets PIPL standards.",
+      "appliesIf": { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+      "appliesIfNote": "Applies because personal information collected in China leaves the mainland or is accessed from abroad (remote access counts as provision abroad).",
+      "actionSteps": [
+        "Map outbound flows (to HQ in Italy, to cloud regions, to vendors) with recipient details.",
+        "Add recipient-specific transfer disclosures to the processing rules.",
+        "Collect separate consent where consent is the basis for the transfer.",
+        "Complete a transfer PIPIA."
+      ],
+      "owner": "both",
+      "priority": "critical",
+      "gdprEquivalent": "Chapter V GDPR (different model: no adequacy)",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 13, 38(3), 39, 55(4)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-TRANSFER-02",
+      "category": "cross_border_transfer",
+      "title": "Use the HR-management exemption only under lawful labour rules",
+      "requirement": "Employee personal information may be transferred abroad without a security assessment, standard contract or certification where genuinely needed for cross-border HR management carried out under lawfully formulated labour rules and lawfully concluded collective contracts. The exemption does not cover important data, and notice and PIPIA duties continue to apply.",
+      "appliesIf": { "and": [{ "var": "flows.exportsOut" }, { "or": [{ "var": "processing.hrPayroll" }, { "var": "processing.recruiting" }] }] },
+      "appliesIfNote": "Applies because the Chinese entity's employee data is shared with HQ or other group entities abroad.",
+      "actionSteps": [
+        "Confirm that the labour rules/employee handbook addresses cross-border HR management and was adopted through the statutory democratic procedure.",
+        "Limit transferred employee data to what group HR management genuinely needs.",
+        "Document the exemption analysis in the transfer PIPIA."
+      ],
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Art. 49 GDPR derogations (loosely comparable)",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Art. 5(2) and final para." }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-TRANSFER-03",
+      "category": "cross_border_transfer",
+      "title": "Sign and file the CAC standard contract, or obtain certification (mid-volume transfers)",
+      "requirement": "Non-CIIO handlers that, since 1 January of the current year, have transferred abroad personal information of 100,000 to under 1,000,000 individuals (excluding sensitive data), or sensitive data of fewer than 10,000 individuals, must sign the CAC standard contract with the overseas recipient and file it with the provincial cyberspace office within 10 working days of it taking effect (with the PIPIA), or obtain personal information outbound certification. Transfers of fewer than 100,000 individuals' non-sensitive data are exempt; splitting volumes to avoid thresholds is prohibited.",
+      "appliesIf": {
+        "and": [
+          { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+          { "or": [{ ">=": [{ "var": "j.individuals" }, 100000] }, { ">": [{ "var": "j.sensitiveIndividuals" }, 0] }] },
+          { "<": [{ "var": "j.individuals" }, 1000000] },
+          { "<": [{ "var": "j.sensitiveIndividuals" }, 10000] }
+        ]
+      },
+      "appliesIfNote": "Applies because your estimated annual outbound volume falls in the standard-contract band. Transfers covered by the HR or contract exemptions do not count; confirm with a volume analysis.",
+      "actionSteps": [
+        "Calculate individuals transferred since 1 January, excluding flows covered by Art. 5 exemptions.",
+        "Execute the CAC standard contract with each overseas recipient (it cannot be replaced by EU SCCs).",
+        "File the contract and PIPIA with the provincial cyberspace office within 10 working days; refile on material change.",
+        "Alternatively, apply to an accredited body for outbound certification."
+      ],
+      "deadlineOrTimeline": "Filing within 10 working days of the standard contract taking effect",
+      "penaltyNote": "PIPL Art. 66: up to RMB 1 million (or, in serious cases, up to RMB 50 million or 5% of prior-year turnover) plus personal fines for responsible managers.",
+      "owner": "both",
+      "priority": "critical",
+      "gdprEquivalent": "Art. 46(2)(c) GDPR (SCCs)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Arts. 5(4), 8" },
+        { "url": "https://www.cac.gov.cn/2023-02/24/c_1678884830036813.htm", "pinpoint": "SCC Measures Art. 7" },
+        { "url": "https://www.cac.gov.cn/2026-09/11/c_1790876549989064.htm", "pinpoint": "CAC Q&A (Sept 2026), Q1–Q3" },
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 38, 66" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-TRANSFER-04",
+      "category": "cross_border_transfer",
+      "title": "Apply for a CAC security assessment (high-volume transfers)",
+      "requirement": "Non-CIIO handlers that, since 1 January of the current year, have transferred personal information of 1,000,000 or more individuals (excluding sensitive data) or sensitive data of 10,000 or more individuals, or any important data, must apply through the provincial cyberspace office for a CAC security assessment before transferring. Approvals are valid for three years; renewal must be sought 60 working days before expiry.",
+      "appliesIf": {
+        "and": [
+          { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+          { "or": [{ ">=": [{ "var": "j.individuals" }, 1000000] }, { ">=": [{ "var": "j.sensitiveIndividuals" }, 10000] }] }
+        ]
+      },
+      "appliesIfNote": "Applies because your estimated outbound volume reaches the security-assessment threshold (exempt HR/contract flows excluded).",
+      "actionSteps": [
+        "Confirm volumes after excluding exempt flows.",
+        "Prepare the self-assessment and file through the provincial cyberspace office.",
+        "Track the three-year validity and renew in time."
+      ],
+      "deadlineOrTimeline": "Before transfer; renewal 60 working days before expiry",
+      "owner": "both",
+      "priority": "critical",
+      "gdprEquivalent": "None (GDPR has no prior approval of transfers)",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Arts. 7, 13–14" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-LOCALIZATION-01",
+      "category": "localization",
+      "title": "Store personal information locally once the CAC volume threshold is reached",
+      "requirement": "Critical information infrastructure operators and handlers processing personal information in quantities reaching a CAC-prescribed amount must store personal information collected and generated in China within China; transfers abroad then require a security assessment unless exempted. The specific CAC volume threshold for non-CIIO handlers was not confirmed in this research pass.",
+      "appliesIf": { ">=": [{ "var": "j.individuals" }, 1000000] },
+      "appliesIfNote": "Flagged because the Chinese entity processes data of 1 million or more individuals; the exact threshold needs counsel confirmation.",
+      "actionSteps": [
+        "Ask Chinese counsel to confirm the current localisation threshold for non-CIIO handlers.",
+        "If triggered, keep a primary copy of Chinese personal information on servers in mainland China."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 40" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "unverified"
+    },
+    {
+      "id": "CN-LOCALIZATION-02",
+      "category": "localization",
+      "title": "Do not answer foreign court or enforcement requests without Chinese approval",
+      "requirement": "Personal information stored in China may not be provided to foreign judicial or law-enforcement authorities without approval of the competent Chinese authorities. This affects group litigation holds, e-discovery and regulatory investigations in other countries.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to any group entity holding personal information in mainland China.",
+      "actionSteps": [
+        "Add a China step to group litigation-hold, e-discovery and regulator-request procedures.",
+        "Route any foreign authority request for China-stored data to Chinese counsel before responding."
+      ],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 48 GDPR (comparable principle)",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 41" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Designate a PI protection officer and report them to the CAC (1 million+ individuals)",
+      "requirement": "Handlers processing personal information of 1 million or more individuals must designate a personal information protection officer, publish their contact details and report the officer's name and contact details to the cyberspace authorities. Reporting is done online within 30 working days of reaching the threshold, with updates within 30 working days of material changes.",
+      "appliesIf": { ">=": [{ "var": "j.individuals" }, 1000000] },
+      "appliesIfNote": "Applies because the Chinese entity processes personal information of 1 million or more individuals.",
+      "actionSteps": [
+        "Appoint a PI protection officer for the Chinese entity (a local contact is advisable even if the group DPO is lead).",
+        "Publish the contact details and file the officer's information through the CAC Personal Information Protection Business System.",
+        "Diarise the 30-working-day update duty."
+      ],
+      "deadlineOrTimeline": "Within 30 working days of reaching 1 million individuals",
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 37(7) GDPR (DPO contact to SA)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 52" },
+        { "url": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm", "pinpoint": "Audit Measures Art. 12" },
+        { "url": "https://www.cac.gov.cn/2025-07/18/c_1754553420421538.htm", "pinpoint": "CAC Announcement on PI protection officer reporting (18 July 2025)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-GOVERNANCE-01",
+      "category": "governance",
+      "title": "Run periodic PI compliance audits",
+      "requirement": "All handlers must regularly audit their compliance with personal information laws, internally or through a professional body, following the CAC audit guidelines. Handlers of more than 10 million individuals' data must audit at least every two years, and the CAC may order an external audit after serious risk or a major incident.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every handler processing personal information in mainland China.",
+      "actionSteps": [
+        "Schedule a PIPL compliance audit of the Chinese entity using the CAC audit guideline as the checklist.",
+        "Record findings and remediation; repeat on a defined cycle."
+      ],
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 24(1) GDPR (accountability, review of measures)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 54" },
+        { "url": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm", "pinpoint": "Audit Measures Arts. 3–6 and Annex" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-VENDORS-01",
+      "category": "vendors_processors",
+      "title": "Contract with and supervise entrusted processors",
+      "requirement": "When entrusting processing, the handler must agree with the entrusted party the purpose, term, method, data categories, protective measures and rights and obligations, and supervise its processing. The entrusted party may not exceed the agreed scope, must return or delete data at the end, and may not sub-entrust without consent. A PIPIA is required before entrusting.",
+      "appliesIf": { "var": "flows.usesProcessors" },
+      "appliesIfNote": "Applies because the Chinese entity uses service providers (payroll, IT, cloud) that process personal information.",
+      "actionSteps": [
+        "Add PIPL Art. 21 terms to Chinese vendor contracts (the GDPR Art. 28 DPA is a good starting point).",
+        "Perform PIPIAs before new entrustments and periodic vendor checks."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 28 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 21, 55(3)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-BREACH-01",
+      "category": "breach_notification",
+      "title": "Remediate immediately, notify authorities and individuals; report major incidents within 4 hours",
+      "requirement": "When personal information is or may be leaked, tampered with or lost, the handler must immediately take remedial measures and notify the authorities and individuals (individuals may be omitted if harm is effectively avoided, unless authorities require it). Separately, network operators must report incidents classified as 'relatively major' or above, including leaks of personal information of 1 million or more people, to the provincial cyberspace office within 4 hours.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every handler and network operator in mainland China.",
+      "actionSteps": [
+        "Add a China annex to the group incident procedure with PIPL Art. 57 content and the 4-hour CAC reporting path.",
+        "Require IT and security vendors by contract to report incidents promptly and support reporting.",
+        "Pre-draft Chinese-language notification templates."
+      ],
+      "deadlineOrTimeline": "Immediately (PIPL); within 4 hours for relatively major or above incidents",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 57" },
+        { "url": "https://www.cac.gov.cn/2025-09/15/c_1759583017717009.htm", "pinpoint": "Incident Reporting Measures Arts. 4–5; Annex (grading guide), 'relatively major' item 5" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Provide a convenient rights-request mechanism and explain refusals",
+      "requirement": "Handlers must establish convenient mechanisms to accept and handle requests to access, copy, transfer, correct, supplement, delete or restrict processing, and to explain processing rules. Refusals must state reasons, and individuals may sue in the People's Courts.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every handler processing personal information in mainland China.",
+      "actionSteps": [
+        "Extend the group DSAR procedure to Chinese-language requests with a local intake channel.",
+        "Add a reasoned-refusal template."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12, 15–21 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 44–50" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-AI-01",
+      "category": "automated_decisions_ai",
+      "title": "Keep automated decisions transparent and fair; allow refusal of significant ones",
+      "requirement": "Automated decision-making must be transparent and fair and may not impose unreasonable differential treatment. Personalised push or marketing must offer a non-personalised option or an easy way to refuse. Individuals may request an explanation of automated decisions with a significant impact on their rights and refuse decisions made solely by automated means.",
+      "appliesIf": { "or": [{ "var": "processing.automatedDecisions" }, { "var": "processing.marketing" }] },
+      "appliesIfNote": "Applies because you use automated decision-making or personalised marketing affecting people in China.",
+      "actionSteps": [
+        "Identify automated decisions affecting Chinese staff or contacts (e.g. screening, scheduling).",
+        "Provide an explanation channel and a human-review option.",
+        "Complete a PIPIA for each automated-decision use case."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 21(2), 22 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 24, 55(2)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-SECURITY-01",
+      "category": "security",
+      "title": "Implement PIPL security measures and identify any important data",
+      "requirement": "Handlers must adopt internal rules, classify personal information, apply encryption and de-identification, set access permissions, train staff and maintain an incident response plan. Under the data security framework, processors must also identify and declare important data; data not notified or published as important need not be declared for security assessment. Handlers of personal information of 10 million or more individuals are subject to the important-data handler duties in NDSR Arts. 30 and 32.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every handler processing personal information in mainland China.",
+      "actionSteps": [
+        "Map the group ISMS to PIPL Art. 51 measures and add a PI classification scheme.",
+        "Assess whether engineering or project data could fall within sector important-data catalogues; monitor notifications from authorities.",
+        "Run an annual incident response drill for the Chinese entity."
+      ],
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 32 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 51" },
+        { "url": "https://www.gov.cn/zhengce/content/202409/content_6977766.htm", "pinpoint": "NDSR Arts. 28–30" },
+        { "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Art. 2" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CN-EMPLOYEE-01",
+      "category": "employee_data",
+      "title": "Limit CCTV and identity-recognition devices in public places",
+      "requirement": "Image-collection and personal-identification equipment in public places must be necessary for public security, carry prominent signs, and images and identity data may be used for other purposes only with separate consent. The CAC audit guideline reviews exactly these points.",
+      "appliesIf": { "var": "processing.cctv" },
+      "appliesIfNote": "Applies because you operate CCTV or identity-recognition devices at Chinese sites or offices.",
+      "actionSteps": [
+        "Post prominent signage for all cameras and recognition devices.",
+        "Restrict use of footage to security purposes unless separate consent is obtained.",
+        "Review whether facial recognition at site gates is necessary; offer alternatives."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 6(1)(f), 13 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 26" },
+        { "url": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm", "pinpoint": "Audit Measures Annex, item 11" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [],
+  "lastReviewed": "2026-09-27"
+}

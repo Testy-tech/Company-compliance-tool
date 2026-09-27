@@ -1,0 +1,387 @@
+{
+  "id": "IT",
+  "name": "Italy",
+  "laws": [
+    {
+      "title": "Regulation (EU) 2016/679 — General Data Protection Regulation",
+      "shortName": "GDPR",
+      "citation": "Regulation (EU) 2016/679",
+      "officialUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "status": "in_force",
+      "effectiveDate": "2018-05-25"
+    },
+    {
+      "title": "Codice in materia di protezione dei dati personali (Italian Personal Data Protection Code)",
+      "shortName": "Privacy Code",
+      "citation": "D.Lgs. 30 giugno 2003, n. 196, as amended by D.Lgs. 101/2018 and later acts (consolidated text through L. 50/2026)",
+      "officialUrl": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196",
+      "status": "in_force"
+    },
+    {
+      "title": "Statuto dei lavoratori (Workers' Statute)",
+      "shortName": "L. 300/1970",
+      "citation": "Legge 20 maggio 1970, n. 300 — Art. 4 (remote monitoring), Art. 8 (inquiries into opinions)",
+      "officialUrl": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1970-05-20;300",
+      "status": "in_force"
+    },
+    {
+      "title": "Disposizioni e deleghe al Governo in materia di intelligenza artificiale (Italian AI Law)",
+      "shortName": "L. 132/2025",
+      "citation": "Legge 23 settembre 2025, n. 132 (GU n. 223 of 25 Sept 2025)",
+      "officialUrl": "https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00143/sg",
+      "status": "in_force",
+      "effectiveDate": "2025-10-10"
+    },
+    {
+      "title": "D.Lgs. 26 maggio 1997, n. 152 — employer information duties (Art. 1-bis: automated decision-making and monitoring systems)",
+      "shortName": "D.Lgs. 152/1997",
+      "citation": "D.Lgs. 152/1997, Art. 1-bis (inserted by D.Lgs. 104/2022)",
+      "officialUrl": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1997-05-26;152",
+      "status": "in_force"
+    }
+  ],
+  "regulators": [
+    { "name": "Garante per la protezione dei dati personali", "url": "https://www.garanteprivacy.it" },
+    { "name": "Ispettorato Nazionale del Lavoro (authorisation of remote-monitoring tools)", "url": "https://www.ispettorato.gov.it" }
+  ],
+  "scopeNotes": "The GDPR applies directly to the Italian establishment (Art. 3(1) GDPR); the Privacy Code adds national rules adopted under GDPR opening clauses, notably on special-category and criminal data (Arts. 2-septies, 2-octies), employment (Arts. 113-115, referring to the Workers' Statute) and unsolicited communications (Art. 130). As headquarters of the reference group, Italy is the baseline: GDPR obligations here are marked 'covered' and Italian-specific additions 'partial' or 'new'. Outbound transfers from Italy to non-EEA group entities are governed by GDPR Chapter V: as of September 2026 the Republic of Korea is adequate, the United States only for organisations certified under the EU-US Data Privacy Framework, while China, Singapore, Peru, Chile and India have no adequacy decision.",
+  "obligations": [
+    {
+      "id": "IT-RECORDS-01",
+      "category": "records",
+      "title": "Maintain a record of processing activities",
+      "requirement": "Each controller and processor must keep a written (including electronic) record of its processing activities, covering purposes, categories of data and data subjects, recipients, third-country transfers, retention periods and security measures. The record must be made available to the Garante on request.",
+      "appliesIf": true,
+      "appliesIfNote": "Applies to every organisation established in Italy; the small-enterprise exemption in Art. 30(5) rarely fits a group processing HR data.",
+      "actionSteps": [
+        "Confirm the group RoPA includes all Italian processing, including HR, site safety and CCTV.",
+        "Record each transfer to a non-EEA group entity with the Chapter V mechanism relied on.",
+        "Assign an owner and review the RoPA at least annually."
+      ],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 30 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 30" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Assess DPO requirement; publish and notify DPO contact details",
+      "requirement": "A data protection officer is mandatory where core activities involve regular and systematic monitoring of individuals on a large scale, or large-scale processing of special-category or criminal data. Where a DPO is designated (mandatorily or voluntarily), the controller must publish the DPO's contact details and communicate them to the Garante.",
+      "appliesIf": true,
+      "appliesIfNote": "Every controller must assess the Art. 37(1) criteria; a group DPO may serve all EU entities if easily accessible from each.",
+      "actionSteps": [
+        "Document the Art. 37(1) assessment for the Italian entity.",
+        "If a DPO is designated, communicate the contact details to the Garante through its online procedure and publish them in privacy notices.",
+        "Confirm the group DPO is easily accessible from every EU establishment (Art. 37(2))."
+      ],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 37–39 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 37(1), (2), (7)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-TRANSFER-01",
+      "category": "cross_border_transfer",
+      "title": "Put a Chapter V mechanism in place for every transfer outside the EEA",
+      "requirement": "Personal data may leave the EEA only to an adequate country, under appropriate safeguards such as the Commission's standard contractual clauses (with a transfer impact assessment), binding corporate rules, or a narrow Art. 49 derogation. As of September 2026, Korea is adequate and the US is adequate only for DPF-certified recipients; transfers to group entities or vendors in China, Singapore, Peru, Chile and India need safeguards.",
+      "appliesIf": { "or": [{ "var": "flows.groupAccessFromAbroad" }, { "var": "flows.usesProcessors" }, { "var": "flows.exportsOut" }] },
+      "appliesIfNote": "Applies because personal data held in Italy is accessed by, or sent to, group entities or vendors outside the EEA.",
+      "actionSteps": [
+        "Map every outbound flow from Italy by recipient country and entity.",
+        "Execute the 2021 SCCs (intra-group agreement) with each non-adequate recipient and document a transfer impact assessment.",
+        "For US recipients, check DPF certification on the official list or use SCCs.",
+        "Reassess when adequacy decisions change."
+      ],
+      "penaltyNote": "Infringements of Arts. 44–49 fall in the higher GDPR fine tier: up to EUR 20 million or 4% of worldwide annual turnover (Art. 83(5)).",
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Chapter V GDPR (Arts. 44–49)",
+      "gdprDelta": "covered",
+      "sources": [
+        { "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 44–49; Art. 83(5)(c)" },
+        { "url": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en", "pinpoint": "List of adequacy decisions (checked 2026-09-27)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-BREACH-01",
+      "category": "breach_notification",
+      "title": "Notify personal data breaches to the Garante within 72 hours",
+      "requirement": "A personal data breach must be notified to the Garante without undue delay and, where feasible, within 72 hours of becoming aware of it, unless it is unlikely to result in a risk to individuals. Where the risk is high, affected individuals must also be informed without undue delay. All breaches must be documented internally.",
+      "appliesIf": true,
+      "appliesIfNote": "Applies to every controller established in Italy.",
+      "actionSteps": [
+        "Confirm the group breach procedure routes Italian incidents to the Garante's online notification service.",
+        "Keep the internal breach register current (Art. 33(5))."
+      ],
+      "deadlineOrTimeline": "Within 72 hours of awareness (regulator); without undue delay (individuals, if high risk)",
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 33–34" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-IMPACT-01",
+      "category": "impact_assessment",
+      "title": "Carry out DPIAs for high-risk processing",
+      "requirement": "Before processing likely to result in a high risk (for example systematic monitoring, large-scale special-category data, or new technologies), the controller must carry out a data protection impact assessment and consult the Garante if residual high risk remains.",
+      "appliesIf": { "or": [{ "var": "processing.employeeMonitoring" }, { "var": "processing.cctv" }, { "var": "sensitive.biometrics" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.health" }] },
+      "appliesIfNote": "Applies because you process data in categories commonly considered high-risk (monitoring, CCTV, biometrics, health or automated decisions).",
+      "actionSteps": [
+        "Screen each Italian processing activity against Art. 35(3) and the Garante's published list of processing requiring a DPIA.",
+        "Complete and document DPIAs; consult the Garante under Art. 36 where needed."
+      ],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 35–36 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 35–36" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-VENDORS-01",
+      "category": "vendors_processors",
+      "title": "Bind processors with Art. 28 data processing agreements",
+      "requirement": "Controllers may use only processors that provide sufficient guarantees, under a binding contract setting out the subject matter, duration, nature and purpose of processing and the processor's obligations (instructions, confidentiality, security, sub-processors, assistance, deletion and audits).",
+      "appliesIf": { "var": "flows.usesProcessors" },
+      "appliesIfNote": "Applies because you use external service providers that process personal data.",
+      "actionSteps": [
+        "Confirm every Italian vendor handling personal data has a DPA meeting Art. 28(3).",
+        "Where the vendor is outside the EEA, pair the DPA with a Chapter V mechanism."
+      ],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 28 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 28" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-EMPLOYEE-01",
+      "category": "employee_data",
+      "title": "Obtain union agreement or Labour Inspectorate authorisation before remote-monitoring tools",
+      "requirement": "Audiovisual systems and other tools that allow remote monitoring of workers may be used only for organisational and production needs, workplace safety or protection of company assets, and only after an agreement with the company union representatives or, failing that, authorisation from the National Labour Inspectorate. Tools workers use to perform their work and access/attendance recording systems are exempt from this procedure. Information gathered may be used for employment purposes only if workers were adequately informed of how monitoring works and data protection rules are respected.",
+      "appliesIf": { "or": [{ "var": "processing.cctv" }, { "var": "processing.employeeMonitoring" }] },
+      "appliesIfNote": "Applies because you operate CCTV or other tools capable of monitoring workers in Italy.",
+      "actionSteps": [
+        "Inventory CCTV, GPS, telematics, and IT monitoring tools deployed at Italian offices and sites.",
+        "For each non-exempt tool, conclude an agreement with RSU/RSA or apply to the Ispettorato Nazionale del Lavoro before activation.",
+        "Issue a specific information notice to workers on monitoring methods (Art. 4(3)).",
+        "Run a DPIA for systematic monitoring."
+      ],
+      "penaltyNote": "Violations of Art. 4(1) and Art. 8 of the Workers' Statute are punished with the sanctions of Art. 38 of that law (Privacy Code Art. 171), in addition to GDPR administrative fines.",
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Art. 88 GDPR (national employment rules); Art. 35 DPIA",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1970-05-20;300", "pinpoint": "Art. 4(1)–(3)" },
+        { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Arts. 114, 171" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-EMPLOYEE-02",
+      "category": "employee_data",
+      "title": "Do not inquire into candidates' or workers' opinions or irrelevant facts",
+      "requirement": "Employers may not, at hiring or during employment, investigate workers' political, religious or trade-union opinions or facts not relevant to assessing professional aptitude. The Privacy Code expressly preserves this rule and the corresponding rule for employment agencies.",
+      "appliesIf": { "or": [{ "var": "processing.recruiting" }, { "var": "processing.hrPayroll" }] },
+      "appliesIfNote": "Applies because you recruit or employ staff in Italy.",
+      "actionSteps": [
+        "Review Italian application forms, interview guides and background-check scopes to remove questions on opinions and non-relevant facts.",
+        "Brief recruiters and any staffing agencies."
+      ],
+      "penaltyNote": "Sanctioned under Art. 38 of Law 300/1970 via Privacy Code Art. 171.",
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 5(1)(c) data minimisation; Art. 88 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1970-05-20;300", "pinpoint": "Art. 8" },
+        { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 113" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-AI-01",
+      "category": "automated_decisions_ai",
+      "title": "Inform workers and unions about automated decision-making and monitoring systems",
+      "requirement": "Employers must inform workers, before work begins, when they use fully automated decision-making or monitoring systems relevant to hiring, assignment, management, evaluation or termination, explaining the affected aspects, purposes, logic, data categories, controls and accuracy/security metrics. The same information must be given to company union representatives, and changes require 24 hours' prior written notice. The Italian AI Law (L. 132/2025) confirms that employers must inform workers of AI use under these rules.",
+      "appliesIf": { "or": [{ "var": "processing.automatedDecisions" }, { "var": "processing.employeeMonitoring" }] },
+      "appliesIfNote": "Applies because you use automated decision-making, AI or monitoring systems that affect Italian workers.",
+      "actionSteps": [
+        "Inventory HR and site systems with automated decision or monitoring functions (recruiting screening, shift allocation, performance analytics).",
+        "Prepare the Art. 1-bis information notice and deliver it to workers and to RSA/RSU.",
+        "Set a change-control step requiring 24-hour prior notice of modifications.",
+        "Align with the GDPR Art. 22 and Art. 13(2)(f) disclosures already in place."
+      ],
+      "deadlineOrTimeline": "Before the start of work; changes at least 24 hours in advance",
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 13(2)(f), 22 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1997-05-26;152", "pinpoint": "Art. 1-bis" },
+        { "url": "https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00143/sg", "pinpoint": "L. 132/2025, Art. 11(2)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Apply the Garante's safeguard measures to health, genetic and biometric data",
+      "requirement": "Genetic, biometric and health data may be processed only where an Art. 9(2) GDPR condition applies and in compliance with the safeguard measures adopted by the Garante. Biometric data may be used for physical and logical access to data by authorised persons under Art. 32 GDPR, subject to those measures. Such data may never be disseminated.",
+      "appliesIf": { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }] },
+      "appliesIfNote": "Applies because you process health or biometric data (e.g. occupational health, site access control).",
+      "actionSteps": [
+        "Identify the Art. 9(2) condition for each health/biometric processing activity in Italy.",
+        "Check current Garante safeguard measures (misure di garanzia) and apply them.",
+        "Obtain Italian counsel's view before deploying biometric attendance or site-access systems for workers."
+      ],
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Art. 9 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 2-septies(1), (7), (8)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-SENSITIVE-02",
+      "category": "sensitive_data",
+      "title": "Process criminal-record data only where authorised by law",
+      "requirement": "Data relating to criminal convictions and offences, processed outside the control of a public authority, is permitted only where authorised by a statute (or, where the law so provides, a regulation) providing appropriate safeguards. Background checks are therefore limited to cases with a specific legal basis.",
+      "appliesIf": { "var": "sensitive.criminal" },
+      "appliesIfNote": "Applies because you run criminal-record or background checks.",
+      "actionSteps": [
+        "List every role for which Italian criminal checks are performed and the statutory provision authorising each.",
+        "Stop checks lacking a legal authorisation."
+      ],
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Art. 10 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 2-octies(1), (3)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-MARKETING-01",
+      "category": "marketing",
+      "title": "Obtain consent for automated, e-mail and SMS marketing; respect the opt-out register",
+      "requirement": "Marketing via automated calling systems, e-mail, fax, SMS or MMS requires the recipient's consent, except that e-mail addresses obtained in the sale of a product or service may be used to market similar own products if the person was informed and did not object. Telephone and postal marketing is allowed towards people who have not registered an objection in the public opt-out register (Registro pubblico delle opposizioni).",
+      "appliesIf": { "var": "processing.marketing" },
+      "appliesIfNote": "Applies because you send marketing communications to people in Italy.",
+      "actionSteps": [
+        "Confirm consent records for e-mail/SMS campaigns, or document soft opt-in eligibility.",
+        "Screen telephone and postal campaign lists against the Registro pubblico delle opposizioni.",
+        "Include an easy, free opt-out in every message."
+      ],
+      "owner": "HQ",
+      "priority": "low",
+      "gdprEquivalent": "Arts. 6, 7, 21 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 130(1)–(4)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-NOTICE-01",
+      "category": "notice",
+      "title": "Provide GDPR privacy notices to all data subject groups",
+      "requirement": "Individuals must receive the information listed in Arts. 13–14 GDPR (controller identity, purposes, legal bases, recipients, transfers and safeguards, retention, rights, DPO contact) when data is collected or within one month if obtained indirectly.",
+      "appliesIf": true,
+      "appliesIfNote": "Applies to every controller established in Italy.",
+      "actionSteps": [
+        "Confirm notices exist for employees, applicants, contractors, B2B contacts and site visitors.",
+        "Make sure notices name the non-EEA group recipients and the safeguards used."
+      ],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 13–14 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 12–14" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Answer data subject requests within one month",
+      "requirement": "Controllers must act on access, rectification, erasure, restriction, portability and objection requests without undue delay and within one month, extendable by two further months for complex requests with notice to the requester.",
+      "appliesIf": true,
+      "appliesIfNote": "Applies to every controller established in Italy.",
+      "actionSteps": ["Confirm the group DSAR procedure covers Italian requests and logs response times."],
+      "deadlineOrTimeline": "One month, extendable by two months",
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15–22 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 12(3); Arts. 15–22" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "IT-SECURITY-01",
+      "category": "security",
+      "title": "Implement appropriate technical and organisational security measures",
+      "requirement": "Controllers and processors must implement security appropriate to the risk, including as appropriate pseudonymisation and encryption, resilience, restoration capability and regular testing of the effectiveness of measures.",
+      "appliesIf": true,
+      "appliesIfNote": "Applies to every controller established in Italy.",
+      "actionSteps": ["Confirm Italian systems fall within the group ISMS and testing programme."],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 32 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 32" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [
+    {
+      "title": "EU AI Act: high-risk obligations for employment AI systems (Annex III) postponed by the AI Omnibus",
+      "expectedDate": "2027-12-02",
+      "summary": "The AI Omnibus entered into force on 27 July 2026. Rules for stand-alone high-risk AI systems (including those used for recruitment and worker management) now apply from 2 December 2027; those embedded in products from 2 August 2028. The company-level AI literacy duty was simplified.",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force"
+    },
+    {
+      "title": "Digital Omnibus: proposed GDPR and ePrivacy (cookies) amendments",
+      "expectedDate": "Under negotiation (Council compromise texts June 2026); not adopted as of 2026-09-27",
+      "summary": "The Commission's November 2025 proposal would amend the GDPR (including the notion of personal data for pseudonymised data, legitimate interest for AI, and moving cookie rules into the GDPR) and create a single incident-reporting point. Monitor; not yet law.",
+      "sourceUrl": "https://www.europarl.europa.eu/legislative-train/theme-a-new-plan-for-europe-s-sustainable-prosperity-and-competitiveness/file-digital-package"
+    }
+  ],
+  "lastReviewed": "2026-09-27"
+}

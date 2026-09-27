@@ -1,0 +1,200 @@
+{
+  "id": "DE",
+  "name": "Germany",
+  "laws": [
+    {
+      "title": "Regulation (EU) 2016/679 — General Data Protection Regulation",
+      "shortName": "GDPR",
+      "citation": "Regulation (EU) 2016/679",
+      "officialUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "status": "in_force",
+      "effectiveDate": "2018-05-25"
+    },
+    {
+      "title": "Bundesdatenschutzgesetz (Federal Data Protection Act)",
+      "shortName": "BDSG",
+      "citation": "BDSG of 30 June 2017, as amended",
+      "officialUrl": "https://www.gesetze-im-internet.de/bdsg_2018/",
+      "status": "in_force",
+      "effectiveDate": "2018-05-25"
+    },
+    {
+      "title": "Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (Telecommunications and Digital Services Data Protection Act)",
+      "shortName": "TDDDG",
+      "citation": "TDDDG (formerly TTDSG), § 25",
+      "officialUrl": "https://www.gesetze-im-internet.de/ttdsg/",
+      "status": "in_force"
+    },
+    {
+      "title": "Betriebsverfassungsgesetz (Works Constitution Act)",
+      "shortName": "BetrVG",
+      "citation": "BetrVG, § 87(1) No. 6",
+      "officialUrl": "https://www.gesetze-im-internet.de/betrvg/",
+      "status": "in_force"
+    }
+  ],
+  "regulators": [
+    { "name": "Supervisory authority of the Land (federal state) where the entity is established (private sector)", "url": "https://www.datenschutzkonferenz-online.de" },
+    { "name": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI) — federal bodies, telecoms and postal services", "url": "https://www.bfdi.bund.de" }
+  ],
+  "scopeNotes": "The GDPR applies directly; the BDSG adds national rules under GDPR opening clauses. Private-sector supervision lies with the data protection authority of the Land where the entity is established; for cross-border processing the GDPR one-stop-shop applies, so where the group's main establishment is in Italy the Garante acts as lead authority (Art. 56 GDPR). This file lists German additions only; core GDPR duties for the German entity mirror the Italian (HQ) baseline items and are covered by the group programme. § 26 BDSG (employee data) remains in the statute book, but after the CJEU judgment of 30 March 2023 (C-34/21) the BfDI considers it insufficient, and a dedicated employee data protection act is planned but not enacted as of September 2026.",
+  "obligations": [
+    {
+      "id": "DE-GOVERNANCE-01",
+      "category": "governance",
+      "title": "Extend the group GDPR programme to the German entity",
+      "requirement": "The German entity is a controller in its own right and must meet all GDPR duties (records, notices, rights handling, security, breach notification, processor contracts). Intra-group sharing with the Italian parent needs a documented legal basis and an intra-group data processing or joint-controller arrangement.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch"]] },
+      "appliesIfNote": "Applies because the group has a German subsidiary or branch.",
+      "actionSteps": [
+        "Confirm the German entity appears in the group RoPA, notices, DSAR and breach procedures.",
+        "Document the intra-group arrangement (Art. 26 or Art. 28 GDPR) between the German entity and HQ.",
+        "Identify the competent Land supervisory authority for local matters."
+      ],
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 5, 24, 26, 28, 30 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 24, 26, 28, 30, 56" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "DE-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Appoint a DPO if 20 or more persons regularly process personal data automatically",
+      "requirement": "Non-public bodies must designate a data protection officer if they generally employ at least 20 persons constantly engaged in automated processing of personal data, or regardless of headcount if they carry out processing requiring a DPIA or process data commercially for transfer or market/opinion research. A mandatory DPO may be removed only for good cause under § 626 BGB and enjoys special protection against dismissal during and for one year after the appointment.",
+      "appliesIf": { "or": [{ ">=": [{ "var": "j.headcount" }, 20] }, { "var": "processing.employeeMonitoring" }, { "var": "sensitive.biometrics" }] },
+      "appliesIfNote": "Applies because local headcount is 20 or more (used as a proxy for staff constantly engaged in automated processing) or you run processing likely to require a DPIA.",
+      "actionSteps": [
+        "Count staff at the German entity who constantly work with automated processing of personal data.",
+        "If the threshold is met, designate a DPO (the group DPO can serve if easily accessible, Art. 37(2) GDPR) and notify the competent Land authority.",
+        "Reflect the dismissal protection in the DPO's contract if the appointment is mandatory."
+      ],
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Art. 37 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.gesetze-im-internet.de/bdsg_2018/__38.html", "pinpoint": "§ 38(1)–(2)" },
+        { "url": "https://www.gesetze-im-internet.de/bdsg_2018/__6.html", "pinpoint": "§ 6(4)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "DE-EMPLOYEE-01",
+      "category": "employee_data",
+      "title": "Re-base employee data processing on GDPR legal bases, not § 26 BDSG alone",
+      "requirement": "§ 26 BDSG permits processing of employee data where necessary for hiring, performing or terminating employment, and requires employee consent to be assessed for voluntariness given the employment dependency. Following CJEU C-34/21 (30 March 2023), national employment rules that do not meet Art. 88(2) GDPR cannot serve as a separate legal basis; the BfDI considers § 26 insufficient. Employers should therefore ground HR processing directly in Art. 6(1)(b), (c) or (f) and Art. 9(2)(b) GDPR.",
+      "appliesIf": { "or": [{ "var": "processing.hrPayroll" }, { "var": "processing.recruiting" }] },
+      "appliesIfNote": "Applies because you employ or recruit staff in Germany.",
+      "actionSteps": [
+        "Review German HR privacy notices, works agreements and the RoPA for references to § 26 BDSG as the sole legal basis.",
+        "Add the corresponding GDPR legal bases and, where relying on legitimate interests, a documented balancing test.",
+        "Treat employee consent as exceptional and document why it is freely given."
+      ],
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 6, 9(2)(b), 88 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.gesetze-im-internet.de/bdsg_2018/__26.html", "pinpoint": "§ 26(1)–(3)" },
+        { "url": "https://www.bfdi.bund.de/DE/Buerger/Inhalte/Arbeit-Besch%C3%A4ftigung/Besch%C3%A4ftigtendatenschutz/FAQ_Besch%C3%A4ftigtendatenschutz.html", "pinpoint": "FAQ Beschäftigtendatenschutz — note on CJEU C-34/21 (30 March 2023)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "DE-EMPLOYEE-02",
+      "category": "employee_data",
+      "title": "Secure works council co-determination before introducing monitoring technology",
+      "requirement": "Where a works council exists, it has a right of co-determination over the introduction and use of technical devices designed to monitor employees' behaviour or performance. Without agreement, the conciliation committee (Einigungsstelle) decides. Rolling out such tools (CCTV, access control, telematics, HR analytics, some collaboration software) before agreement is reached is a significant legal and employee-relations risk.",
+      "appliesIf": {
+        "and": [
+          { "var": "j.employeeRepresentation" },
+          { "or": [{ "var": "processing.cctv" }, { "var": "processing.employeeMonitoring" }, { "var": "processing.siteAccess" }, { "var": "processing.automatedDecisions" }] }
+        ]
+      },
+      "appliesIfNote": "Applies because the German entity has a works council and uses technology that can monitor staff.",
+      "actionSteps": [
+        "Inventory systems deployed in Germany that record employee behaviour or performance, including group-wide IT tools.",
+        "Negotiate works agreements (Betriebsvereinbarungen) before rollout or change; align them with DPIAs.",
+        "Build a works-council step into the group change process for Germany."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 88 GDPR (collective agreements as a basis)",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.gesetze-im-internet.de/betrvg/__87.html", "pinpoint": "§ 87(1) No. 6, § 87(2)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "DE-EMPLOYEE-03",
+      "category": "employee_data",
+      "title": "Limit CCTV to justified, signposted surveillance",
+      "requirement": "Video surveillance must be justified by substantial legitimate interests and made transparent; according to the BfDI, suspicionless blanket surveillance ('ins Blaue hinein') is generally inadmissible. Employee-facing cameras additionally trigger works council co-determination.",
+      "appliesIf": { "var": "processing.cctv" },
+      "appliesIfNote": "Applies because you operate CCTV at German offices or sites.",
+      "actionSteps": [
+        "Document the purpose and legitimate-interest balancing for each camera.",
+        "Post layered signage and a full notice; set short retention periods.",
+        "Avoid camera coverage of break rooms, changing areas and continuous workstation views."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 6(1)(f), 13, 35 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.bfdi.bund.de/DE/Buerger/Inhalte/Arbeit-Besch%C3%A4ftigung/Besch%C3%A4ftigtendatenschutz/FAQ_Besch%C3%A4ftigtendatenschutz.html", "pinpoint": "FAQ Beschäftigtendatenschutz — Videoüberwachung" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "DE-MARKETING-01",
+      "category": "marketing",
+      "title": "Obtain consent before setting non-essential cookies or trackers",
+      "requirement": "Storing information on, or accessing information from, a user's device is permitted only with the user's consent based on clear and comprehensive information. Consent is not required where this is strictly necessary to provide a digital service the user has expressly requested, or solely to transmit a message over a public network.",
+      "appliesIf": { "var": "processing.websiteTracking" },
+      "appliesIfNote": "Applies because your website or app uses non-essential cookies, pixels or similar trackers accessible to users in Germany.",
+      "actionSteps": [
+        "Audit cookies and trackers on group websites and apps; classify strictly necessary vs. consent-based.",
+        "Deploy a consent banner that blocks non-essential trackers until opt-in and offers an equally easy refusal."
+      ],
+      "owner": "HQ",
+      "priority": "low",
+      "gdprEquivalent": "Arts. 6(1)(a), 7 GDPR (consent standard)",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.gesetze-im-internet.de/ttdsg/__25.html", "pinpoint": "§ 25(1)–(2) TDDDG" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [
+    {
+      "title": "Bundesrat bill to amend the BDSG: national one-stop-shop for affiliated companies",
+      "expectedDate": "Introduced in the Bundestag 26 Aug 2026 (Drucksache 21/7732); not adopted",
+      "summary": "Would institutionalise the Datenschutzkonferenz with binding majority decisions, designate a single lead German supervisory authority for affiliated companies operating across Länder, and make one authority's assessment binding on others. No change to the § 38 DPO threshold is proposed.",
+      "sourceUrl": "https://dserver.bundestag.de/btd/21/077/2107732.pdf"
+    },
+    {
+      "title": "Planned Employee Data Protection Act (Beschäftigtendatengesetz)",
+      "expectedDate": "Planned for the current legislative period; no bill adopted as of 2026-09-27",
+      "summary": "The coalition agreement commits BMI and BMAS to dedicated employee data protection rules, which would replace or supplement § 26 BDSG. Monitor for a government bill.",
+      "sourceUrl": "https://www.bfdi.bund.de/DE/Buerger/Inhalte/Arbeit-Besch%C3%A4ftigung/Besch%C3%A4ftigtendatenschutz/FAQ_Besch%C3%A4ftigtendatenschutz.html"
+    },
+    {
+      "title": "EU AI Act: high-risk employment AI obligations from 2 December 2027",
+      "expectedDate": "2027-12-02",
+      "summary": "Postponed by the AI Omnibus (in force 27 July 2026). See the Italy entry for detail; applies equally to the German entity.",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force"
+    }
+  ],
+  "lastReviewed": "2026-09-27"
+}
