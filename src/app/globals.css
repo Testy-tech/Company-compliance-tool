@@ -1,0 +1,262 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * DataBorders design tokens — "a well-drafted legal opinion, rendered as software".
+ * Primitive values live in :root / .dark; components only use the semantic names.
+ * Contrast pairs verified (WCAG 2.2): body text ≥ 14:1, muted text ≥ 5.7:1,
+ * brass text ≥ 5.5:1, status text ≥ 5.6:1, focus/brass rule ≥ 3:1 (light) / 4.1:1 (dark).
+ */
+:root {
+  /* Paper & ink */
+  --background: oklch(0.962 0.013 86.8); /* parchment #F6F2E9 */
+  --foreground: oklch(0.254 0.014 253.1); /* charcoal  #1E2329 */
+  --card: oklch(0.982 0.007 88.6); /* sheet     #FBF9F4 */
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.289 0.062 263.9); /* ink navy  #1B2A4A */
+  --primary-foreground: var(--card);
+  --secondary: oklch(0.929 0.019 86.1); /* #EDE7DA */
+  --secondary-foreground: var(--primary);
+  --muted: oklch(0.929 0.019 86.1);
+  --muted-foreground: oklch(0.463 0.009 260.7); /* #56595E */
+  --accent: oklch(0.929 0.019 86.1);
+  --accent-foreground: var(--primary);
+  --destructive: oklch(0.442 0.133 24.4);
+  --border: oklch(0.874 0.023 87.2); /* hairline rules #DCD5C5 */
+  --input: oklch(0.6 0.015 85); /* form control borders, ≥3:1 on paper */
+  --ring: oklch(0.641 0.089 81.4); /* brass focus #A8874A */
+
+  /* Brass accent — used sparingly: rules, focus, key figures */
+  --brass: oklch(0.494 0.083 80.3); /* text-safe brass #7A5C24 */
+  --brass-rule: oklch(0.641 0.089 81.4); /* decorative brass #A8874A */
+
+  /* GDPR delta status — always paired with an icon + label */
+  --status-covered: oklch(0.452 0.072 157.7); /* #2F6246 */
+  --status-partial: oklch(0.497 0.104 65.4); /* #8A5410 */
+  --status-new: oklch(0.442 0.133 24.4); /* #8E2C2C */
+
+  --chart-1: var(--primary);
+  --chart-2: var(--brass);
+  --chart-3: var(--status-covered);
+  --chart-4: var(--status-partial);
+  --chart-5: var(--status-new);
+
+  --radius: 0.25rem;
+
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+.dark {
+  --background: oklch(0.19 0.016 261.6); /* #10141B */
+  --foreground: oklch(0.919 0.017 88); /* #E9E4D8 */
+  --card: oklch(0.226 0.019 262.1); /* #171C25 */
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.825 0.039 264.3); /* #B9C6E0 */
+  --primary-foreground: oklch(0.19 0.016 261.6);
+  --secondary: oklch(0.256 0.026 265.3); /* #1D2330 */
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.256 0.026 265.3);
+  --muted-foreground: oklch(0.725 0.012 89.8); /* #A9A69E */
+  --accent: oklch(0.256 0.026 265.3);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.76 0.095 28.4);
+  --border: oklch(0.32 0.025 262.7); /* #2C3340 */
+  --input: oklch(0.52 0.02 262);
+  --ring: oklch(0.772 0.097 84.3);
+
+  --brass: oklch(0.772 0.097 84.3); /* #D2B06A */
+  --brass-rule: oklch(0.573 0.078 82.5); /* #8F7440 */
+
+  --status-covered: oklch(0.769 0.076 156.2); /* #8CC3A0 */
+  --status-partial: oklch(0.786 0.108 77); /* #E0B066 */
+  --status-new: oklch(0.76 0.095 28.4); /* #E79A8F */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brass: var(--brass);
+  --color-brass-rule: var(--brass-rule);
+  --color-status-covered: var(--status-covered);
+  --color-status-partial: var(--status-partial);
+  --color-status-new: var(--status-new);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-heading: var(--font-serif);
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga";
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a,
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brass-rule) 35%, transparent);
+  }
+  [id] {
+    scroll-margin-top: 1.5rem;
+  }
+}
+
+/* Legal-document vocabulary */
+@layer components {
+  /* § section marker preceding a section heading */
+  .section-mark {
+    @apply font-heading text-brass;
+    font-feature-settings: "lnum", "tnum";
+  }
+  /* Thin brass rule, used once per section at most */
+  .rule-brass {
+    border: 0;
+    border-top: 1px solid var(--brass-rule);
+  }
+  /* Numbered paragraph label, e.g. 1.1 */
+  .para-num {
+    @apply font-sans text-muted-foreground tabular-nums;
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+  }
+  /* Footnote-style citation reference */
+  .fn-ref {
+    @apply text-brass tabular-nums;
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 0;
+  }
+  /* Marginal note ("why this applies") */
+  .marginal-note {
+    @apply border-l border-brass-rule pl-3 text-sm text-muted-foreground italic;
+    font-family: var(--font-serif);
+  }
+  /* Small-caps eyebrow label */
+  .eyebrow {
+    @apply font-sans text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: the report must read like a paper opinion */
+@media print {
+  :root,
+  .dark {
+    --background: #fff;
+    --card: #fff;
+    --foreground: #111;
+    --muted-foreground: #444;
+    --border: #bbb;
+  }
+  body {
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  .no-print {
+    display: none !important;
+  }
+  a[href^="http"]::after {
+    content: " <" attr(href) ">";
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  section,
+  li {
+    break-inside: avoid;
+  }
+}
