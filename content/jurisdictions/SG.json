@@ -1,0 +1,264 @@
+{
+  "id": "SG",
+  "name": "Singapore",
+  "laws": [
+    {
+      "title": "Personal Data Protection Act 2012",
+      "shortName": "PDPA",
+      "citation": "Act 26 of 2012, as amended (incl. Personal Data Protection (Amendment) Act 2020)",
+      "officialUrl": "https://sso.agc.gov.sg/Act/PDPA2012",
+      "status": "in_force"
+    },
+    {
+      "title": "Personal Data Protection Regulations 2021",
+      "shortName": "PDP Regulations 2021",
+      "citation": "S 63/2021",
+      "officialUrl": "https://sso.agc.gov.sg/SL/PDPA2012-S63-2021",
+      "status": "in_force",
+      "effectiveDate": "2021-02-01"
+    }
+  ],
+  "regulators": [
+    { "name": "Personal Data Protection Commission (PDPC)", "url": "https://www.pdpc.gov.sg" }
+  ],
+  "scopeNotes": "The PDPA applies to organisations collecting, using or disclosing personal data in Singapore, including foreign organisations. Business contact information is largely outside the Data Protection Provisions. Unlike GDPR, the PDPA is consent-centred but provides deemed consent and exceptions in the First Schedule, including a general legitimate interests exception subject to a documented assessment. Employee data may be processed without consent for entering into, managing or terminating employment, but employees must still be told the purposes. The Do Not Call provisions apply to marketing messages to Singapore telephone numbers. Data intermediaries (processors) have protection, retention and breach-notification duties. Data portability provisions (Part 6B) had not commenced as of September 2026.",
+  "obligations": [
+    {
+      "id": "SG-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Designate a data protection officer and publish their business contact information",
+      "requirement": "Every organisation must designate at least one individual to be responsible for ensuring PDPA compliance and make that individual's business contact information available to the public. Designation does not relieve the organisation of its obligations. Unlike GDPR, there is no threshold: the duty applies to all organisations.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every organisation in Singapore, whatever its size.",
+      "actionSteps": [
+        "Designate a DPO for the Singapore entity (can be a local manager supported by the group DPO).",
+        "Publish the DPO's business contact information, e.g. on the Singapore website and in notices.",
+        "Register the DPO with the PDPC through its online DPO registration (recommended)."
+      ],
+      "owner": "local_entity",
+      "priority": "critical",
+      "gdprEquivalent": "Art. 37 GDPR (DPO; conditional under GDPR)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 11(3), (5)" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), paras. 21.5–21.6" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-GOVERNANCE-01",
+      "category": "governance",
+      "title": "Adopt PDPA policies, a complaints process and staff communication",
+      "requirement": "Organisations must develop and implement policies and practices necessary to meet PDPA obligations, a process to receive and respond to complaints, communicate policies to staff, and make information about policies and the complaints process available on request.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every organisation in Singapore.",
+      "actionSteps": [
+        "Localise the group privacy policy set for Singapore (consent model, DNC, NRIC handling).",
+        "Set up a complaints channel handled by the DPO.",
+        "Train Singapore staff."
+      ],
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 5(2), 24 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 12" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-LEGAL_BASIS-01",
+      "category": "legal_basis_consent",
+      "title": "Obtain consent or document a First Schedule exception (incl. legitimate interests assessment)",
+      "requirement": "Collection, use or disclosure requires consent (actual or deemed) unless a PDPA exception applies. The general legitimate interests exception requires the organisation to identify the interest, assess and mitigate adverse effects (with a balancing test for residual effects), disclose its reliance on the exception, and retain the assessment for as long as it relies on it. It cannot be used to send direct marketing.",
+      "appliesIf": { "or": [{ "var": "subjects.b2bContacts" }, { "var": "subjects.siteVisitors" }, { "var": "subjects.consumers" }, { "var": "processing.cctv" }, { "var": "processing.crm" }] },
+      "appliesIfNote": "Applies because you process non-employee personal data in Singapore (contacts, visitors, CCTV, CRM).",
+      "actionSteps": [
+        "Map each non-HR processing activity to consent, deemed consent or a specific exception.",
+        "Where relying on legitimate interests, complete the PDPC assessment checklist (Annex C) and keep it on file.",
+        "Disclose reliance on the legitimate interests exception in the public data protection policy."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 6(1)(a), (f) GDPR (LIA)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "ss. 13–17; First Schedule, Part 3, para. 1" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), 'Legitimate interests exception' and Annex C" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-EMPLOYEE-01",
+      "category": "employee_data",
+      "title": "Tell employees the purposes of processing their data",
+      "requirement": "Consent is not required to collect, use or disclose personal data for entering into, managing or terminating an employment relationship, but on or before doing so the organisation must inform the individual of the purpose and, on request, provide the business contact of a person who can answer questions.",
+      "appliesIf": { "or": [{ "var": "processing.hrPayroll" }, { "var": "processing.recruiting" }] },
+      "appliesIfNote": "Applies because the Singapore entity employs or recruits staff.",
+      "actionSteps": [
+        "Issue an employee data notice listing HR purposes, including sharing with HQ.",
+        "Name a contact person for employee data questions."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 6(1)(b), 13 GDPR",
+      "gdprDelta": "covered",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 20(4)–(5)" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), fn. 14" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Stop indiscriminate collection of NRIC and other national ID numbers",
+      "requirement": "Under the PDPC's NRIC Advisory Guidelines (effective 1 September 2019), organisations should not collect, use or disclose NRIC numbers (or copies of NRIC) unless required under law or necessary to accurately establish or verify an individual's identity to a high degree of fidelity. Alternatives such as organisation-issued IDs or QR codes should be used, for example for visitor registration.",
+      "appliesIf": { "or": [{ "var": "sensitive.nationalId" }, { "var": "subjects.siteVisitors" }] },
+      "appliesIfNote": "Applies because you collect national ID numbers or register visitors at Singapore offices or sites.",
+      "actionSteps": [
+        "Review visitor-management, site-access and HR forms for NRIC collection.",
+        "Keep NRIC collection only where legally required or strictly needed for identity verification; switch to alternatives elsewhere.",
+        "Document the justification in the Singapore data protection policy."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 87 GDPR (national identification numbers); Art. 5(1)(c)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/advisory-guidelines-for-nric-numbers---310818.pdf", "pinpoint": "Advisory Guidelines for NRIC and other National Identification Numbers (issued 31 Aug 2018, effective 1 Sep 2019)" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/press-room/2019/media-release-on-reminder-on-nric-advisory-guidelines.pdf", "pinpoint": "PDPC media release (2019)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-TRANSFER-01",
+      "category": "cross_border_transfer",
+      "title": "Ensure overseas recipients are bound by legally enforceable obligations",
+      "requirement": "Personal data may be transferred outside Singapore only if the organisation takes appropriate steps to ensure the recipient is bound by legally enforceable obligations (law, contract, binding corporate rules for related entities, or other binding instrument) or holds a specified certification (Global/APEC CBPR, or PRP for processors), giving comparable protection. Consent after informing the individual, and contractual necessity, are fallback grounds.",
+      "appliesIf": { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+      "appliesIfNote": "Applies because personal data from Singapore is transferred to or accessed by HQ or other entities abroad.",
+      "actionSteps": [
+        "Cover intra-group transfers with an intra-group data transfer agreement or binding corporate rules that meet PDP Regulations 2021 Part 3 (specify recipients and countries).",
+        "For vendors, use contract clauses specifying destination countries or check CBPR/PRP certification.",
+        "Consider the ASEAN Model Contractual Clauses (PDPC guidance available) for templates."
+      ],
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Chapter V GDPR (SCCs/BCRs)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 26(1)" },
+        { "url": "https://sso.agc.gov.sg/SL/PDPA2012-S63-2021", "pinpoint": "PDP Regulations 2021, Part 3" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), paras. 19.3–19.7" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-BREACH-01",
+      "category": "breach_notification",
+      "title": "Assess breaches promptly; notify the PDPC within 3 calendar days if notifiable",
+      "requirement": "Organisations must assess suspected breaches expeditiously (the PDPC expects generally within 30 calendar days). A breach is notifiable if it is likely to cause significant harm to individuals or affects 500 or more individuals. The PDPC must be notified as soon as practicable and no later than 3 calendar days after determining the breach is notifiable; affected individuals must be notified as soon as practicable where significant harm is likely. Data intermediaries must notify the organisation without undue delay.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every organisation in Singapore.",
+      "actionSteps": [
+        "Add a Singapore track to the group incident procedure: 500-individual and significant-harm tests, 3-day PDPC deadline.",
+        "Record the time the breach is determined to be notifiable.",
+        "Require vendors (data intermediaries) to notify the Singapore entity without undue delay."
+      ],
+      "deadlineOrTimeline": "Assessment generally within 30 days; PDPC within 3 calendar days of determination",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "Part 6A, ss. 26A–26E" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), paras. 20.3–20.4, 20.22–20.23" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Respond to access and correction requests; notify if beyond 30 days",
+      "requirement": "Organisations must respond to access requests as soon as reasonably possible, providing the data and information on its use and disclosure in the past year; if unable to respond within 30 days, they must inform the individual in writing of the time by which they will respond. Correction requests follow a similar approach, with corrected data sent to recent recipients where required.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every organisation in Singapore.",
+      "actionSteps": [
+        "Adapt the group DSAR workflow: add the one-year use/disclosure history and the 30-day holding response."
+      ],
+      "deadlineOrTimeline": "As soon as reasonably possible; written update if beyond 30 days",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15–16 GDPR",
+      "gdprDelta": "covered",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "ss. 21–22" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), para. 15.18" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-SECURITY-01",
+      "category": "security",
+      "title": "Protect personal data and cease retention when no longer needed",
+      "requirement": "Organisations must make reasonable security arrangements to prevent unauthorised access, collection, use, disclosure, copying, modification or disposal, and loss of storage media. They must cease to retain personal data (or anonymise it) once retention no longer serves the purpose and is not needed for legal or business purposes.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every organisation in Singapore.",
+      "actionSteps": [
+        "Confirm the Singapore entity is within the group ISMS and retention schedule."
+      ],
+      "penaltyNote": "PDPC guidelines describe financial penalties of up to S$1 million or 10% of annual turnover in Singapore, whichever is higher (s. 48J).",
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 5(1)(e), 32 GDPR",
+      "gdprDelta": "covered",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "ss. 24–25; s. 48J" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), ch. 21 (enforcement overview)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "SG-MARKETING-01",
+      "category": "marketing",
+      "title": "Check the Do Not Call Registry before marketing to Singapore numbers",
+      "requirement": "Before sending marketing voice calls, text or fax messages to Singapore telephone numbers, organisations must check the DNC Registry unless they hold the recipient's clear and unambiguous consent. Messages sent to an organisation for the purposes of that organisation (business-to-business) are excluded under the Eighth Schedule.",
+      "appliesIf": { "and": [{ "var": "processing.marketing" }, { "var": "subjects.consumers" }] },
+      "appliesIfNote": "Applies because you send marketing messages to individuals in Singapore (B2B messages to organisations are excluded).",
+      "actionSteps": [
+        "Screen consumer telemarketing lists against the DNC Registry within the validity period of the check.",
+        "Keep records of clear and unambiguous consent where used instead."
+      ],
+      "owner": "local_entity",
+      "priority": "low",
+      "gdprEquivalent": "Art. 21(2)–(3) GDPR; ePrivacy Directive Art. 13",
+      "gdprDelta": "new",
+      "sources": [
+        { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "Part 9 (ss. 36–48); s. 37(5); Eighth Schedule" },
+        { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/advisory-guidelines-on-the-dnc-provisions-1-feb-2021.pdf", "pinpoint": "Advisory Guidelines on the Do Not Call Provisions" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [],
+  "lastReviewed": "2026-09-27"
+}

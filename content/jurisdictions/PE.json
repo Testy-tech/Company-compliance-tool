@@ -1,0 +1,228 @@
+{
+  "id": "PE",
+  "name": "Peru",
+  "laws": [
+    {
+      "title": "Ley N° 29733, Ley de Protección de Datos Personales",
+      "shortName": "Law 29733",
+      "citation": "Ley 29733 (2011), as amended",
+      "officialUrl": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf",
+      "status": "in_force"
+    },
+    {
+      "title": "Reglamento de la Ley N° 29733, approved by Decreto Supremo N° 016-2024-JUS",
+      "shortName": "DS 016-2024-JUS",
+      "citation": "DS 016-2024-JUS, published in El Peruano 30 Nov 2024 (replaces DS 003-2013-JUS)",
+      "officialUrl": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf",
+      "status": "in_force"
+    }
+  ],
+  "regulators": [
+    { "name": "Autoridad Nacional de Protección de Datos Personales (ANPD) — Ministerio de Justicia y Derechos Humanos", "url": "https://www.gob.pe/minjus" }
+  ],
+  "scopeNotes": "Law 29733 and its 2024 Regulation apply to personal data banks and processing in Peru. The model is consent-based: there is no general legitimate-interests ground for the controller, but consent is not required for, among others, data needed to prepare, conclude and perform a contract with the data subject (including employment) (Law Art. 14(5)). Sensitive data requires written consent. Private entities must register their personal data banks and communicate cross-border data flows to the ANPD's Directorate-General for registration. The Regulation entered into force 120 calendar days after publication on 30 Nov 2024; the DPO requirement for private companies is phased in by annual sales band (2025–2028).",
+  "obligations": [
+    {
+      "id": "PE-REGISTRATION-01",
+      "category": "registration_filing",
+      "title": "Register personal data banks with the National Registry",
+      "requirement": "Private and public entities that create, modify or cancel personal data banks (for example employee, candidate, supplier-contact or CCTV databases) must file the registration of those acts with the National Registry for Personal Data Protection. Failing to register or update registrations is an infringement, graver if it persists after the Authority requires it.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies because the Peruvian entity holds personal data banks (e.g. HR, contacts, CCTV).",
+      "actionSteps": [
+        "Inventory the Peruvian entity's data banks (HR/payroll, recruiting, suppliers/clients, CCTV, visitors).",
+        "Register each bank with the National Registry using the approved form; update on changes.",
+        "Assign a local owner to keep registrations current."
+      ],
+      "penaltyNote": "Law 29733 Art. 39: fines from 0.5 UIT (minor) up to 100 UIT (very serious), capped at 10% of the prior year's gross revenue.",
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprDelta": "new",
+      "sources": [
+        { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 42.1–42.2; Arts. 132(4), 133(13)" },
+        { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Arts. 34, 39" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-TRANSFER-01",
+      "category": "cross_border_transfer",
+      "title": "Provide guarantees for cross-border flows and communicate them to the Authority",
+      "requirement": "Cross-border flows should go to countries with an adequate level of protection; otherwise the exporter must provide adequate guarantees (e.g. model contractual clauses or other legal instruments imposing at least the same obligations), unless a Law Art. 15 exception applies (such as contractual necessity or prior, informed, express and unequivocal consent). In all cases the cross-border flow must be communicated to the ANPD's Directorate-General and is recorded in the National Registry.",
+      "appliesIf": { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+      "appliesIfNote": "Applies because personal data from Peru is sent to or accessed by HQ or other entities abroad.",
+      "actionSteps": [
+        "List each cross-border flow from Peru (to HQ, cloud regions, vendors).",
+        "Put model clauses or an intra-group agreement in place for recipients in countries without a Peruvian adequacy determination.",
+        "File the cross-border flow communication with the National Registry using the approved format.",
+        "Optionally request the Directorate-General's opinion (issued within 30 days)."
+      ],
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Chapter V GDPR (adequacy / SCCs)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Art. 15" },
+        { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 18–21 (esp. 21.2)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-LEGAL_BASIS-01",
+      "category": "legal_basis_consent",
+      "title": "Obtain consent unless a statutory exception applies; written consent for sensitive data",
+      "requirement": "Processing requires the data subject's free, prior, express, unequivocal and informed consent unless a Law Art. 14 exception applies (e.g. data necessary for a contractual relationship, including employment; publicly accessible sources). Transfers to third parties likewise need consent unless an exception applies and must always be disclosed. Consent for sensitive data must be given in writing (handwritten, digital or electronic signature or equivalent).",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every entity processing personal data in Peru.",
+      "actionSteps": [
+        "Map Peruvian processing to consent or an Art. 14 exception; flag activities relying on GDPR legitimate interests (CCTV, CRM, analytics).",
+        "Implement written consent for health, biometric and other sensitive data not covered by an exception.",
+        "Keep proof of consent: the burden of proof lies with the controller."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 6, 7, 9 GDPR (no Art. 6(1)(f) equivalent)",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Arts. 13, 14" },
+        { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 8, 9, 13" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Designate a Personal Data Officer (phased by company size)",
+      "requirement": "Controllers and processors must designate a Personal Data Officer where they process large volumes of personal data or sensitive data, or where their core business involves sensitive data. A business group may appoint a single officer if easily contactable from each establishment. Contact details must be published and communicated to the Authority within 15 days of designation or change. For private companies the duty applies progressively: sales above 2,300 UIT from 30 Nov 2025; 1,700–2,300 UIT from 30 Nov 2026; 150–1,700 UIT from 30 Nov 2027; micro-enterprises from 30 Nov 2028.",
+      "appliesIf": { "or": [{ ">": [{ "var": "j.sensitiveIndividuals" }, 0] }, { ">=": [{ "var": "j.individuals" }, 100000] }] },
+      "appliesIfNote": "Applies because the Peruvian entity processes sensitive data or a large volume of personal data (100,000+ individuals used as a proxy; the Regulation does not fix a number).",
+      "actionSteps": [
+        "Determine the Peruvian entity's sales band (UIT) to fix its compliance date.",
+        "Designate an officer (the group DPO can serve if easily contactable from Peru) and publish contact details.",
+        "Notify the Authority within 15 days of designation."
+      ],
+      "deadlineOrTimeline": "Phased: 30 Nov 2025 (>2,300 UIT), 30 Nov 2026 (1,700–2,300 UIT), 30 Nov 2027 (150–1,700 UIT), 30 Nov 2028 (micro)",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 37–39 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 37–39; Primera Disposición Complementaria Final" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-BREACH-01",
+      "category": "breach_notification",
+      "title": "Notify qualifying security incidents to the Authority within 48 hours",
+      "requirement": "Incidents exposing large volumes of data, affecting many people, involving sensitive data or causing evident harm to other rights must be notified to the ANPD within 48 hours of becoming aware (later notices must explain the delay); the duty remains even if the incident was resolved internally. Affected individuals must be informed within 48 hours where their other rights are affected. Digital incidents are also reported to the National Digital Security Centre. All incidents must be documented, and processors must inform controllers immediately.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every entity processing personal data in Peru.",
+      "actionSteps": [
+        "Add a Peru track to the group incident procedure: 48-hour ANPD notice, content per Art. 34.2, and the parallel CNSD report for digital incidents.",
+        "Keep an incident register for Peru (Art. 35).",
+        "Require vendors to report incidents immediately (Art. 36)."
+      ],
+      "deadlineOrTimeline": "Within 48 hours of awareness",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR (72h)",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 34–36" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Meet Peru's short response deadlines for data subject requests",
+      "requirement": "Controllers must answer requests for information within 8 days, access within 20 days, and rectification, cancellation or objection within 10 days, counted from the day after the request. Refusing or obstructing rights is a serious infringement, and data subjects can complain through the 'Yo cuido mis datos personales' platform.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every entity processing personal data in Peru.",
+      "actionSteps": [
+        "Configure Peru-specific deadlines in the group DSAR tool (much shorter than GDPR's one month).",
+        "Provide a Spanish-language request channel."
+      ],
+      "deadlineOrTimeline": "Information 8 days; access 20 days; rectification/cancellation/objection 10 days",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15–21 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 69; Art. 133(1); Cuarta Disposición Complementaria Final" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-MARKETING-01",
+      "category": "marketing",
+      "title": "Honour objections to advertising within 10 days",
+      "requirement": "Data subjects may refuse, revoke or object to processing for advertising and commercial prospecting through a simple, free means; the request must be handled within 10 days, and opting out must be no more complex than giving consent.",
+      "appliesIf": { "var": "processing.marketing" },
+      "appliesIfNote": "Applies because you send marketing to people in Peru.",
+      "actionSteps": ["Provide a one-step opt-out in every Peruvian marketing message and process it within 10 days."],
+      "deadlineOrTimeline": "10 days",
+      "owner": "local_entity",
+      "priority": "low",
+      "gdprEquivalent": "Art. 21(2)–(3) GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 26" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-NOTICE-01",
+      "category": "notice",
+      "title": "Inform data subjects of all Art. 18 conditions of processing",
+      "requirement": "Data subjects must be informed of the conditions of processing listed in Law Art. 18 (including purposes, recipients, the data bank and its owner, transfers and how to exercise rights). Omitting two or fewer conditions is a minor infringement; three or more is serious.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every entity processing personal data in Peru.",
+      "actionSteps": ["Localise notices into Spanish and include the registered data bank and cross-border recipients."],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 13–14 GDPR",
+      "gdprDelta": "covered",
+      "sources": [
+        { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Art. 18" },
+        { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 132(5), 133(2)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "PE-IMPACT-01",
+      "category": "impact_assessment",
+      "title": "Consider a data protection impact assessment for sensitive or profiling processing",
+      "requirement": "The Regulation provides for an optional prior impact assessment, recommended especially for sensitive data, profiling and data of vulnerable persons such as children. It is a proactive-accountability tool rather than a mandatory step.",
+      "appliesIf": { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.children" }] },
+      "appliesIfNote": "Suggested because you process sensitive data, profile individuals or handle children's data in Peru.",
+      "actionSteps": ["Reuse the group DPIA template for Peruvian high-risk processing."],
+      "owner": "local_entity",
+      "priority": "low",
+      "gdprEquivalent": "Art. 35 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 40.1" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [
+    {
+      "title": "Personal Data Officer duty extends to mid-sized companies",
+      "expectedDate": "2026-11-30",
+      "summary": "Under the Regulation's phased schedule, companies with annual sales above 1,700 and up to 2,300 UIT must have a Personal Data Officer (where Art. 37.1(2)–(3) applies) from two years after publication; small companies follow on 30 Nov 2027 and micro-enterprises on 30 Nov 2028.",
+      "sourceUrl": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf"
+    }
+  ],
+  "lastReviewed": "2026-09-27"
+}
