@@ -1,0 +1,186 @@
+{
+  "id": "US-TX",
+  "name": "United States — Texas",
+  "laws": [
+    {
+      "title": "Texas Data Privacy and Security Act",
+      "shortName": "TDPSA",
+      "citation": "Tex. Bus. & Com. Code ch. 541 (HB 4, 88th Leg., R.S.)",
+      "officialUrl": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm",
+      "status": "in_force",
+      "effectiveDate": "2024-07-01"
+    },
+    {
+      "title": "Capture or Use of Biometric Identifier Act",
+      "shortName": "CUBI",
+      "citation": "Tex. Bus. & Com. Code § 503.001 (as amended by HB 149, 89th Leg., R.S.)",
+      "officialUrl": "https://statutes.capitol.texas.gov/Docs/BC/htm/BC.503.htm",
+      "status": "in_force"
+    },
+    {
+      "title": "Identity Theft Enforcement and Protection Act — breach notification",
+      "shortName": "ITEPA § 521.053",
+      "citation": "Tex. Bus. & Com. Code § 521.053 (as amended by SB 768, 88th Leg., R.S.)",
+      "officialUrl": "https://capitol.texas.gov/tlodocs/88R/billtext/html/SB00768F.htm",
+      "status": "in_force"
+    },
+    {
+      "title": "Texas Responsible Artificial Intelligence Governance Act",
+      "shortName": "TRAIGA",
+      "citation": "HB 149, 89th Leg., R.S. (Bus. & Com. Code ch. 551 et seq.)",
+      "officialUrl": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm",
+      "status": "in_force",
+      "effectiveDate": "2026-01-01"
+    }
+  ],
+  "regulators": [
+    { "name": "Office of the Texas Attorney General — Consumer Protection Division", "url": "https://www.texasattorneygeneral.gov/consumer-protection" }
+  ],
+  "scopeNotes": "The TDPSA applies to persons conducting business in Texas (or producing products/services consumed by Texans) that process or sell personal data and are not small businesses under the US SBA definitions; small businesses must still obtain consent before selling sensitive data. Crucially, a 'consumer' is a Texas resident acting in an individual or household context and excludes individuals acting in a commercial or employment context — so employee, applicant and B2B contact data fall outside the TDPSA. Employee biometrics are, however, relevant under CUBI, and breach notification (ch. 521) applies to all personal information of Texans. The Attorney General has exclusive enforcement authority; there is no private right of action under the TDPSA.",
+  "obligations": [
+    {
+      "id": "US-TX-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Inform and obtain consent before capturing biometric identifiers (CUBI)",
+      "requirement": "A person may not capture a biometric identifier (retina or iris scan, fingerprint, voiceprint, or record of hand or face geometry) for a commercial purpose unless it informs the individual and obtains consent before capture. Biometric identifiers may not be sold, leased or disclosed except in limited cases, must be protected with reasonable care, and must be destroyed within a reasonable time and no later than one year after the purpose of collection expires. Since 1 Jan 2026 (TRAIGA), certain AI-training and security uses are exempt unless used to uniquely identify individuals.",
+      "appliesIf": { "and": [{ "var": "sensitive.biometrics" }, { ">": [{ "var": "j.individuals" }, 0] }] },
+      "appliesIfNote": "Applies because you use fingerprint, face or similar biometrics (e.g. timekeeping or site access) involving people in Texas.",
+      "actionSteps": [
+        "Inventory biometric systems at Texas offices and sites (time clocks, turnstiles, device unlock).",
+        "Deploy a written notice-and-consent step before enrolment; offer an alternative where practical.",
+        "Set a destruction rule: no later than one year after the purpose ends (e.g. after employment ends); confirm with counsel how the purpose-expiry date applies to employees.",
+        "Restrict disclosure to vendors under contract."
+      ],
+      "penaltyNote": "Civil penalty up to USD 25,000 per violation, enforced by the Attorney General.",
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 9 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.texasattorneygeneral.gov/consumer-protection/file-consumer-complaint/consumer-privacy-rights/biometric-identifier-act", "pinpoint": "AG overview of Bus. & Com. Code § 503.001" },
+        { "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm", "pinpoint": "HB 149 § 2 amending § 503.001(a), (b-1), (e), (f)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-BREACH-01",
+      "category": "breach_notification",
+      "title": "Notify affected Texans within 60 days; the Attorney General within 30 days (250+)",
+      "requirement": "Persons conducting business in Texas that own or license computerized sensitive personal information must notify affected individuals without unreasonable delay and no later than 60 days after determining a breach occurred. If the breach involves at least 250 Texas residents, the Attorney General must be notified electronically, through the OAG online form, as soon as practicable and no later than 30 days after that determination.",
+      "appliesIf": { ">": [{ "var": "j.individuals" }, 0] },
+      "appliesIfNote": "Applies because you hold personal information of Texas residents (employees included).",
+      "actionSteps": [
+        "Add Texas deadlines (60 days individuals; 30 days AG for 250+) to the US incident playbook.",
+        "Pre-register access to the OAG Data Breach Report form."
+      ],
+      "deadlineOrTimeline": "Individuals ≤ 60 days; AG ≤ 30 days (250+ Texans)",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/SB00768F.htm", "pinpoint": "SB 768 § 1 amending § 521.053(i)" },
+        { "url": "https://www.texasattorneygeneral.gov/consumer-protection/data-breach-reporting", "pinpoint": "OAG Data Breach Reporting page" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-SENSITIVE-02",
+      "category": "sensitive_data",
+      "title": "Obtain consent before processing consumers' sensitive data (TDPSA)",
+      "requirement": "Controllers may not process a consumer's sensitive data without consent (for known children, per COPPA). This applies to consumer data only — employee and B2B data are outside the TDPSA. Small businesses may not sell sensitive data without prior consent.",
+      "appliesIf": { "and": [{ "var": "subjects.consumers" }, { ">": [{ "var": "j.consumers" }, 0] }, { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] }] },
+      "appliesIfNote": "Applies because you process sensitive data of Texas consumers (not employees or business contacts).",
+      "actionSteps": ["Add opt-in consent for any sensitive consumer data collected from Texans."],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 9(2)(a) GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.001(7), 541.101(b)(4), 541.107" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Answer Texas consumer rights requests within 45 days",
+      "requirement": "Controllers must respond to consumer requests (access, correction, deletion, portability, opt-out of targeted advertising, sale and certain profiling) without undue delay and within 45 days, extendable once by 45 days with notice in the initial period. Consumers must be able to appeal refusals.",
+      "appliesIf": { "and": [{ "var": "subjects.consumers" }, { ">": [{ "var": "j.consumers" }, 0] }, { ">=": [{ "var": "group.headcount" }, 500] }] },
+      "appliesIfNote": "Applies because you process Texas consumers' personal data and are likely not an SBA small business (500+ staff used as a proxy).",
+      "actionSteps": ["Add Texas to the US consumer-request workflow with a 45-day SLA and an appeal step."],
+      "deadlineOrTimeline": "45 days, extendable once by 45",
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15–21 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.002(a), 541.051, 541.052" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-IMPACT-01",
+      "category": "impact_assessment",
+      "title": "Document data protection assessments for targeted ads, sale, profiling and sensitive data",
+      "requirement": "Controllers must conduct and document a data protection assessment for targeted advertising, sale of personal data, risky profiling, processing of sensitive data, and any processing presenting a heightened risk of harm to consumers.",
+      "appliesIf": { "and": [{ "var": "subjects.consumers" }, { ">": [{ "var": "j.consumers" }, 0] }, { ">=": [{ "var": "group.headcount" }, 500] }, { "or": [{ "var": "processing.websiteTracking" }, { "var": "processing.sellsOrSharesData" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.health" }, { "var": "sensitive.biometrics" }] }] },
+      "appliesIfNote": "Applies because you carry out a TDPSA assessment trigger on Texas consumer data.",
+      "actionSteps": ["Reuse the group DPIA template for TDPSA triggers and keep assessments available for the AG."],
+      "owner": "HQ",
+      "priority": "low",
+      "gdprEquivalent": "Art. 35 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§ 541.105(a)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-VENDORS-01",
+      "category": "vendors_processors",
+      "title": "Include TDPSA terms in processor contracts",
+      "requirement": "Contracts with processors must set instructions, nature and purpose, data types, duration and the parties' rights and obligations, and require confidentiality, deletion or return at the end, information to demonstrate compliance, cooperation with assessments, and flow-down to subcontractors.",
+      "appliesIf": { "and": [{ "var": "subjects.consumers" }, { ">": [{ "var": "j.consumers" }, 0] }, { "var": "flows.usesProcessors" }] },
+      "appliesIfNote": "Applies because vendors process Texas consumers' personal data for you.",
+      "actionSteps": ["Confirm the group DPA template covers § 541.104(b) terms."],
+      "owner": "HQ",
+      "priority": "low",
+      "gdprEquivalent": "Art. 28 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§ 541.104(b)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-AI-01",
+      "category": "automated_decisions_ai",
+      "title": "Avoid AI uses prohibited by TRAIGA",
+      "requirement": "Since 1 Jan 2026, private persons may not develop or deploy AI systems with the intent to unlawfully discriminate against a protected class, to manipulate people into self-harm, harming others or crime, to infringe constitutional rights, or to produce certain unlawful sexual content. Disparate impact alone does not show intent. The Attorney General enforces, with a 60-day cure period and substantial civil penalties.",
+      "appliesIf": { "and": [{ "var": "processing.automatedDecisions" }, { ">": [{ "var": "j.individuals" }, 0] }] },
+      "appliesIfNote": "Applies because you use AI or automated decision systems affecting people in Texas.",
+      "actionSteps": [
+        "Record the intended purpose and bias testing of HR/recruiting AI tools used in Texas.",
+        "Keep documentation to answer an AG civil investigative demand."
+      ],
+      "owner": "both",
+      "priority": "low",
+      "gdprEquivalent": "Art. 22 GDPR (loosely)",
+      "gdprDelta": "new",
+      "sources": [
+        { "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm", "pinpoint": "HB 149 (TRAIGA)" },
+        { "url": "https://capitol.texas.gov/tlodocs/89R/analysis/html/HB00149S.htm", "pinpoint": "Senate committee bill analysis" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [],
+  "lastReviewed": "2026-09-27"
+}
