@@ -1,0 +1,199 @@
+{
+  "id": "KR",
+  "name": "Republic of Korea",
+  "laws": [
+    {
+      "title": "Personal Information Protection Act",
+      "shortName": "PIPA",
+      "citation": "Act No. 10465 (2011), last substantially amended by Act No. 19234 of 14 Mar 2023",
+      "officialUrl": "https://elaw.klri.re.kr/eng_service/lawView.do?hseq=53044&lang=ENG",
+      "status": "in_force",
+      "effectiveDate": "2023-09-15"
+    },
+    {
+      "title": "Enforcement Decree of the Personal Information Protection Act",
+      "shortName": "PIPA Enforcement Decree",
+      "citation": "Presidential Decree, as amended (CPO qualifications added 12 Mar 2024, effective 15 Mar 2024)",
+      "officialUrl": "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=261095&chrClsCd=010203&urlMode=engLsInfoR&viewCls=engLsInfoR",
+      "status": "in_force"
+    }
+  ],
+  "regulators": [
+    { "name": "Personal Information Protection Commission (PIPC)", "url": "https://www.pipc.go.kr/eng" },
+    { "name": "Korea Internet & Security Agency (KISA) — breach reporting", "url": "https://www.kisa.or.kr" }
+  ],
+  "scopeNotes": "PIPA applies to personal information controllers processing personal information in Korea; the 2023 amendment unified the online/offline rules and added legal bases (contract performance; legitimate interests that manifestly outweigh the data subject's rights), new transfer mechanisms and automated-decision rights. Providing data to a third party (including a foreign parent acting as a separate controller) requires consent unless a narrower set of grounds applies. Cross-border transfers need separate consent or another Art. 28-8 basis; the PIPC has recognised the EU as providing an equivalent level of protection (in force by September 2025), complementing the EU's 2021 adequacy decision on Korea. Foreign controllers without a Korean address that meet decree thresholds must appoint a domestic agent; a group with a Korean subsidiary normally acts through that subsidiary. Penalty surcharges can reach 3% of total sales.",
+  "obligations": [
+    {
+      "id": "KR-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Designate a Chief Privacy Officer",
+      "requirement": "Every personal information controller must designate a privacy officer who takes overall charge of personal information processing (data protection plan, periodic review, grievance handling, internal controls). Since 15 March 2024 the Enforcement Decree sets qualification requirements for privacy officers of certain larger controllers (Annex 1 to Decree Art. 32(4)); their detail was not confirmed in this research pass.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal information in Korea.",
+      "actionSteps": [
+        "Appoint a CPO for the Korean entity (usually a senior local manager) and publish the contact in the privacy policy.",
+        "Check with Korean counsel whether the Decree's CPO qualification and independence requirements apply given the entity's size.",
+        "Define the CPO's reporting line to the group DPO."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 37–39 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=FILE_000000000827247&fileSn=0", "pinpoint": "PIPA Art. 31(1)–(2) (official English text, 2016 version; duty retained)" },
+        { "url": "https://law.go.kr/lsBylInfoPLinkR.do?bylBrNo=00&bylCls=BE&bylEfYd=&bylNo=0001&lsNm=%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4+%EB%B3%B4%ED%98%B8%EB%B2%95+%EC%8B%9C%ED%96%89%EB%A0%B9&lsiSeq=2100000238444", "pinpoint": "Enforcement Decree Annex 1 (Art. 32(4)), added 12 Mar 2024" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-LEGAL_BASIS-01",
+      "category": "legal_basis_consent",
+      "title": "Map processing to a PIPA legal basis (stricter legitimate interests test)",
+      "requirement": "Collection and use are lawful with consent, where required by statute, for contract performance at the data subject's request, to protect life or property from imminent danger, for legitimate interests that are manifestly superior to the data subject's rights (only to the extent substantially related and reasonable), or for urgent public safety. The legitimate-interests ground is narrower than GDPR's.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal information in Korea.",
+      "actionSteps": [
+        "Map Korean processing to Art. 15(1) grounds; re-examine anything relying on GDPR legitimate interests (CCTV, analytics, CRM).",
+        "Use consent where no other ground fits, with the PIPA consent formalities."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 6 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://elaw.klri.re.kr/eng_mobile/viewer.do?hseq=62389&type=part&key=4", "pinpoint": "PIPA Art. 15(1) (Act No. 19234)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-LEGAL_BASIS-02",
+      "category": "legal_basis_consent",
+      "title": "Obtain consent (or another narrow ground) before providing data to HQ as a third party",
+      "requirement": "Personal information may be provided to a third party only with consent, or within the purposes for which it was collected under Art. 15(1) items 2, 3 and 5–7 (statute, public function, emergency, legitimate interests, public safety). The contract ground (item 4) does not by itself allow provision to third parties. Sharing Korean employee data with an overseas parent acting as an independent controller therefore typically needs consent or a legitimate-interests analysis; entrustment to a processor is treated differently.",
+      "appliesIf": { "or": [{ "var": "flows.groupAccessFromAbroad" }, { "var": "flows.exportsOut" }] },
+      "appliesIfNote": "Applies because Korean personal information is shared with HQ or other group entities.",
+      "actionSteps": [
+        "Classify each intra-group flow as 'provision to a third party' or 'entrustment' (processor).",
+        "For third-party provision, collect consent with the statutory disclosures or document the Art. 15(1)6 legitimate-interest analysis.",
+        "Where HQ acts as processor, document the entrustment and disclose it in the privacy policy."
+      ],
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 6, 26, 28 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://elaw.klri.re.kr/eng_mobile/viewer.do?hseq=62389&type=part&key=4", "pinpoint": "PIPA Art. 17(1)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-TRANSFER-01",
+      "category": "cross_border_transfer",
+      "title": "Use an Art. 28-8 basis for cross-border transfers (EU equivalence available)",
+      "requirement": "Cross-border provision, entrustment or storage of personal information requires one of: separate consent after informing the data subject of the items, destination country, date and method, recipient, purpose, retention and how to refuse; a statute or treaty; contract-necessary entrustment/storage disclosed in the privacy policy or notified to data subjects; a PIPC-certified recipient taking the required measures; or a destination the PIPC recognises as equivalent. The PIPC's equivalence decision for the EU is in force, so transfers to EU group entities can rely on it — the Art. 17 third-party basis is still needed separately.",
+      "appliesIf": { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+      "appliesIfNote": "Applies because Korean personal information is transferred to or accessed from abroad.",
+      "actionSteps": [
+        "For transfers to Italy/EU, document reliance on the PIPC equivalence decision.",
+        "For transfers to non-EU group entities or vendors (e.g. US, India), use separate consent or disclosed contract-necessary entrustment.",
+        "List cross-border transfers (items, country, recipient, purpose, retention) in the privacy policy."
+      ],
+      "penaltyNote": "Penalty surcharges up to 3% of total sales (excluding sales unrelated to the violation) under Art. 64-2.",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Chapter V GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=ATCH_000000000881225&fileSn=2", "pinpoint": "PIPC Guidelines on applying PIPA to foreign business operators (Apr 2024): PIPA Art. 28-8(1)–(2); Art. 64-2" },
+        { "url": "https://commission.europa.eu/news-and-media/news/joint-press-statement-commissioner-michael-mcgrath-and-chairperson-haksoo-ko-entry-force-korean-2025-09-16_en", "pinpoint": "Joint EU–PIPC statement on entry into force of Korea's equivalence decision on the EU (16 Sept 2025)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-BREACH-01",
+      "category": "breach_notification",
+      "title": "Notify data subjects within 72 hours; report to PIPC/KISA within 72 hours when thresholds are met",
+      "requirement": "On becoming aware of a divulgence (leak) of personal information, the controller must notify affected data subjects within 72 hours. It must also report to the PIPC or KISA within 72 hours if the leak concerns 1,000 or more individuals, involves sensitive or unique identifying information, or results from unlawful external access. Awareness that unauthorised parties could have accessed the data is enough to start the clock.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal information in Korea.",
+      "actionSteps": [
+        "Add a Korea track to the group incident procedure with 72-hour notices to individuals and PIPC/KISA.",
+        "Pre-draft Korean-language notification templates."
+      ],
+      "deadlineOrTimeline": "72 hours (individuals and, where triggered, PIPC/KISA)",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=ATCH_000000000881225&fileSn=2", "pinpoint": "PIPC Guidelines (Apr 2024): PIPA Art. 34; Enforcement Decree Arts. 39–40" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Grant access within 10 days",
+      "requirement": "Controllers must allow data subjects to access their personal information within 10 days of receiving an access request, or notify reasons for restriction or delay. Transmission (portability), rectification, erasure and suspension rights are also available.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal information in Korea.",
+      "actionSteps": ["Configure a 10-day SLA for Korean access requests in the group DSAR tool."],
+      "deadlineOrTimeline": "10 days for access",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=ATCH_000000000881225&fileSn=2", "pinpoint": "PIPC Guidelines (Apr 2024): PIPA Art. 35(3); Enforcement Decree Art. 41(4)–(5)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Do not process resident registration numbers unless the law specifically allows it",
+      "requirement": "Controllers may process resident registration numbers only where statutes or specified regulations concretely require or allow it, or where clearly necessary to protect life, body or property from imminent danger, or in cases specified by the PIPC. HR use (e.g. tax and social insurance) is typically covered by statute; other uses such as visitor logs are not.",
+      "appliesIf": { "or": [{ "var": "sensitive.nationalId" }, { "var": "subjects.siteVisitors" }] },
+      "appliesIfNote": "Applies because you collect national ID numbers or register visitors in Korea.",
+      "actionSteps": [
+        "Limit RRN collection to statutory HR/tax purposes; remove it from visitor, access and vendor forms.",
+        "Encrypt stored RRNs."
+      ],
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Art. 87 GDPR (national identification numbers)",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=FILE_000000000827247&fileSn=0", "pinpoint": "PIPA Art. 24-2(1) (official English text, 2016 version)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "KR-AI-01",
+      "category": "automated_decisions_ai",
+      "title": "Provide refusal and explanation rights for fully automated decisions",
+      "requirement": "The 2023 amendment introduced rights for data subjects to refuse, or request an explanation of, decisions made by fully automated systems that significantly affect their rights or obligations, with transparency duties for controllers. The article text was not retrieved in this research pass.",
+      "appliesIf": { "var": "processing.automatedDecisions" },
+      "appliesIfNote": "Applies because you use automated decision-making that could affect people in Korea.",
+      "actionSteps": [
+        "Ask Korean counsel to confirm the scope of Art. 37-2 and implementing rules.",
+        "Extend the group Art. 22 safeguards (explanation, human review) to Korean use cases."
+      ],
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 22 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://elaw.klri.re.kr/eng_service/lawView.do?hseq=53044&lang=ENG", "pinpoint": "PIPA Art. 37-2 (not retrieved)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "unverified"
+    }
+  ],
+  "upcomingChanges": [],
+  "lastReviewed": "2026-09-27"
+}
