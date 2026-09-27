@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "validate:kb": "tsx scripts/validate-kb.ts",
-    "prebuild": "npm run validate:kb"
+    "prebuild": "npm run validate:kb",
+    "check:links": "tsx scripts/check-kb-links.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

@@ -23,7 +23,7 @@ export const OFFICIAL_DOMAINS: Record<Jurisdiction["id"], string[]> = {
   "US-CA": ["cppa.ca.gov", "oag.ca.gov", "leginfo.legislature.ca.gov", "law.cornell.edu", "govt.westlaw.com", "ca.gov"],
   "US-TX": ["statutes.capitol.texas.gov", "texasattorneygeneral.gov", "capitol.texas.gov", "sos.state.tx.us", "texreg.sos.state.tx.us"],
   KR: ["pipc.go.kr", "law.go.kr", "elaw.klri.re.kr", "kisa.or.kr", "privacy.go.kr", "commission.europa.eu"],
-  IN: ["meity.gov.in", "egazette.gov.in", "indiacode.nic.in", "dpb.gov.in", "prsindia.org"],
+  IN: ["meity.gov.in", "egazette.gov.in", "indiacode.nic.in", "dpb.gov.in", "pib.gov.in"],
 };
 
 export type Issue = { level: "error" | "warning"; where: string; message: string };
