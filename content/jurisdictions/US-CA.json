@@ -1,0 +1,263 @@
+{
+  "id": "US-CA",
+  "name": "United States — California",
+  "laws": [
+    {
+      "title": "California Consumer Privacy Act of 2018, as amended by the California Privacy Rights Act (Proposition 24)",
+      "shortName": "CCPA/CPRA",
+      "citation": "Cal. Civ. Code §§ 1798.100–1798.199.100",
+      "officialUrl": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf",
+      "status": "in_force"
+    },
+    {
+      "title": "CCPA Regulations incl. Cybersecurity Audits, Risk Assessments and Automated Decisionmaking Technology (ADMT)",
+      "shortName": "CCPA Regulations",
+      "citation": "Cal. Code Regs., tit. 11, §§ 7000 et seq.",
+      "officialUrl": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf",
+      "status": "in_force",
+      "effectiveDate": "2026-01-01"
+    },
+    {
+      "title": "California data breach notification law",
+      "shortName": "Civ. Code § 1798.82",
+      "citation": "Cal. Civ. Code § 1798.82, as amended by SB 446 (Stats. 2025, ch. 319)",
+      "officialUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.82",
+      "status": "in_force",
+      "effectiveDate": "2026-01-01"
+    }
+  ],
+  "regulators": [
+    { "name": "California Privacy Protection Agency (CalPrivacy)", "url": "https://cppa.ca.gov" },
+    { "name": "California Attorney General — Privacy Enforcement", "url": "https://oag.ca.gov/privacy" }
+  ],
+  "scopeNotes": "The CCPA applies to for-profit businesses doing business in California that meet one threshold: annual gross revenue of USD 26,625,000 or more in the preceding calendar year (CPI-adjusted from 1 Jan 2025); buying, selling or sharing personal information of 100,000+ California consumers or households; or deriving 50%+ of revenue from selling or sharing. Since 1 January 2023 it covers employees, job applicants, contractors and B2B contacts. The breach notification law (§ 1798.82) applies to any business owning or licensing computerized personal information of California residents, regardless of the CCPA thresholds. The CCPA is an opt-out regime: no legal basis is required, but notice, rights, opt-out of sale/sharing and, since 1 Jan 2026, risk assessments, cybersecurity audits and ADMT rules apply on phased dates.",
+  "obligations": [
+    {
+      "id": "US-CA-NOTICE-01",
+      "category": "notice",
+      "title": "Give notices at collection and a CCPA privacy policy — including to employees and applicants",
+      "requirement": "Businesses must inform consumers at or before collection of the categories of personal information and sensitive personal information collected, purposes, whether it is sold or shared, and retention periods, and publish a privacy policy describing rights and how to exercise them. 'Consumers' include California employees, job applicants, contractors and B2B contacts, so HR and B2B notices are required.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "and": [{ "var": "processing.sellsOrSharesData" }, { ">=": [{ "var": "j.individuals" }, 100000] }] }] }] },
+      "appliesIfNote": "Applies because the business meets a CCPA threshold (revenue of USD 26.625M+ or selling/sharing data of 100,000+ Californians) and processes Californians' data.",
+      "actionSteps": [
+        "Issue a CCPA notice at collection to California employees, applicants and contractors (retention periods per category).",
+        "Publish a CCPA-compliant privacy policy (updated at least every 12 months).",
+        "Add a B2B contact notice (e.g. in email footers or website)."
+      ],
+      "penaltyNote": "Administrative fines up to USD 2,663 per violation or 7,988 per intentional violation (amounts effective 1 Jan 2025).",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 13–14 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code §§ 1798.100(a), 1798.130(a)(5), 1798.140(d)" },
+        { "url": "https://cppa.ca.gov/faq.html", "pinpoint": "FAQ — thresholds; expiry of employee/B2B exemptions on 31 Dec 2022" },
+        { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "CPI-adjusted thresholds effective 1 Jan 2025" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Honour requests to know, delete and correct within 45 days",
+      "requirement": "Consumers (including employees) may request to know, delete and correct their personal information. Businesses must respond within 45 calendar days (extendable by 45 with notice), offer at least two request methods, and — since 1 Jan 2026 — allow access requests to reach back to 1 January 2022 where data is retained, and name the source of inaccurate information or inform that source when correcting.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "and": [{ "var": "processing.sellsOrSharesData" }, { ">=": [{ "var": "j.individuals" }, 100000] }] }] }] },
+      "appliesIfNote": "Applies because the business meets a CCPA threshold and processes Californians' data.",
+      "actionSteps": [
+        "Configure the group DSAR tool for California (45 days, verification, authorised agents).",
+        "Include employee HR records in access and deletion searches.",
+        "Apply the 2026 correction rules (source disclosure, keeping corrections from being overwritten)."
+      ],
+      "deadlineOrTimeline": "45 calendar days, extendable once by 45",
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15–17 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code §§ 1798.105, 1798.106, 1798.110, 1798.130(a)(2)" },
+        { "url": "https://cppa.ca.gov/pdf/things_to_know_before_2026_updates.pdf", "pinpoint": "CalPrivacy '7 Things to Know Before 2026', items 3–5; Regs. § 7023(c), (i)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-MARKETING-01",
+      "category": "marketing",
+      "title": "Offer an opt-out of selling/sharing and honour Global Privacy Control",
+      "requirement": "Businesses that sell personal information or share it for cross-context behavioural advertising must provide a 'Do Not Sell or Share My Personal Information' mechanism, honour opt-out preference signals such as Global Privacy Control, and — since 1 Jan 2026 — let consumers confirm the status of their opt-out. Advertising pixels and trackers on a website commonly amount to 'sharing'.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { "or": [{ "var": "processing.sellsOrSharesData" }, { "var": "processing.websiteTracking" }] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { ">=": [{ "var": "j.individuals" }, 100000] }] }] },
+      "appliesIfNote": "Applies because you sell or share data or use advertising trackers that reach Californians, and meet a CCPA threshold.",
+      "actionSteps": [
+        "Audit website/app trackers for cross-context behavioural advertising.",
+        "Implement a 'Do Not Sell or Share' link and GPC detection with visible opt-out status.",
+        "Pass opt-outs to third parties receiving the data."
+      ],
+      "owner": "HQ",
+      "priority": "high",
+      "gdprEquivalent": "Art. 21 GDPR; ePrivacy consent (opposite model)",
+      "gdprDelta": "new",
+      "sources": [
+        { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code §§ 1798.120, 1798.135" },
+        { "url": "https://cppa.ca.gov/pdf/things_to_know_before_2026_updates.pdf", "pinpoint": "Item 2; Regs. §§ 7025(c)(6), 7026(g)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Honour the right to limit use of sensitive personal information",
+      "requirement": "Where a business uses sensitive personal information (e.g. government IDs, precise geolocation, biometrics, health, union membership, account credentials; and since 2026 data of consumers under 16) for purposes beyond those permitted by regulation, it must offer a 'Limit the Use of My Sensitive Personal Information' mechanism and honour requests.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "or": [{ "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.nationalId" }, { "var": "sensitive.union" }, { "var": "sensitive.financialAccounts" }] }] },
+      "appliesIfNote": "Applies because you process sensitive personal information of Californians and meet the CCPA revenue threshold.",
+      "actionSteps": [
+        "List sensitive PI uses and check each against the permitted purposes in Regs. § 7027(m).",
+        "If any use goes beyond them, implement the right-to-limit link and workflow."
+      ],
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 9 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code § 1798.121; § 1798.140(ae)" },
+        { "url": "https://cppa.ca.gov/pdf/things_to_know_before_2026_updates.pdf", "pinpoint": "Item 7; Regs. § 7027(m)" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-VENDORS-01",
+      "category": "vendors_processors",
+      "title": "Put CCPA-specific terms in service provider and contractor contracts",
+      "requirement": "Disclosures to service providers, contractors and third parties must be governed by written contracts that limit use to specified purposes, prohibit selling/sharing, require CCPA-level protection and allow the business to take steps to stop unauthorised use. Without compliant terms, a disclosure may count as a 'sale'.",
+      "appliesIf": { "and": [{ "var": "flows.usesProcessors" }, { ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }] },
+      "appliesIfNote": "Applies because vendors process Californians' data for a CCPA-covered business.",
+      "actionSteps": ["Add a CCPA addendum to the group DPA template and roll it out to US vendors (payroll, benefits, HR tech, cloud)."],
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 28 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code § 1798.100(d)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-IMPACT-01",
+      "category": "impact_assessment",
+      "title": "Conduct CCPA risk assessments (existing processing by 31 Dec 2027; submit by 1 Apr 2028)",
+      "requirement": "Since 1 Jan 2026, businesses must conduct a risk assessment before processing that presents significant risk: selling/sharing; processing sensitive personal information (HR-administration uses excepted); using ADMT for significant decisions; automated inferences about employees or applicants based on systematic observation; and training ADMT or identification technologies. Processing already under way must be assessed by 31 December 2027, with the required information submitted to the Agency by 1 April 2028. Assessments are retained for the processing's duration or five years.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "or": [{ "var": "processing.sellsOrSharesData" }, { "var": "processing.automatedDecisions" }, { "var": "processing.employeeMonitoring" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.preciseLocation" }] }] },
+      "appliesIfNote": "Applies because you carry out a CCPA 'significant risk' activity (e.g. sensitive data beyond HR administration, employee monitoring analytics, ADMT) affecting Californians.",
+      "actionSteps": [
+        "Screen Californian processing against § 7150(b) triggers.",
+        "Adapt the group DPIA template to § 7152 content; complete assessments for existing activities by 31 Dec 2027.",
+        "Prepare the 1 April 2028 submission (executive attestation)."
+      ],
+      "deadlineOrTimeline": "Before new processing; existing processing by 31 Dec 2027; submission by 1 Apr 2028",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Art. 35 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", "pinpoint": "Regs. §§ 7150(b), 7155(b)–(c), 7157(a)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-AI-01",
+      "category": "automated_decisions_ai",
+      "title": "Comply with ADMT rules for significant decisions (employment) by 1 January 2027",
+      "requirement": "Businesses using automated decisionmaking technology to make significant decisions — including employment or contracting opportunities and compensation — must comply with the ADMT article (pre-use notice, opt-out or appeal rights, and access to information about the ADMT) by 1 January 2027 for existing uses, and from first use thereafter.",
+      "appliesIf": { "and": [{ "var": "processing.automatedDecisions" }, { ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }] },
+      "appliesIfNote": "Applies because you use automated decision-making that could affect Californian workers or applicants.",
+      "actionSteps": [
+        "Identify tools used for hiring, allocation, promotion or pay decisions affecting Californians.",
+        "Prepare pre-use notices and an opt-out or human-appeal process before 1 Jan 2027."
+      ],
+      "deadlineOrTimeline": "1 January 2027 for existing uses",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Art. 22 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", "pinpoint": "Regs. § 7001(ddd) ('significant decision'); § 7200(a)–(b)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-SECURITY-01",
+      "category": "security",
+      "title": "Complete annual cybersecurity audits (first report 2028–2030 by revenue)",
+      "requirement": "Businesses meeting the revenue threshold that processed personal information of 250,000+ consumers or sensitive personal information of 50,000+ consumers in the prior year (or that derive 50%+ of revenue from selling/sharing) must complete an independent cybersecurity audit. First reports are due 1 April 2028 (2026 revenue over USD 100M), 1 April 2029 (USD 50–100M) or 1 April 2030 (under USD 50M). All businesses must also maintain reasonable security.",
+      "appliesIf": { "and": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "or": [{ ">=": [{ "var": "j.individuals" }, 250000] }, { ">=": [{ "var": "j.sensitiveIndividuals" }, 50000] }] }] },
+      "appliesIfNote": "Applies because you meet the revenue threshold and process data of 250,000+ Californians or sensitive data of 50,000+.",
+      "actionSteps": [
+        "Confirm consumer and sensitive-data volumes for California.",
+        "Determine the audit due date from 2026–2028 revenue.",
+        "Scope the audit to the CCPA components (can leverage ISO 27001/SOC 2 work)."
+      ],
+      "deadlineOrTimeline": "1 Apr 2028 / 1 Apr 2029 / 1 Apr 2030 depending on revenue",
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 32(1)(d) GDPR (testing)",
+      "gdprDelta": "new",
+      "sources": [{ "url": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", "pinpoint": "Regs. §§ 7120(b), 7121(a)–(b)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-CA-BREACH-01",
+      "category": "breach_notification",
+      "title": "Notify affected Californians within 30 days; send the AG a sample within 15 days (500+)",
+      "requirement": "Businesses owning or licensing computerized personal information must notify California residents whose unencrypted personal information was, or is reasonably believed to have been, acquired by an unauthorised person within 30 calendar days of discovery or notification of the breach. If more than 500 residents are notified for a single breach, a sample notice must be submitted electronically to the Attorney General within 15 calendar days of notifying consumers. This applies regardless of the CCPA thresholds.",
+      "appliesIf": { ">": [{ "var": "j.individuals" }, 0] },
+      "appliesIfNote": "Applies because you hold personal information of California residents (any size of business).",
+      "actionSteps": [
+        "Update the US incident playbook with the 30-day consumer deadline (new since 1 Jan 2026) and the 15-day AG sample.",
+        "Use the statutory notice format and headings."
+      ],
+      "deadlineOrTimeline": "Consumers within 30 calendar days; AG sample within 15 days of consumer notice (500+)",
+      "penaltyNote": "Data breaches caused by failure to maintain reasonable security can also trigger the CCPA private right of action (USD 107–799 per consumer per incident, or actual damages).",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Art. 34 GDPR",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.82", "pinpoint": "Civ. Code § 1798.82(a), (f) (as amended by SB 446, eff. 1 Jan 2026)" },
+        { "url": "https://oag.ca.gov/privacy/databreach/reporting", "pinpoint": "AG breach reporting page" },
+        { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "§ 1798.150(a)(1)(A) damages range" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [
+    {
+      "title": "ADMT compliance date",
+      "expectedDate": "2027-01-01",
+      "summary": "Businesses using ADMT for significant decisions (including employment) before 2027 must comply with the ADMT article by 1 January 2027.",
+      "sourceUrl": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    },
+    {
+      "title": "Risk assessment deadlines",
+      "expectedDate": "2027-12-31 (completion) / 2028-04-01 (submission)",
+      "summary": "Risk assessments for processing already under way must be completed by 31 Dec 2027; information for assessments conducted in 2026–2027 is due to the Agency by 1 April 2028.",
+      "sourceUrl": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    },
+    {
+      "title": "Preliminary CalPrivacy rulemakings (employee data, notices, opt-out signals, friction)",
+      "expectedDate": "Preliminary comment periods closed April–May 2026; no proposed text as of 2026-09-27",
+      "summary": "CalPrivacy sought preliminary comments on employee data, notices and disclosures, opt-out preference signals and reducing friction in rights requests. No formal proposal has been published.",
+      "sourceUrl": "https://cppa.ca.gov/regulations/"
+    }
+  ],
+  "lastReviewed": "2026-09-27"
+}
