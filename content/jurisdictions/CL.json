@@ -1,0 +1,278 @@
+{
+  "id": "CL",
+  "name": "Chile",
+  "laws": [
+    {
+      "title": "Ley N° 19.628, sobre protección de la vida privada (current regime)",
+      "shortName": "Law 19.628",
+      "citation": "Ley 19.628 (1999), as in force until the Law 21.719 reform applies",
+      "officialUrl": "https://www.bcn.cl/leychile/navegar?idNorma=141599",
+      "status": "in_force"
+    },
+    {
+      "title": "Ley N° 21.719, que regula la protección y el tratamiento de los datos personales y crea la Agencia de Protección de Datos Personales",
+      "shortName": "Law 21.719",
+      "citation": "Ley 21.719, Diario Oficial 13 Dec 2024 (rewrites Law 19.628 as the 'Ley sobre protección de los datos personales')",
+      "officialUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf",
+      "status": "enacted_not_in_force",
+      "effectiveDate": "2026-12-01"
+    }
+  ],
+  "regulators": [
+    { "name": "Agencia de Protección de Datos Personales (created by Law 21.719; first Board appointed within 60 days before entry into force)", "url": "https://www.bcn.cl/leychile/navegar?idNorma=1209272" }
+  ],
+  "scopeNotes": "IMMINENT CHANGE: Law 21.719 rewrites Law 19.628 into a GDPR-like regime with an independent Data Protection Agency and fines of up to 20,000 UTM, or for large companies up to 2%–4% of annual revenue. Under its first transitory article it enters into force on the first day of the 24th month after publication, i.e. 1 December 2026. On 1 September 2026 the Government announced a bill to postpone entry into force to 1 December 2027; until that bill is enacted, 1 December 2026 remains the legal date. Until then, the 1999 Law 19.628 applies (consent-based, with limited enforcement). The new law recognises legitimate interests, contract and legal obligation as legal bases, requires public transparency information, breach reporting, DPIAs for high-risk processing and safeguards for international transfers.",
+  "obligations": [
+    {
+      "id": "CL-GOVERNANCE-01",
+      "category": "governance",
+      "title": "Prepare the Chilean entity for Law 21.719 before 1 December 2026",
+      "requirement": "Law 21.719 applies from 1 December 2026 unless the Government's postponement bill (announced 1 September 2026, proposing 1 December 2027) is enacted first. A GDPR programme covers much of the new law, but Chilean-specific items (public transparency page, 30-day response deadline, biometric notices, breach reporting to the new Agency, Spanish-language documentation) must be in place by the start date.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies because the group has an entity in Chile processing personal data.",
+      "actionSteps": [
+        "Run a gap assessment of the Chilean entity against Law 21.719 using the GDPR programme as baseline.",
+        "Plan remediation for completion by 30 November 2026; monitor the postponement bill but do not rely on it.",
+        "Assign a local owner and budget."
+      ],
+      "deadlineOrTimeline": "1 December 2026 (postponement to 1 December 2027 proposed, not enacted as of 2026-09-27)",
+      "penaltyNote": "Fines up to 5,000 / 10,000 / 20,000 UTM for minor / serious / very serious infringements; for large companies up to 2% (serious) or 4% (very serious) of annual revenue; repeat offences up to three times the amount.",
+      "owner": "both",
+      "priority": "critical",
+      "gdprEquivalent": "GDPR programme as a whole",
+      "gdprDelta": "partial",
+      "sources": [
+        { "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 21.719, Disposiciones transitorias, Art. primero" },
+        { "url": "https://obtienearchivo.bcn.cl/obtienearchivo?id=repositorio%2F10221%2F37137%2F1%2FInforme_12_25_Ley_Datos_Personales_rev.pdf", "pinpoint": "BCN synthesis, §11 (Infracciones y sanciones) and §15" },
+        { "url": "https://www.economia.gob.cl/2026/09/01/gobierno-propone-ampliar-plazo-para-implementar-nueva-ley-de-proteccion-de-datos-y-institucionalidad.htm", "pinpoint": "Ministry of Economy announcement, 1 Sept 2026" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-LEGAL_BASIS-01",
+      "category": "legal_basis_consent",
+      "title": "Document a legal basis for each processing activity",
+      "requirement": "Under the reformed law, processing is lawful with free, informed, specific, prior and unequivocal consent, or without consent where necessary for a legal obligation, a contract or pre-contractual steps, legitimate interests of the controller or a third party (provided the data subject's rights are not affected), or legal claims. The controller must be able to prove lawfulness, and data subjects may always ask to be told the legitimate interest relied on.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal data in Chile (from the reform's start date).",
+      "actionSteps": [
+        "Extend the group RoPA/legal-basis mapping to the Chilean entity.",
+        "Record the legitimate interest for each activity that relies on it, ready to disclose on request."
+      ],
+      "deadlineOrTimeline": "From 1 December 2026",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 6 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 12–13" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-NOTICE-01",
+      "category": "notice",
+      "title": "Publish a permanent data protection transparency page",
+      "requirement": "Controllers must keep permanently available to the public, on their website or equivalent, their data processing policy (with date and version), identity and legal representative, a request channel, categories of data and data subjects, recipients, purposes, legal bases (including the legitimate interests relied on), security policy and measures, data subject rights and the right to complain to the Agency, international transfers and their safeguards, retention periods, data sources, and any automated decision-making with meaningful information on the logic.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal data in Chile.",
+      "actionSteps": [
+        "Create a Spanish-language Chile privacy page covering every item in Art. 14 ter (it goes beyond GDPR notices, e.g. security policy and data-subject universe).",
+        "Version and date the policy; set a review cycle."
+      ],
+      "deadlineOrTimeline": "From 1 December 2026",
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 13–14 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 14 ter" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-RIGHTS-01",
+      "category": "data_subject_rights",
+      "title": "Answer rights requests within 30 calendar days; handle blocking requests within 2 business days",
+      "requirement": "Controllers must acknowledge requests and respond in writing within 30 calendar days (extendable once by 30), keeping proof of the response. Refusals must be reasoned and tell the data subject they have 30 business days to complain to the Agency. When rectification, erasure or objection is requested, the data subject may request temporary blocking, which must be answered within 2 business days. Rights include access, rectification, erasure, objection, blocking and portability.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal data in Chile.",
+      "actionSteps": [
+        "Set up an email/form request channel for Chile and add it to the transparency page.",
+        "Configure the group DSAR tool for 30-calendar-day deadlines and a 2-business-day blocking workflow.",
+        "Add the Agency complaint notice to refusal templates."
+      ],
+      "deadlineOrTimeline": "30 calendar days (+30); blocking requests 2 business days",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 12(3), 15–21 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 4–11 (esp. Art. 11)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-BREACH-01",
+      "category": "breach_notification",
+      "title": "Report security breaches to the Agency without undue delay",
+      "requirement": "Breaches causing destruction, leakage, loss, alteration or unauthorised access to personal data must be reported to the Agency by the most expeditious means and without undue delay where there is a reasonable risk to data subjects' rights. The controller must record each report. Where sensitive data, data of children under 14, or financial/commercial obligation data are affected, each data subject must also be informed in clear language (or, if impossible, via a national mass-media notice).",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal data in Chile.",
+      "actionSteps": [
+        "Add a Chile track to the group incident procedure with the Agency reporting channel (once published).",
+        "Maintain a Chilean breach register.",
+        "Prepare Spanish-language individual notice templates for sensitive-data breaches."
+      ],
+      "deadlineOrTimeline": "Without undue delay (no fixed hours in the statute)",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 33–34 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 14 sexies" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-IMPACT-01",
+      "category": "impact_assessment",
+      "title": "Carry out DPIAs for high-risk processing, including CCTV of public-access areas",
+      "requirement": "Before high-risk processing a DPIA is required, and always for: systematic and extensive evaluation through automated decisions or profiling with significant effects; mass or large-scale processing; systematic monitoring of publicly accessible areas; and sensitive data processed under an exception to consent. The Agency will publish an indicative list and minimum guidance.",
+      "appliesIf": { "or": [{ "var": "processing.cctv" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { ">=": [{ "var": "j.individuals" }, 100000] }] },
+      "appliesIfNote": "Applies because you run CCTV, automated decisions, sensitive-data or large-scale processing in Chile.",
+      "actionSteps": [
+        "Reuse the group DPIA template for the Chilean triggers (note: monitoring of publicly accessible areas is an explicit trigger).",
+        "Watch for the Agency's indicative list and guidance."
+      ],
+      "deadlineOrTimeline": "Before starting the processing; from 1 December 2026",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 35 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 15 ter" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-SENSITIVE-01",
+      "category": "sensitive_data",
+      "title": "Give specific notices before using biometric systems",
+      "requirement": "Biometric data (fingerprint, iris, hand or facial features, voice) may be processed only under the sensitive-data rules and if the controller tells the data subject which biometric system is used, the specific purpose, the period of use, and how to exercise rights. Processing without consent is possible only in the cases the law lists for health and biological-profile data.",
+      "appliesIf": { "var": "sensitive.biometrics" },
+      "appliesIfNote": "Applies because you use biometrics (e.g. site access, timekeeping) in Chile.",
+      "actionSteps": [
+        "Prepare a biometric notice for each system (identity of system, purpose, period, rights).",
+        "Confirm the legal basis (usually express consent) and offer alternatives where feasible."
+      ],
+      "deadlineOrTimeline": "From 1 December 2026",
+      "owner": "local_entity",
+      "priority": "high",
+      "gdprEquivalent": "Arts. 9, 13 GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 16, 16 ter" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-TRANSFER-01",
+      "category": "cross_border_transfer",
+      "title": "Use adequacy, contractual clauses, BCRs or certification for international transfers",
+      "requirement": "International transfers are lawful where the recipient is in a country the Agency determines to be adequate, or where contractual clauses, binding corporate rules or other legal instruments (or an adopted compliance model or certification) provide adequate guarantees. Absent these, only specific, non-habitual transfers may rely on derogations such as express consent or contractual necessity. Transfers and their safeguards must be disclosed on the transparency page.",
+      "appliesIf": { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
+      "appliesIfNote": "Applies because personal data from Chile is sent to or accessed by HQ or other entities abroad.",
+      "actionSteps": [
+        "Put an intra-group transfer agreement or BCRs in place covering Chilean data (EU SCCs can be adapted; confirm with counsel whether the Agency will issue model clauses).",
+        "Monitor the Agency's adequacy determinations.",
+        "Disclose transfers on the Art. 14 ter page."
+      ],
+      "deadlineOrTimeline": "From 1 December 2026",
+      "owner": "both",
+      "priority": "high",
+      "gdprEquivalent": "Chapter V GDPR",
+      "gdprDelta": "partial",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 27–28; Art. 14 ter(h)" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-AI-01",
+      "category": "automated_decisions_ai",
+      "title": "Respect the right not to be subject to automated decisions",
+      "requirement": "Data subjects may object to and not be subject to decisions based solely on automated processing, including profiling, that produce legal or similarly significant effects, except where necessary for a contract, based on prior express consent, or authorised by law with safeguards. In all cases the controller must ensure information, an explanation, human intervention, the chance to express a view and review of the decision.",
+      "appliesIf": { "var": "processing.automatedDecisions" },
+      "appliesIfNote": "Applies because you use automated decision-making that could affect people in Chile.",
+      "actionSteps": ["Extend the group Art. 22 safeguards (human review, explanation) to Chilean use cases."],
+      "deadlineOrTimeline": "From 1 December 2026",
+      "owner": "local_entity",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 22 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 8 bis" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-DPO_REP-01",
+      "category": "dpo_representative",
+      "title": "Consider a certified infringement-prevention model and a data protection delegate",
+      "requirement": "Controllers may adopt an infringement-prevention compliance programme, which the Agency can certify for three years and which counts towards mitigating liability, and may designate a data protection delegate appointed by top management with autonomy, acting as contact point with the Agency. The model can be incorporated into the internal labour regulations under the Labour Code. Neither is mandatory.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Suggested for every controller in Chile; voluntary but mitigates sanctions.",
+      "actionSteps": [
+        "Decide whether to designate the group DPO or a local delegate for Chile.",
+        "Assess certifying a prevention model once the Agency publishes criteria."
+      ],
+      "owner": "both",
+      "priority": "low",
+      "gdprEquivalent": "Arts. 37–39, 42 GDPR (DPO, certification)",
+      "gdprDelta": "covered",
+      "sources": [
+        { "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 49–52" },
+        { "url": "https://obtienearchivo.bcn.cl/obtienearchivo?id=repositorio%2F10221%2F37137%2F1%2FInforme_12_25_Ley_Datos_Personales_rev.pdf", "pinpoint": "BCN synthesis, §13" }
+      ],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "CL-SECURITY-01",
+      "category": "security",
+      "title": "Apply privacy by design and by default and adequate security measures",
+      "requirement": "Controllers must apply appropriate technical and organisational measures from the design stage and by default so that only data necessary for each purpose is processed, and must adopt security measures appropriate to the risk and keep confidentiality duties even after the relationship ends.",
+      "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
+      "appliesIfNote": "Applies to every controller processing personal data in Chile.",
+      "actionSteps": ["Confirm the Chilean entity is covered by the group ISMS and privacy-by-design process."],
+      "deadlineOrTimeline": "From 1 December 2026",
+      "owner": "both",
+      "priority": "medium",
+      "gdprEquivalent": "Arts. 25, 32 GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 14 bis, 14 quáter, 14 quinquies" }],
+      "lastVerified": "2026-09-27",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    }
+  ],
+  "upcomingChanges": [
+    {
+      "title": "Law 21.719 enters into force — new GDPR-like regime and Data Protection Agency",
+      "expectedDate": "2026-12-01",
+      "summary": "Entry into force on the first day of the 24th month after publication (13 Dec 2024). Brings legitimate interests, transparency page, 30-day rights deadline, breach reporting, DPIAs, transfer safeguards and fines up to 4% of revenue for large companies.",
+      "sourceUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf"
+    },
+    {
+      "title": "Government bill to postpone Law 21.719 to 1 December 2027",
+      "expectedDate": "Announced 2026-09-01; not enacted as of 2026-09-27",
+      "summary": "Would postpone entry into force by one year, enlarge the Agency's Board from three to five members and bring forward the first Board appointments. Until enacted, 1 December 2026 remains the legal date.",
+      "sourceUrl": "https://www.economia.gob.cl/2026/09/01/gobierno-propone-ampliar-plazo-para-implementar-nueva-ley-de-proteccion-de-datos-y-institucionalidad.htm"
+    }
+  ],
+  "lastReviewed": "2026-09-27"
+}
