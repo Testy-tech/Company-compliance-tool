@@ -28,6 +28,8 @@ type FactMeta = {
   resolvable?: boolean;
   /** Client-facing follow-up question when unresolved. */
   followUp?: string;
+  /** "group": a per-country fact that comes from one group-level question. */
+  scope?: "group";
   /** Computed by the engine from other facts, not asked directly. */
   derived?: boolean;
 };
@@ -70,7 +72,10 @@ export const facts: readonly FactDef[] = [
     questionId: "entity-sba", resolvable: true,
     followUp: "Does the {country} entity qualify as a small business under US SBA size standards?",
   }),
-  bool("j.countryWebsite", "a {country}-specific website", { questionId: "web-country-sites", resolvable: true }),
+  bool("j.countryWebsite", "a {country}-specific website", {
+    questionId: "web-country-sites", resolvable: true, scope: "group",
+    followUp: "Do you run country-specific versions of the website, and if so for which countries?",
+  }),
 
   // People located in the jurisdiction (per calendar year)
   {
