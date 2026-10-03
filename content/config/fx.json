@@ -1,0 +1,9 @@
+{
+  "$comment": "Single conversion table used by the engine and the wizard's revenue-straddle check. 1 EUR = rates[CCY]. Update the rate and lastUpdated together; the band alignment test lists which revenue bands straddle a KB threshold at this rate.",
+  "base": "EUR",
+  "lastUpdated": "2026-10-02",
+  "source": "ECB euro foreign exchange reference rates, https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml (reference date 2026-10-02, retrieved 2026-10-03)",
+  "rates": {
+    "USD": 1.1225
+  }
+}
