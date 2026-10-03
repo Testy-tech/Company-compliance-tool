@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { loadEnv, loadKb, client, arg } from "./lib/dev-env.mts";
+import { loadEnv, loadKb, client, arg } from "./lib/dev-env";
 
 loadEnv();
 const { runTailor } = await import("../src/lib/ai/tailor");

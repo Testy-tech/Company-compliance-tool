@@ -5,7 +5,7 @@
  *
  *   npm run dev:developments -- CL --since=2025-01-01 [--model=claude-sonnet-5]
  */
-import { loadEnv, loadKb, client, arg } from "./lib/dev-env.mts";
+import { loadEnv, loadKb, client, arg } from "./lib/dev-env";
 
 loadEnv();
 const { runDevelopments } = await import("../src/lib/ai/developments");
