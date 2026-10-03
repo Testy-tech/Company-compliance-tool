@@ -6,6 +6,8 @@ import { Pencil, Printer } from "lucide-react";
 import { AlertDialog } from "radix-ui";
 
 import { Button } from "@/components/ui/button";
+import { assessmentSignature, buildTailorRequests } from "@/lib/ai/build-request";
+import type { TailoredItem } from "@/lib/ai/tailor-schema";
 import { evaluate } from "@/lib/engine/evaluate";
 import { referenceIntake } from "@/lib/engine/fixtures";
 import { emptyDraft, fromIntake, toAssessment, type Draft } from "@/lib/intake/draft";
@@ -15,7 +17,9 @@ import type { Jurisdiction } from "@/lib/kb/schema";
 import { deadlines } from "@/lib/report/derive";
 import { formatDate, jurisdictionAnchor } from "@/lib/report/labels";
 
+import { AiPanel, type TailorProgress } from "./ai-panel";
 import { Glossary, GovernanceFindings, Roadmap, TransferMap } from "./appendices";
+import type { DevelopmentsState } from "./developments-panel";
 import { Heatmap } from "./heatmap";
 import { JurisdictionSection } from "./jurisdiction-section";
 import { OpenQuestions } from "./open-questions";
@@ -79,6 +83,75 @@ function ReportBody({ kb, fx }: Props) {
     setState(next);
   };
   const toggleDone = (id: string, done: boolean) => updateState({ checklist: { ...state.checklist, [id]: done } });
+
+  /* ── Optional AI assistance (opt-in) ── */
+  const [progress, setProgress] = useState<TailorProgress[]>([]);
+  const [tailoring, setTailoring] = useState(false);
+  const [developments, setDevelopments] = useState<Record<string, DevelopmentsState>>({});
+  const signature = assessment?.success ? assessmentSignature(assessment.data.intake, assessment.data.assessmentDate) : "";
+  // Tailored text is only shown for the assessment it was written for.
+  const tailored = state.tailored?.signature === signature ? state.tailored.items : {};
+
+  async function post(url: string, body: unknown): Promise<Record<string, unknown> | null> {
+    try {
+      const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      return (await res.json()) as Record<string, unknown>;
+    } catch {
+      return null;
+    }
+  }
+
+  /** One request per jurisdiction. A failed jurisdiction silently keeps its standard text. */
+  async function tailorReport() {
+    if (!report || !assessment?.success || !state.aiConsent || tailoring) return;
+    setTailoring(true);
+    const items: Record<string, { explanation: string; steps: string[] }> = {};
+    let model = "";
+    let status: TailorProgress[] = report.jurisdictions.map((j) => ({ jurisdiction: j.jurisdiction, name: j.name, status: "waiting" }));
+    const mark = (id: string, change: Partial<TailorProgress>) => {
+      status = status.map((p) => (p.jurisdiction === id ? { ...p, ...change } : p));
+      setProgress(status);
+    };
+    setProgress(status);
+    for (const section of report.jurisdictions) {
+      mark(section.jurisdiction, { status: "working" });
+      let count = 0;
+      for (const request of buildTailorRequests(section, assessment.data.intake)) {
+        const result = await post("/api/tailor", request);
+        if (result?.ok !== true) continue;
+        const known = new Set(request.obligations.map((o) => o.id));
+        for (const item of result.items as TailoredItem[]) {
+          if (!known.has(item.id)) continue;
+          items[item.id] = { explanation: item.tailoredExplanation, steps: item.tailoredSteps };
+          count++;
+        }
+        model = String(result.model ?? model);
+      }
+      mark(section.jurisdiction, count ? { status: "done", tailored: count } : { status: "standard" });
+    }
+    if (Object.keys(items).length) updateState({ tailored: { signature, model, items }, showStandard: {} });
+    setTailoring(false);
+  }
+
+  async function checkDevelopments(jurisdiction: string, name: string) {
+    if (!state.aiConsent) return;
+    setDevelopments((d) => ({ ...d, [jurisdiction]: { status: "loading" } }));
+    const result = await post("/api/developments", { consent: true, jurisdiction });
+    setDevelopments((d) => ({
+      ...d,
+      [jurisdiction]:
+        result?.ok === true
+          ? {
+              status: "ok",
+              items: result.items as never,
+              checkedAt: String(result.checkedAt),
+              since: String(result.since),
+              cached: result.cached === true,
+              searchedDomains: (result.searchedDomains as string[]) ?? [],
+            }
+          : { status: "unavailable", message: typeof result?.message === "string" ? result.message : `Developments check unavailable for ${name}` },
+    }));
+  }
 
   if (!report || !assessment?.success) {
     return (
@@ -188,6 +261,20 @@ function ReportBody({ kb, fx }: Props) {
         ) : null}
       </header>
 
+      <AiPanel
+        consent={state.aiConsent}
+        onConsent={(aiConsent) => updateState({ aiConsent })}
+        anonymised={intake.company.anonymized}
+        progress={progress}
+        running={tailoring}
+        hasTailoring={Object.keys(tailored).length > 0}
+        onTailor={tailorReport}
+        onRemove={() => {
+          updateState({ tailored: undefined, showStandard: {} });
+          setProgress([]);
+        }}
+      />
+
       <nav aria-label="Report contents" className="no-print mt-8 rounded-lg border bg-card p-4 text-sm">
         <p className="eyebrow">Contents</p>
         <ol className="mt-2 grid gap-x-6 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -237,6 +324,12 @@ function ReportBody({ kb, fx }: Props) {
             reviewer={reviewer}
             checklist={state.checklist}
             onToggle={toggleDone}
+            tailored={tailored}
+            showStandard={state.showStandard}
+            onShowStandard={(id, standard) => updateState({ showStandard: { ...state.showStandard, [id]: standard } })}
+            aiConsent={state.aiConsent}
+            developments={developments[j.jurisdiction] ?? { status: "idle" }}
+            onCheckDevelopments={() => checkDevelopments(j.jurisdiction, j.name)}
           />
         ))}
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { Popover } from "radix-ui";
 
 import { DeltaBadge } from "@/components/legal/delta-badge";
@@ -11,7 +12,10 @@ import {
 } from "@/lib/report/labels";
 import { cn } from "@/lib/utils";
 
+import { DevelopmentsPanel, type DevelopmentsState } from "./developments-panel";
 import { AssumptionBadge, ReportHeading, Tag } from "./parts";
+
+export type Tailored = { explanation: string; steps: string[] };
 
 /* ── Defined terms ────────────────────────────────────────────────────────── */
 
@@ -77,11 +81,16 @@ type ItemProps = {
   reviewer: boolean;
   done: boolean;
   onToggle: (id: string, done: boolean) => void;
+  /** AI-tailored wording for this item, if the user opted in and it passed validation. */
+  tailored?: Tailored;
+  showStandard: boolean;
+  onShowStandard: (id: string, standard: boolean) => void;
 };
 
-function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle }: ItemProps) {
+function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle, tailored, showStandard, onShowStandard }: ItemProps) {
   const o = result.obligation;
   const anchor = obligationAnchor(o.id);
+  const useTailored = !!tailored && !showStandard;
   return (
     <article id={anchor} tabIndex={-1} className="grid gap-x-8 gap-y-3 border-t py-6 outline-none lg:grid-cols-[minmax(0,1fr)_15rem]">
       <div className="min-w-0">
@@ -108,6 +117,12 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle 
           <Tag>{categoryLabels[o.category]}</Tag>
           {gdprBaseline ? <DeltaBadge delta={o.gdprDelta} /> : null}
           {result.applicability === "assumed" ? <AssumptionBadge /> : null}
+          {useTailored ? (
+            <Tag className="border-brass-rule text-brass">
+              <Sparkles aria-hidden="true" className="size-3.5" />
+              Tailored
+            </Tag>
+          ) : null}
         </div>
 
         {result.applicability === "assumed" ? (
@@ -168,12 +183,29 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle 
           ) : null}
         </dl>
 
-        <h5 className="mt-4 font-sans text-sm font-semibold">Action steps</h5>
+        {useTailored ? (
+          <div className="mt-4 rounded-lg border border-brass-rule bg-card p-3 text-sm">
+            <p className="eyebrow">For your situation · AI-tailored, not reviewed</p>
+            <p className="mt-1.5 max-w-prose">{tailored.explanation}</p>
+          </div>
+        ) : null}
+
+        <h5 className="mt-4 font-sans text-sm font-semibold">Action steps{useTailored ? " (tailored)" : ""}</h5>
         <ol className="mt-1.5 list-decimal space-y-1 pl-5 text-sm">
-          {o.actionSteps.map((s, i) => (
+          {(useTailored ? tailored.steps : o.actionSteps).map((s, i) => (
             <li key={i}>{s}</li>
           ))}
         </ol>
+        {tailored ? (
+          <button
+            type="button"
+            aria-pressed={showStandard}
+            onClick={() => onShowStandard(o.id, !showStandard)}
+            className="no-print mt-2 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
+            {showStandard ? "Show tailored text" : "Show standard text"}
+          </button>
+        ) : null}
 
         <ol className="mt-4 space-y-1 border-t pt-3 text-xs text-muted-foreground" aria-label="Sources">
           {o.sources.map((s, i) => (
@@ -216,8 +248,14 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle 
 /* ── One jurisdiction ─────────────────────────────────────────────────────── */
 
 export function JurisdictionSection({
-  index, section, kb, gdprBaseline, reviewer, checklist, onToggle,
+  index, section, kb, gdprBaseline, reviewer, checklist, onToggle, tailored, showStandard, onShowStandard, aiConsent, developments, onCheckDevelopments,
 }: {
+  tailored: Record<string, Tailored>;
+  showStandard: Record<string, boolean>;
+  onShowStandard: (id: string, standard: boolean) => void;
+  aiConsent: boolean;
+  developments: DevelopmentsState;
+  onCheckDevelopments: () => void;
   index: number;
   section: JurisdictionReport;
   kb: Jurisdiction;
@@ -274,9 +312,21 @@ export function JurisdictionSection({
             reviewer={reviewer}
             done={!!checklist[r.obligation.id]}
             onToggle={onToggle}
+            tailored={tailored[r.obligation.id]}
+            showStandard={!!showStandard[r.obligation.id]}
+            onShowStandard={onShowStandard}
           />
         ))}
       </div>
+
+      <DevelopmentsPanel
+        jurisdiction={section.jurisdiction}
+        name={section.name}
+        lastReviewed={section.lastReviewed}
+        consent={aiConsent}
+        state={developments}
+        onCheck={onCheckDevelopments}
+      />
     </section>
   );
 }
