@@ -104,7 +104,10 @@ for (const variant of ["unknown", "low"] as const) {
       const text = JSON.stringify(doc.blocks);
       expect(text).toContain("Client A");
       expect(text).toContain("3 October 2026");
-      expect(text).toContain("CL 27 September 2026");
+      expect(text).toContain("CN 27 September 2026");
+      // a date the KB marks for review is never shown as firm
+      expect(text).toContain("1 December 2026 *");
+      expect(text).toContain("Entry-into-force date subject to amending legislation, under review");
       expect(text).toContain("not legal advice");
       expect(text).toContain(COVER_PLACEHOLDER);
       expect(text.includes("[Assumption]")).toBe(variant === "unknown");
@@ -125,6 +128,8 @@ for (const variant of ["unknown", "low"] as const) {
       expect((footnotes.match(/<w:footnote /g) ?? []).length).toBeGreaterThanOrEqual(sources);
       expect(document).not.toMatch(/<w:(ins|del|moveFrom|moveTo) /);
       expect(document).toContain("§ 2.1");
+      expect(document).toContain("Entry-into-force date subject to amending legislation, under review");
+      expect(document).toContain("first Board is not yet confirmed");
       expect(document).not.toContain(INTERNAL_LABEL);
       expect(document).not.toContain("[Tailored]");
     });

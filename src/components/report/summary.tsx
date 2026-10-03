@@ -96,13 +96,17 @@ export function ExecutiveSummary({ report, upcoming }: { report: Report; upcomin
           <ul className="mt-3 divide-y text-sm">
             {dated.map((d, i) => (
               <li key={i} className="grid gap-1 py-2 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4">
-                <span className="font-medium tabular-nums">{formatDate(d.date.slice(0, 10))}</span>
+                <span className="font-medium tabular-nums">
+                  {formatDate(d.date.slice(0, 10))}
+                  {d.dateNote ? <span className="mt-0.5 block text-xs font-normal text-status-partial">Not a firm date</span> : null}
+                </span>
                 <span>
                   <a href={`#${jurisdictionAnchor(d.jurisdiction)}`} className="text-muted-foreground underline underline-offset-4">
                     {d.name}
                   </a>
                   : {d.title}
-                  {d.date.length > 10 ? <span className="text-muted-foreground"> — {d.date}</span> : null}{" "}
+                  {d.date.length > 10 ? <span className="text-muted-foreground"> — {d.date}</span> : null}
+                  {d.dateNote ? <span className="font-medium text-status-partial"> — {d.dateNote}.</span> : null}{" "}
                   <a href={d.url} target="_blank" rel="noreferrer" className="text-brass underline underline-offset-4">
                     source
                   </a>

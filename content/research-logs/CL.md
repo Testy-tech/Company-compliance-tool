@@ -42,3 +42,22 @@ A verification run of the developments search with a look-back to 1 January 2025
 - A resolution in the Diario Oficial of 19 December 2025 approving model contractual clauses for cross-border transfers. Relevant to `CL-TRANSFER-01` if confirmed.
 - The Senate did not confirm the first proposed Board members (reported for May 2026).
 - The Government's postponement bill (Boletín 18.623-07), already recorded as an upcoming change.
+
+## Law 21.806 and the postponement bill (2026-10-03)
+
+**What I could load.** The official XML of the consolidated Law 21.719 from Ley Chile (`leychile.cl/Consulta/obtxml?opt=7&idNorma=1209272`), which carries a version date on each article; the Senate's official tracking record for bill 18.623-07; and the Senate's news item on the Board vote. **What I could not load:** the amending article of Law 21.806 itself. Law 21.806 (Diario Oficial, 5 February 2026) is a long public-sector pay-adjustment law with miscellaneous provisions; the XML service returned only its first articles, which deal with pay, and the part that amends Law 21.719 was beyond what the tool returned. Its article number is therefore **not cited** here. The Diario Oficial PDF is needed to cite it.
+
+**Findings from the consolidated text of Law 21.719:**
+
+- **First transitional article (entry into force): unchanged.** Its version date is still the publication date, 13 December 2024. The rule remains the first day of the 24th month after publication, i.e. 1 December 2026.
+- **Fourth transitional article (first Board): amended on 5 February 2026**, the publication date of Law 21.806 and the only transitional article with a later version date. As now in force it has the President propose three first Board members to the Senate six months before the law takes effect, for staggered terms of two, four and six years, to be decided as one slate within a set window; it treats Senate silence as approval, and it bars members of a ministerial advisory commission created in 2025 from the first Board. Which of these elements are new and which were already there I could not tell without the amending text.
+- **Second, third and fifth to eighth transitional articles:** version date 13 December 2024, so unchanged. No phase-in period was altered.
+- **Conclusion:** Law 21.806 did not move the 1 December 2026 date or any phase-in. It only touched the first Board appointments.
+
+**Postponement bill (Boletín 18.623-07).** Senate tracking record: entered 1 September 2026, originating in the Senate; first constitutional stage, awaiting the first report of the Constitution, Legislation, Justice and Regulations committee (also referred to Finance); government "suma" urgency declared on entry and renewed on 8 and 22 September 2026, the last recorded step. Not enacted.
+
+**Board vote.** Senate news item: on 20 May 2026 the proposal of three first Board members did not reach the two-thirds majority required.
+
+**KB changes.** The effective date of Law 21.719 is marked `needs_review` with the note "Entry-into-force date subject to amending legislation, under review", shown next to the date in the report, exports and library page. Two context notes were added for the jurisdiction (date may move; first Board not confirmed). No obligation was changed.
+
+**For counsel:** confirm the amending article of Law 21.806 from the Diario Oficial; confirm whether the bill has moved; decide whether titles that mention 1 December 2026 should be reworded if it is enacted.

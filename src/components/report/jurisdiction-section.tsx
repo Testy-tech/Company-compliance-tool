@@ -277,6 +277,19 @@ export function JurisdictionSection({
       <p className="mt-5 max-w-prose text-sm text-muted-foreground">
         <WithTerms text={kb.scopeNotes} terms={kb.definedTerms} />
       </p>
+      {kb.contextNotes.map((n) => (
+        <aside key={n.title} className="mt-4 max-w-prose rounded-lg border border-status-partial/40 bg-status-partial/8 p-3 text-sm">
+          <p className="font-medium text-status-partial">{n.title}</p>
+          <p className="mt-1">{n.text}</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {n.source.pinpoint} —{" "}
+            <a href={n.source.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+              {new URL(n.source.url).hostname.replace(/^www\./, "")}
+            </a>{" "}
+            · checked {formatDate(n.lastVerified)}
+          </p>
+        </aside>
+      ))}
       <p className="mt-3 text-sm">
         <span className="font-medium tabular-nums">{section.results.length}</span> items
         {gdprBaseline ? (

@@ -90,6 +90,21 @@ export const lawSchema = z.object({
   officialUrl: url,
   status: z.enum(["in_force", "enacted_not_in_force", "draft"]),
   effectiveDate: isoDate.optional(),
+  /**
+   * Set when the effective date itself is in doubt (e.g. amending legislation is
+   * pending). Anything other than "verified" makes the report and exports show
+   * `effectiveDateNote` next to the date instead of presenting it as firm.
+   */
+  effectiveDateConfidence: z.enum(["verified", "needs_review", "unverified"]).optional(),
+  effectiveDateNote: z.string().min(10).optional(),
+});
+
+/** Practical context for a whole jurisdiction (not an obligation): shown above its items in the report, exports and library page. */
+export const contextNoteSchema = z.object({
+  title: z.string().min(5),
+  text: z.string().min(20).max(700),
+  source: sourceSchema,
+  lastVerified: isoDate,
 });
 
 /**
@@ -135,6 +150,7 @@ export const jurisdictionSchema = z.object({
   scopeNotes: z.string().min(40),
   thresholds: z.array(thresholdSchema).default([]),
   definedTerms: z.array(definedTermSchema).default([]),
+  contextNotes: z.array(contextNoteSchema).default([]),
   obligations: z.array(obligationSchema).min(1),
   upcomingChanges: z.array(
     z.object({
@@ -142,11 +158,14 @@ export const jurisdictionSchema = z.object({
       expectedDate: z.string().min(4),
       summary: z.string().min(20),
       sourceUrl: url,
+      /** The date is not firm; shown with this note next to it. */
+      dateNote: z.string().min(10).optional(),
     }),
   ),
   lastReviewed: isoDate,
 });
 
+export type ContextNote = z.infer<typeof contextNoteSchema>;
 export type DefinedTerm = z.infer<typeof definedTermSchema>;
 export type Threshold =z.infer<typeof thresholdSchema>;
 export type Obligation = z.infer<typeof obligationSchema>;

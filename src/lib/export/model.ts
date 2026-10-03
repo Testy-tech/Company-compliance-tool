@@ -155,8 +155,9 @@ function datesToWatch(input: ExportInput): Block[] {
     {
       kind: "table",
       columns: [{ header: "Date", width: 18 }, { header: "Jurisdiction", width: 22 }, { header: "What changes", width: 60 }],
-      rows: dated.map((d) => [formatDate(d.date.slice(0, 10)), d.name, d.title]),
+      rows: dated.map((d) => [`${formatDate(d.date.slice(0, 10))}${d.dateNote ? " *" : ""}`, d.name, `${d.title}${d.dateNote ? ` — ${d.dateNote}.` : ""}`]),
     },
+    ...(dated.some((d) => d.dateNote) ? [p("* Not a firm date: see the note in the row.", "small")] : []),
   ];
 }
 
@@ -332,6 +333,7 @@ function jurisdictionBlocks(input: ExportInput): Block[] {
         "small",
       ),
       p(k.scopeNotes),
+      ...k.contextNotes.map((n): Block => ({ kind: "paragraph", style: "assumption", runs: [{ text: `Note — ${n.title}. `, bold: true }, { text: `${n.text} (${n.source.pinpoint}; checked ${formatDate(n.lastVerified)}.)` }] })),
       ...j.results.flatMap((r) => itemBlocks(r, input)),
     ];
   });

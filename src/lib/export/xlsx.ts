@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs";
 
+import { deadlines } from "@/lib/report/derive";
 import { categoryLabels, confidenceLabels, formatDate, ownerLabels, priorityLabels } from "@/lib/report/labels";
 
 import { ASSUMPTION, DISCLAIMER, INTERNAL_LABEL, questionnaireRows, TAILORED, type ExportInput } from "./model";
@@ -93,6 +94,18 @@ export function buildWorkbook(input: ExportInput): ExcelJS.Workbook {
     ["Open questions", s.openQuestions],
     ["", ""],
   ]);
+  for (const j of report.jurisdictions)
+    for (const n of input.kb.find((k) => k.id === j.jurisdiction)?.contextNotes ?? []) {
+      const row = summary.addRow([`Note — ${j.name}`, `${n.title}. ${n.text} (${n.source.pinpoint}; checked ${formatDate(n.lastVerified)}.)`]);
+      row.getCell(1).font = { bold: true };
+      row.alignment = { vertical: "top", wrapText: true };
+    }
+  for (const d of deadlines(report, input.kb).filter((x) => x.dateNote)) {
+    const row = summary.addRow([`Date to watch — ${d.name}`, `${d.date.slice(0, 10)}: ${d.title} — ${d.dateNote}.`]);
+    row.getCell(1).font = { bold: true };
+    row.alignment = { vertical: "top", wrapText: true };
+  }
+  summary.addRow(["", ""]);
   const head = summary.addRow(["Jurisdiction", "Items · covered · partial · new · assumed"]);
   head.font = { bold: true };
   for (const j of report.jurisdictions)

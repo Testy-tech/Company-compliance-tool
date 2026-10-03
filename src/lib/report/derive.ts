@@ -10,7 +10,19 @@ import { priorityRank } from "./labels";
 
 /* ── Deadlines ────────────────────────────────────────────────────────────── */
 
-export type Deadline = { jurisdiction: JurisdictionId; name: string; date: string; title: string; summary?: string; url: string; kind: "law" | "change" };
+export type Deadline = {
+  jurisdiction: JurisdictionId;
+  name: string;
+  date: string;
+  title: string;
+  summary?: string;
+  url: string;
+  kind: "law" | "change";
+  /** The date is not firm (KB marks it for review); shown next to the date. */
+  dateNote?: string;
+};
+
+const DEFAULT_DATE_NOTE = "Date under review";
 
 /** Laws not yet in force and upcoming changes recorded in the KB, for the assessed countries, earliest first. */
 export function deadlines(report: Report, kb: readonly Jurisdiction[]): Deadline[] {
@@ -20,9 +32,12 @@ export function deadlines(report: Report, kb: readonly Jurisdiction[]): Deadline
     if (!assessed.has(j.id)) continue;
     for (const law of j.laws)
       if (law.status !== "in_force")
-        out.push({ jurisdiction: j.id, name: j.name, date: law.effectiveDate ?? "Date not set", title: `${law.shortName} enters into force`, url: law.officialUrl, kind: "law" });
+        out.push({
+          jurisdiction: j.id, name: j.name, date: law.effectiveDate ?? "Date not set", title: `${law.shortName} enters into force`, url: law.officialUrl, kind: "law",
+          dateNote: law.effectiveDateConfidence && law.effectiveDateConfidence !== "verified" ? law.effectiveDateNote ?? DEFAULT_DATE_NOTE : undefined,
+        });
     for (const c of j.upcomingChanges)
-      out.push({ jurisdiction: j.id, name: j.name, date: c.expectedDate, title: c.title, summary: c.summary, url: c.sourceUrl, kind: "change" });
+      out.push({ jurisdiction: j.id, name: j.name, date: c.expectedDate, title: c.title, summary: c.summary, url: c.sourceUrl, kind: "change", dateNote: c.dateNote });
   }
   // A law's entry into force is often also recorded as an upcoming change: keep the change, which says more.
   const changeDates = new Set(out.filter((d) => d.kind === "change").map((d) => `${d.jurisdiction}|${d.date.slice(0, 10)}`));

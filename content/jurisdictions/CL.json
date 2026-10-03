@@ -15,7 +15,9 @@
       "citation": "Ley 21.719, Diario Oficial 13 Dec 2024 (rewrites Law 19.628 as the 'Ley sobre protección de los datos personales')",
       "officialUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf",
       "status": "enacted_not_in_force",
-      "effectiveDate": "2026-12-01"
+      "effectiveDate": "2026-12-01",
+      "effectiveDateConfidence": "needs_review",
+      "effectiveDateNote": "Entry-into-force date subject to amending legislation, under review"
     }
   ],
   "regulators": [
@@ -23,6 +25,20 @@
   ],
   "officialDomains": ["bcn.cl", "leychile.cl", "diariooficial.interior.gob.cl", "gob.cl", "camara.cl", "senado.cl"],
   "scopeNotes": "IMMINENT CHANGE: Law 21.719 rewrites Law 19.628 into a GDPR-like regime with an independent Data Protection Agency and fines of up to 20,000 UTM, or for large companies up to 2%–4% of annual revenue. Under its first transitory article it enters into force on the first day of the 24th month after publication, i.e. 1 December 2026. On 1 September 2026 the Government announced a bill to postpone entry into force to 1 December 2027; until that bill is enacted, 1 December 2026 remains the legal date. Until then, the 1999 Law 19.628 applies (consent-based, with limited enforcement). The new law recognises legitimate interests, contract and legal obligation as legal bases, requires public transparency information, breach reporting, DPIAs for high-risk processing and safeguards for international transfers.",
+  "contextNotes": [
+    {
+      "title": "The entry-into-force date may move",
+      "text": "Law 21.719 takes effect on the first day of the 24th month after its publication, which is 1 December 2026 (first transitional article, unchanged). A government bill to move that date to 1 December 2027 is before the Senate and was not enacted when last checked. Plan for December 2026 and re-check before relying on either date.",
+      "source": { "url": "https://tramitacion.senado.cl/wspublico/tramitacion.php?boletin=18623", "pinpoint": "Senate bill record 18.623-07 (last step 22 September 2026); Law 21.719, first transitional article" },
+      "lastVerified": "2026-10-03"
+    },
+    {
+      "title": "The Agency's first Board is not yet confirmed",
+      "text": "On 20 May 2026 the Senate did not reach the two-thirds majority needed to confirm the three people proposed for the first Board of the Data Protection Agency. Until a Board is in place, how much supervisory capacity the Agency will have at entry into force is uncertain. This is context for planning; it does not change any obligation below.",
+      "source": { "url": "https://www.senado.cl/comunicaciones/noticias/desestiman-propuesta-de-consejeros-para-la-agencia-de-proteccion-de-datos", "pinpoint": "Senate news item on the vote of 20 May 2026; Law 21.719, fourth transitional article (first Board appointments)" },
+      "lastVerified": "2026-10-03"
+    }
+  ],
   "obligations": [
     {
       "id": "CL-GOVERNANCE-01",
@@ -266,14 +282,15 @@
       "title": "Law 21.719 enters into force — new GDPR-like regime and Data Protection Agency",
       "expectedDate": "2026-12-01",
       "summary": "Entry into force on the first day of the 24th month after publication (13 Dec 2024). Brings legitimate interests, transparency page, 30-day rights deadline, breach reporting, DPIAs, transfer safeguards and fines up to 4% of revenue for large companies.",
-      "sourceUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf"
+      "sourceUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf",
+      "dateNote": "Entry-into-force date subject to amending legislation, under review"
     },
     {
       "title": "Government bill to postpone Law 21.719 to 1 December 2027",
-      "expectedDate": "Announced 2026-09-01; not enacted as of 2026-09-27",
-      "summary": "Would postpone entry into force by one year, enlarge the Agency's Board from three to five members and bring forward the first Board appointments. Until enacted, 1 December 2026 remains the legal date.",
-      "sourceUrl": "https://www.economia.gob.cl/2026/09/01/gobierno-propone-ampliar-plazo-para-implementar-nueva-ley-de-proteccion-de-datos-y-institucionalidad.htm"
+      "expectedDate": "Bill 18.623-07, Senate, first constitutional stage; last step 2026-09-22; not enacted as of 2026-10-03",
+      "summary": "Would postpone entry into force by one year, enlarge the Agency's Board from three to five members and bring forward the first Board appointments. It is before the Senate's Constitution committee (also referred to Finance) with government urgency, renewed on 22 September 2026. Until it is enacted, 1 December 2026 remains the legal date.",
+      "sourceUrl": "https://tramitacion.senado.cl/wspublico/tramitacion.php?boletin=18623"
     }
   ],
-  "lastReviewed": "2026-09-27"
+  "lastReviewed": "2026-10-03"
 }
