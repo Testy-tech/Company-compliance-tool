@@ -31,6 +31,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  openGraph: { siteName: site.name, type: "website", locale: "en" },
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s · ${site.name}`,

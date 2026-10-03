@@ -1,5 +1,7 @@
 export const site = {
   name: "DataBorders",
+  /** Public origin, used for canonical URLs, the sitemap and social cards. Set NEXT_PUBLIC_SITE_URL at deployment. */
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
   tagline: "Cross-border data protection compliance navigator",
   description:
     "Answer a structured questionnaire about your group's footprint and receive a jurisdiction-by-jurisdiction data protection checklist, measured against the GDPR programme you already run.",
