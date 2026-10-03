@@ -43,8 +43,9 @@ export function issueCollector(config: WizardConfig) {
       vars: Record<string, string> = {},
     ) {
       if (answered !== undefined && answered !== "" && answered !== false) return;
-      const { label } = copy(qid, { ...(jurisdiction ? { country: countryName(config, jurisdiction) } : {}), ...vars });
-      issues.push({ anchor: anchorId(qid, jurisdiction), label: jurisdiction ? `${countryName(config, jurisdiction)}: ${label}` : label, message });
+      const country = config.jurisdictions.find((j) => j.id === jurisdiction)?.name;
+      const { label } = copy(qid, { ...(country ? { country } : {}), ...vars });
+      issues.push({ anchor: anchorId(qid, jurisdiction), label: country ? `${country}: ${label}` : label, message });
     },
   };
 }
