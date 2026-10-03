@@ -13,13 +13,26 @@ export type IntakeDraft = {
   updatedAt: string;
 };
 
+/** What the user did on the report: ticked checklist items and the reviewer-mode switch. */
+export type ReportState = {
+  version: 1;
+  /** Obligation id → done. */
+  checklist: Record<string, boolean>;
+  reviewerMode: boolean;
+};
+
+export const emptyReportState = (): ReportState => ({ version: 1, checklist: {}, reviewerMode: false });
+
 export interface IntakeStore {
   load(): IntakeDraft | null;
   save(draft: IntakeDraft): void;
   clear(): void;
+  loadReportState(): ReportState;
+  saveReportState(state: ReportState): void;
 }
 
 const KEY = "databorders.intake.v1";
+const REPORT_KEY = "databorders.report.v1";
 
 export class SessionIntakeStore implements IntakeStore {
   load(): IntakeDraft | null {
@@ -42,8 +55,24 @@ export class SessionIntakeStore implements IntakeStore {
   clear(): void {
     try {
       window.sessionStorage.removeItem(KEY);
+      window.sessionStorage.removeItem(REPORT_KEY);
     } catch {
       /* ignore */
+    }
+  }
+  loadReportState(): ReportState {
+    try {
+      const parsed = JSON.parse(window.sessionStorage.getItem(REPORT_KEY) ?? "null") as ReportState | null;
+      return parsed?.version === 1 ? { ...emptyReportState(), ...parsed } : emptyReportState();
+    } catch {
+      return emptyReportState();
+    }
+  }
+  saveReportState(state: ReportState): void {
+    try {
+      window.sessionStorage.setItem(REPORT_KEY, JSON.stringify(state));
+    } catch {
+      /* ignore: the report still works in memory */
     }
   }
 }

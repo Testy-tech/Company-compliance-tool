@@ -351,6 +351,15 @@ export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx
     notAssessed,
     openQuestions,
     unansweredNoEffect,
+    answeredThresholds: Object.keys(intake.thresholdAnswers)
+      .sort(byString)
+      .flatMap((key) => {
+        const [fact, jurisdiction, n] = key.split("|");
+        const answer = intake.thresholdAnswers[key]!;
+        const j = assessed.find((x) => x.id === jurisdiction);
+        if (!fact || !j || answer.status !== "known" || !Number.isFinite(Number(n))) return [];
+        return [{ key, jurisdiction: j.id, question: `Is the ${labelOf(fact, j.name)} ${number(Number(n))} or more?`, answer: answer.value }];
+      }),
     governance: {
       model: intake.governance.model,
       localContacts: intake.governance.localContacts,

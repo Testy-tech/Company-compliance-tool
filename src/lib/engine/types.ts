@@ -125,6 +125,8 @@ export type Report = {
   openQuestions: OpenQuestion[];
   /** Excluded from the open-question count and from the follow-up questionnaire. */
   unansweredNoEffect: UnansweredNoEffect[];
+  /** Threshold questions already answered in the report (stored in intake.thresholdAnswers), so exports can list them. */
+  answeredThresholds: { key: string; jurisdiction: JurisdictionId; question: string; answer: boolean }[];
   governance: { model: "centralized" | "hub_and_spoke" | "decentralized"; localContacts: boolean; findings: GovernanceFinding[] };
   summary: {
     obligations: number;

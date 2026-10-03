@@ -175,6 +175,34 @@ export function toIntake(draft: Draft) {
   });
 }
 
+/** A validated intake back to an editable draft (used to load the sample assessments). */
+export function fromIntake(intake: Intake): Draft {
+  const asked = <T,>(a: Answer<T> | undefined): A<T> => (a?.status === "not_asked" ? undefined : a);
+  const sites = intake.website.countrySites;
+  return {
+    ...intake,
+    footprint: {
+      ...intake.footprint,
+      entities: intake.footprint.entities.map((e) => ({
+        ...emptyEntity(e.jurisdiction, e.role),
+        ...e,
+        dataStaff: e.dataStaff,
+        unionData: e.unionData,
+        smallBusinessSBA: e.smallBusinessSBA,
+        txSale: asked(e.txSale),
+        transfers: { ...e.transfers, hrOnly: asked(e.transfers.hrOnly) },
+        cn: e.cn ?? { ciio: undefined, importantData: undefined },
+      })),
+    },
+    website: {
+      trackers: intake.website.trackers,
+      consentBanner: intake.website.consentBanner,
+      countrySitesChoice: sites.status !== "known" ? "unknown" : sites.value.length ? "yes" : "no",
+      countrySites: sites.status === "known" ? sites.value : [],
+    },
+  };
+}
+
 /** Finished draft → validated assessment (intake + the date it is assessed as of). */
 export function toAssessment(draft: Draft, assessmentDate: string) {
   const intake = toIntake(draft);
