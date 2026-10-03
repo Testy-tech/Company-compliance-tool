@@ -101,6 +101,11 @@ export const questions = {
     label: "Individuals located in {country} whose data is sold or shared with third parties for advertising (e.g. via ad pixels), per year",
     why: "In California the law applies to any business that buys, sells or shares data of 100,000+ residents, even below the revenue threshold.",
   },
+  "tx-sale": {
+    label: "Do you exchange personal data of Texas residents with third parties for money or other valuable consideration?",
+    why: "Texas requires prior consent before sensitive data is sold, even from small businesses. Sharing data for advertising is not always a sale under Texas law, so we ask about it separately.",
+    help: "Count only people acting in a private capacity. Passing data to a service provider that works on your behalf, to a company in your own group, or as part of a merger is not a sale (Tex. Bus. & Com. Code § 541.001(28)).",
+  },
   "data-subjects": {
     label: "Whose personal data does the group process?",
     why: "Different groups of people trigger different notices, rights and exemptions.",

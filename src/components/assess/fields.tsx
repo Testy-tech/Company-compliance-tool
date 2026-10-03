@@ -203,7 +203,8 @@ export function AnswerRadio({
   columns?: boolean;
 }) {
   const all = [...options, { value: UNKNOWN, label: "Don't know" }, ...(withheld ? [{ value: WITHHELD, label: "Prefer not to say" }] : [])];
-  const current = !value ? undefined : value.status === "known" ? value.value : value.status === "unknown" ? UNKNOWN : WITHHELD;
+  const current =
+    value?.status === "known" ? value.value : value?.status === "unknown" ? UNKNOWN : value?.status === "withheld" ? WITHHELD : undefined;
   return (
     <RadioList
       name={name}

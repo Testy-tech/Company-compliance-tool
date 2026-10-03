@@ -109,6 +109,10 @@ export const facts: readonly FactDef[] = [
     kind: "enum", values: ["only_hr", "mixed", "no"], path: "j.transfers.hrOnly", label: "whether data sent abroad from {country} is only HR data",
     questionId: "transfers-hr-only", resolvable: true, followUp: "Is the data the {country} entity sends abroad mainly employee/HR data needed to manage staff?",
   },
+  bool("j.tx.sale", "exchange of Texas residents' personal data with third parties for money or other valuable consideration", {
+    questionId: "tx-sale", resolvable: true,
+    followUp: "Do you exchange personal data of Texas residents with third parties for money or other valuable consideration?",
+  }),
   bool("j.cn.ciio", "Critical Information Infrastructure Operator status of the China entity", {
     questionId: "cn-ciio", resolvable: true, followUp: "Has the China entity been notified that it is a Critical Information Infrastructure Operator (CIIO)?",
   }),

@@ -124,8 +124,8 @@
       "category": "sensitive_data",
       "title": "Obtain consent before selling consumers' sensitive data — small businesses included (TDPSA)",
       "requirement": "The one TDPSA duty that reaches SBA small businesses: sensitive data of a consumer may not be sold unless the consumer has consented beforehand. A sale means passing personal data to a third party in return for money or other valuable consideration. Businesses that are not small are already bound by the wider consent duty for any processing of sensitive data. Only consumer data is covered — employee and B2B data are outside the TDPSA.",
-      "appliesIf": { "and": [{ "var": "subjects.endUsers" }, { ">": [{ "var": "j.people.other" }, 0] }, { ">": [{ "var": "j.people.soldShared" }, 0] }, { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] }] },
-      "appliesIfNote": "Applies because you sell or share personal data of Texans acting in a private capacity and process sensitive data; SBA small-business status makes no difference to this duty.",
+      "appliesIf": { "and": [{ "var": "subjects.endUsers" }, { ">": [{ "var": "j.people.other" }, 0] }, { "var": "j.tx.sale" }, { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] }] },
+      "appliesIfNote": "Applies because you exchange personal data of Texans acting in a private capacity with third parties for money or other value, and process sensitive data; SBA small-business status makes no difference to this duty.",
       "actionSteps": [
         "Check whether any data passed to third parties for money or other value includes sensitive categories of Texas consumers.",
         "If so, collect opt-in consent before the sale, or stop including sensitive data in those disclosures."

@@ -27,6 +27,7 @@ export type EntityDraft = {
   employeeRep: A<string>;
   unionData: A<boolean>;
   smallBusinessSBA: A<boolean>;
+  txSale: A<boolean>;
   people: { staff: A<string>; business: A<string>; other: A<string>; sensitive: A<string>; soldShared: A<string> };
   transfers: { nonSensitive: A<string>; sensitive: A<string>; hrOnly: A<string> };
   cn: { ciio: A<boolean>; importantData: A<boolean> };
@@ -83,7 +84,7 @@ export function emptyEntity(jurisdiction: CoveredJurisdiction, role: EntityDraft
     entityType: role === "hq" ? "hq" : undefined,
     status: role === "hq" ? "operating" : undefined,
     headcount: undefined, dataStaff: undefined, revenue: undefined, revenueAbove: {},
-    employeeRep: undefined, unionData: undefined, smallBusinessSBA: undefined,
+    employeeRep: undefined, unionData: undefined, smallBusinessSBA: undefined, txSale: undefined,
     people: { staff: undefined, business: undefined, other: undefined, sensitive: undefined, soldShared: undefined },
     transfers: { nonSensitive: undefined, sensitive: undefined, hrOnly: undefined },
     cn: { ciio: undefined, importantData: undefined },
@@ -116,6 +117,12 @@ export function syncHqEntity(draft: Draft, covered: readonly string[]): void {
 export const isUS = (e: EntityDraft) => e.jurisdiction.startsWith("US-");
 export const needsUnionQuestion = (e: EntityDraft) =>
   e.employeeRep?.status === "known" && (e.employeeRep.value === "union" || e.employeeRep.value === "both");
+
+/** Texas: ask whether data is sold for consideration unless the sold/shared count is a known zero. */
+export function needsTxSale(e: EntityDraft): boolean {
+  const s = e.people.soldShared;
+  return e.jurisdiction === "US-TX" && !!s && !(s.status === "known" && s.value === "0");
+}
 
 /** Nothing leaves the country, so the "mainly HR data?" question is skipped. */
 export const sendsNothing = (t: EntityDraft["transfers"]) =>
@@ -156,8 +163,8 @@ export function toIntake(draft: Draft) {
         dataStaff: needsDataStaff(e) ? e.dataStaff : undefined,
         unionData: needsUnionQuestion(e) ? e.unionData : undefined,
         smallBusinessSBA: isUS(e) ? e.smallBusinessSBA : undefined,
-        // Not asked when nothing is sent abroad; "no" keeps the answer resolved without implying an exemption.
-        transfers: sendsNothing(e.transfers) ? { ...e.transfers, hrOnly: { status: "known", value: "no" } } : e.transfers,
+        txSale: e.jurisdiction !== "US-TX" ? undefined : needsTxSale(e) ? e.txSale : e.people.soldShared ? { status: "not_asked" } : undefined,
+        transfers: sendsNothing(e.transfers) ? { ...e.transfers, hrOnly: { status: "not_asked" } } : e.transfers,
         cn: e.jurisdiction === "CN" ? e.cn : undefined,
       })),
     },

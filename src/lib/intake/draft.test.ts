@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { countUnresolved, emptyDraft, emptyEntity, needsDataStaff, syncHqEntity, toIntake, type Draft, type EntityDraft } from "./draft";
+import { countUnresolved, emptyDraft, emptyEntity, needsDataStaff, needsTxSale, syncHqEntity, toIntake, type Draft, type EntityDraft } from "./draft";
 
 const covered = ["IT", "DE", "CN", "SG", "PE", "CL", "US-CA", "US-TX", "KR", "IN"];
 const unknown = { status: "unknown" } as const;
@@ -10,7 +10,7 @@ function answerEntity(e: EntityDraft): EntityDraft {
     ...e,
     entityType: e.entityType ?? "subsidiary",
     status: e.status ?? "operating",
-    headcount: unknown, dataStaff: unknown, revenue: unknown, employeeRep: unknown, smallBusinessSBA: unknown,
+    headcount: unknown, dataStaff: unknown, revenue: unknown, employeeRep: unknown, smallBusinessSBA: unknown, txSale: unknown,
     people: { staff: unknown, business: unknown, other: unknown, sensitive: unknown, soldShared: unknown },
     transfers: { nonSensitive: unknown, sensitive: unknown, hrOnly: unknown },
     cn: { ciio: unknown, importantData: unknown },
@@ -70,5 +70,47 @@ describe("wizard draft", () => {
     const d = allUnknownDraft();
     d.footprint.entities[0]!.headcount = undefined;
     expect(toIntake(d).success).toBe(false);
+  });
+});
+
+describe("skipped questions", () => {
+  it("stores \"Mainly HR data?\" as not_asked, not as an answer, when nothing is sent abroad", () => {
+    const d = allUnknownDraft();
+    const zero = { status: "known", value: "0" } as const;
+    d.footprint.entities[0]!.transfers = { nonSensitive: zero, sensitive: zero, hrOnly: undefined };
+    const result = toIntake(d);
+    expect(result.success, JSON.stringify(result.error?.issues)).toBe(true);
+    expect(result.data!.footprint.entities[0]!.transfers.hrOnly).toEqual({ status: "not_asked" });
+  });
+
+  it("does not count not_asked as an open question", () => {
+    const d = allUnknownDraft();
+    const before = countUnresolved(toIntake(d).data!);
+    const zero = { status: "known", value: "0" } as const;
+    d.footprint.entities[0]!.transfers = { nonSensitive: zero, sensitive: zero, hrOnly: undefined };
+    expect(countUnresolved(toIntake(d).data!)).toBe(before - 3);
+  });
+});
+
+describe("Texas sale follow-up", () => {
+  const tx = emptyEntity("US-TX", "current");
+  const sold = (value: string) => ({ ...tx, people: { ...tx.people, soldShared: { status: "known", value } as const } });
+
+  it("is asked only for Texas, when the sold/shared count is above zero or unknown", () => {
+    expect(needsTxSale(tx)).toBe(false); // sold/shared not answered yet
+    expect(needsTxSale(sold("0"))).toBe(false);
+    expect(needsTxSale(sold("1-9999"))).toBe(true);
+    expect(needsTxSale({ ...tx, people: { ...tx.people, soldShared: unknown } })).toBe(true);
+    expect(needsTxSale({ ...sold("1-9999"), jurisdiction: "US-CA" })).toBe(false);
+  });
+
+  it("is stored as not_asked when the sold/shared count is zero, and left out for other countries", () => {
+    const d = allUnknownDraft();
+    const texas = d.footprint.entities.find((e) => e.jurisdiction === "US-TX")!;
+    texas.people.soldShared = { status: "known", value: "0" };
+    texas.txSale = undefined;
+    const intake = toIntake(d).data!;
+    expect(intake.footprint.entities.find((e) => e.jurisdiction === "US-TX")?.txSale).toEqual({ status: "not_asked" });
+    expect(intake.footprint.entities.find((e) => e.jurisdiction === "US-CA")?.txSale).toBeUndefined();
   });
 });

@@ -1,11 +1,11 @@
 "use client";
 
 import type { BandSetId } from "@/lib/intake/bands";
-import type { EntityDraft } from "@/lib/intake/draft";
+import { needsTxSale, type EntityDraft } from "@/lib/intake/draft";
 import { sensitiveLabels, subjectLabels } from "@/lib/intake/options";
 import { anchorId, type QuestionId } from "@/lib/intake/questions";
 
-import { BandQuestion, CountrySection, FlagList, QuestionGroup } from "../fields";
+import { BandQuestion, CountrySection, FlagList, QuestionGroup, YesNoAnswer } from "../fields";
 import { countryName, issueCollector, type StepDef, type StepProps } from "../types";
 
 /** Per-country counts of individuals (Phase 3 addendum A5, plus the two California-driven questions). */
@@ -48,6 +48,15 @@ function PeopleStep({ draft, update, config, errors }: StepProps) {
                 onChange={(a) => update((d) => void (d.footprint.entities[i]!.people[field] = a))}
               />
             ))}
+            {needsTxSale(e) ? (
+              <QuestionGroup qid="tx-sale" jurisdiction={e.jurisdiction} vars={{ country }} error={errors[anchorId("tx-sale", e.jurisdiction)]}>
+                <YesNoAnswer
+                  name={anchorId("tx-sale", e.jurisdiction)}
+                  value={e.txSale}
+                  onChange={(a) => update((d) => void (d.footprint.entities[i]!.txSale = a))}
+                />
+              </QuestionGroup>
+            ) : null}
           </CountrySection>
         );
       })}
@@ -59,12 +68,14 @@ export const peopleStep: StepDef = {
   id: "people",
   title: "People and data",
   intro: "Whose personal data the group handles, which sensitive categories are involved, and roughly how many people in each country.",
-  questionIds: ["data-subjects", "data-sensitive", ...peopleQuestions.map((q) => q.qid)],
+  questionIds: ["data-subjects", "data-sensitive", ...peopleQuestions.map((q) => q.qid), "tx-sale"],
   validate: (draft, config) => {
     const v = issueCollector(config);
     v.require(Object.values(draft.data.subjects).some(Boolean), "data-subjects", undefined, "Select at least one group of people.");
-    for (const e of draft.footprint.entities)
+    for (const e of draft.footprint.entities) {
       for (const { qid, field } of peopleQuestions) v.require(e.people[field], qid, e.jurisdiction);
+      if (needsTxSale(e)) v.require(e.txSale, "tx-sale", e.jurisdiction);
+    }
     return v.issues;
   },
   Component: PeopleStep,

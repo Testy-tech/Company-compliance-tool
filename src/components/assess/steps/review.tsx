@@ -5,7 +5,7 @@ import { Check, CircleAlert, CircleHelp, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { bandSets, type BandSetId } from "@/lib/intake/bands";
 import {
-  countUnresolved, isUS, needsDataStaff, needsUnionQuestion, sendsNothing, straddledThresholds, toIntake, type Draft,
+  countUnresolved, isUS, needsDataStaff, needsTxSale, needsUnionQuestion, sendsNothing, straddledThresholds, toIntake, type Draft,
 } from "@/lib/intake/draft";
 import { formatUSD } from "@/lib/intake/money";
 import {
@@ -24,6 +24,8 @@ type Row = { label: string; value: string; open?: boolean };
 type Section = { title: string; step: number; rows: Row[] };
 
 const MISSING = "Not answered";
+/** A question the wizard skipped; shown as such, never as an answer. */
+const NOT_APPLICABLE = "Not applicable";
 const lookup = (labels: Record<string, string>) => (v: string) => labels[v] ?? v;
 const list = (values: string[], labels: Record<string, string>) => (values.length ? values.map(lookup(labels)).join(", ") : "None");
 const flags = (record: Record<string, boolean>, labels: Record<string, string>) => list(Object.keys(record).filter((k) => record[k]), labels);
@@ -33,6 +35,7 @@ const yesNo = (v: boolean | undefined) => (v === undefined ? MISSING : v ? "Yes"
 function answerRow<T>(label: string, a: Answer<T> | undefined, format: (v: T) => string): Row {
   if (!a) return { label, value: MISSING };
   if (a.status === "known") return { label, value: format(a.value) };
+  if (a.status === "not_asked") return { label, value: NOT_APPLICABLE };
   return { label, value: a.status === "unknown" ? "Don't know" : "Prefer not to say", open: true };
 }
 const band = (set: BandSetId) => (id: string) => bandSets[set].bands.find((b) => b.id === id)?.label ?? id;
@@ -88,6 +91,9 @@ function summarize(draft: Draft, config: WizardConfig): Section[] {
         answerRow("Other individuals", e.people.other, band("people")),
         answerRow("With sensitive data", e.people.sensitive, band("sensitiveHeld")),
         answerRow("Sold or shared for advertising", e.people.soldShared, band("people")),
+        ...(e.jurisdiction === "US-TX"
+          ? [answerRow("Exchanged for money or other value", needsTxSale(e) ? e.txSale : { status: "not_asked" }, bool)]
+          : []),
       ],
     });
     sections.push({
@@ -96,7 +102,7 @@ function summarize(draft: Draft, config: WizardConfig): Section[] {
       rows: [
         answerRow("Non-sensitive data (individuals)", e.transfers.nonSensitive, band("transfersNonSensitive")),
         answerRow("Sensitive data (individuals)", e.transfers.sensitive, band("transfersSensitive")),
-        ...(sendsNothing(e.transfers) ? [] : [answerRow("Mainly HR data", e.transfers.hrOnly, lookup(hrOnlyLabels))]),
+        answerRow("Mainly HR data", sendsNothing(e.transfers) ? { status: "not_asked" } : e.transfers.hrOnly, lookup(hrOnlyLabels)),
         ...(e.jurisdiction === "CN"
           ? [answerRow("Notified as a CIIO", e.cn.ciio, bool), answerRow("Handles potential ‘important data’", e.cn.importantData, bool)]
           : []),
@@ -208,7 +214,7 @@ function ReviewStep({ draft, config, goTo }: StepProps) {
             {s.rows.map((r) => (
               <div key={r.label} className="grid gap-1 py-2 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-4">
                 <dt className="text-muted-foreground">{r.label}</dt>
-                <dd className={r.value === MISSING ? "font-medium text-destructive" : undefined}>
+                <dd className={r.value === MISSING ? "font-medium text-destructive" : r.value === NOT_APPLICABLE ? "text-muted-foreground" : undefined}>
                   {r.value}
                   {r.open ? (
                     <span className="ml-2 inline-flex items-center gap-1 text-status-partial">
