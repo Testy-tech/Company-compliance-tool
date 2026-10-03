@@ -14,6 +14,15 @@ import type { StepIssue } from "./types";
 
 const noopSubscribe = () => () => {};
 
+/** Scroll to a question and focus it: the group itself for radios/checkboxes, the control for single fields. */
+function focusQuestion(anchor: string): boolean {
+  const el = document.getElementById(anchor);
+  if (!el) return false;
+  el.scrollIntoView({ block: "start" });
+  (el.matches("fieldset") ? el : el.querySelector<HTMLElement>("input, select") ?? el).focus({ preventScroll: true });
+  return true;
+}
+
 /** Step that contains the question a "#q-<id>[-<jurisdiction>]" link points at. */
 function stepForHash(hash: string): number {
   const anchor = hash.replace(/^#/, "");
@@ -63,10 +72,8 @@ function WizardForm({ config }: { config: WizardConfig }) {
   // Idempotent, because React runs effects twice in development.
   useEffect(() => {
     const anchor = pendingAnchor.current;
-    const target = anchor ? document.getElementById(anchor) : null;
-    if (target) {
-      target.scrollIntoView({ block: "start" });
-      target.focus({ preventScroll: true });
+    if (anchor && focusQuestion(anchor)) {
+      // focused the linked question
     } else if (shownStep.current !== step) {
       headingRef.current?.scrollIntoView({ block: "start" });
       headingRef.current?.focus({ preventScroll: true });
@@ -100,9 +107,7 @@ function WizardForm({ config }: { config: WizardConfig }) {
       if (linked < 0) return;
       const anchor = window.location.hash.slice(1);
       if (linked === step) {
-        const target = document.getElementById(anchor);
-        target?.scrollIntoView({ block: "start" });
-        target?.focus({ preventScroll: true });
+        focusQuestion(anchor);
       } else {
         goTo(linked);
         pendingAnchor.current = anchor;
@@ -206,7 +211,7 @@ function WizardForm({ config }: { config: WizardConfig }) {
                     e.preventDefault();
                     const el = document.getElementById(i.anchor);
                     el?.scrollIntoView({ block: "start" });
-                    (el?.querySelector<HTMLElement>("input, select") ?? el)?.focus({ preventScroll: true });
+                    (el?.querySelector<HTMLElement>("input:not(:disabled), select") ?? el)?.focus({ preventScroll: true });
                   }}
                 >
                   {i.label}

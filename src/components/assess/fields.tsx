@@ -81,7 +81,7 @@ export function QuestionGroup({ qid, jurisdiction, vars, error, hint, children }
   const anchor = anchorId(qid, jurisdiction);
   const { label, why, help } = copy(qid, vars);
   return (
-    <fieldset id={anchor} tabIndex={-1} aria-describedby={error ? `${anchor}-error` : undefined} className="min-w-0 outline-none">
+    <fieldset id={anchor} tabIndex={-1} aria-describedby={error ? `${anchor}-error` : undefined} className="min-w-0 rounded focus:outline-2 focus:outline-offset-8 focus:outline-ring">
       <legend className="font-medium text-foreground">{label}</legend>
       {hint ? <p className="mt-1 text-sm text-muted-foreground">{hint}</p> : null}
       <WhyWeAsk why={why} help={help} />
