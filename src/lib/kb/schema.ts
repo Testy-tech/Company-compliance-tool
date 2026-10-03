@@ -81,6 +81,8 @@ export const obligationSchema = z.object({
    * unverified   = official text could not be confirmed; do not rely on it
    */
   confidence: z.enum(["verified", "needs_review", "unverified"]),
+  /** Set when a reviewer flags the item in the review console: what still needs checking. Removed on verification. */
+  reviewNote: z.string().min(5).max(1000).optional(),
 });
 
 export const lawSchema = z.object({
