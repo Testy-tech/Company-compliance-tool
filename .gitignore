@@ -44,3 +44,4 @@ next-env.d.ts
 # local screenshots (large)
 /docs/screenshots/
 /a11y-results.json
+/exports-out/
