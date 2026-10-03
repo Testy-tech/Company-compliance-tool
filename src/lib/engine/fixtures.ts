@@ -84,6 +84,7 @@ export function referenceIntake(variant: "unknown" | "low"): Intake {
       framework: { ropa: true, dpia: true, sccs: true, tia: true, dpo: true, breachProcedure: true, dsarProcedure: true, vendorDpas: true, privacyNotices: true, training: true, retentionSchedule: true },
     },
     governance: { model: "centralized", localContacts: false },
+    thresholdAnswers: {},
   };
 }
 

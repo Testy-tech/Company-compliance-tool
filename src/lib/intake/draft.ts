@@ -59,6 +59,8 @@ export type Draft = {
   };
   framework: { framework: Record<string, boolean> };
   governance: { model?: string; localContacts?: boolean };
+  /** Answers to the report's inline threshold questions; see intakeSchema.thresholdAnswers. */
+  thresholdAnswers: Record<string, Answer<boolean>>;
 };
 
 const allFalse = (keys: readonly string[]) => Object.fromEntries(keys.map((k) => [k, false]));
@@ -74,6 +76,7 @@ export function emptyDraft(): Draft {
     website: { trackers: undefined, consentBanner: undefined, countrySites: [] },
     framework: { framework: allFalse(frameworkKeys) },
     governance: {},
+    thresholdAnswers: {},
   };
 }
 

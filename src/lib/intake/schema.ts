@@ -150,6 +150,12 @@ export const intakeSchema = z.object({
   website: websiteStep,
   framework: frameworkStep,
   governance: governanceStep,
+  /**
+   * Yes/no answers to threshold questions asked in the report when known bands
+   * together straddle a legal threshold ("Is the total 100,000 or more?").
+   * Key: "<fact>|<jurisdiction>|<threshold>".
+   */
+  thresholdAnswers: z.record(z.string(), answer(z.boolean())).default({}),
 });
 
 /**

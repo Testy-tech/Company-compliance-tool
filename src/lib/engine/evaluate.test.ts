@@ -43,6 +43,7 @@ describe("1. all answers known", () => {
   it("has no assumptions and no open questions", () => {
     expect(report.summary.assumed).toBe(0);
     expect(report.openQuestions).toEqual([]);
+    expect(report.unansweredNoEffect).toEqual([]);
     expect(report.jurisdictions.flatMap((j) => j.results).every((r) => r.applicability === "applies" && r.assumptions.length === 0)).toBe(true);
   });
 
@@ -277,8 +278,24 @@ describe("bands and dated thresholds", () => {
     );
     expect(result(report, "PE-DPO_REP-01")).toMatchObject({ applicability: "assumed" });
     const q = report.openQuestions.find((x) => x.kind === "precision")!;
-    expect(q.question).toBe("Is it correct that the total number of individuals located in Peru is at least 100,000?");
+    expect(q.question).toBe("Is the total number of individuals located in Peru 100,000 or more?");
     expect(q.resolveHref).toBeUndefined();
+    expect(q.threshold).toEqual({ key: "j.people.total|PE|100000", fact: "j.people.total", n: 100000 });
+  });
+
+  it("resolves a precision question from the stored yes/no threshold answer", () => {
+    const withAnswer = (value: boolean) =>
+      run(
+        referenceAssessment("low", (i) => {
+          const pe = entityOf(i, "PE");
+          pe.people = { ...pe.people, staff: known("10k-99999"), business: known("10k-99999"), sensitive: known("0") };
+          i.thresholdAnswers = { "j.people.total|PE|100000": known(value) };
+        }),
+      );
+    expect(result(withAnswer(true), "PE-DPO_REP-01")).toMatchObject({ applicability: "applies", assumptions: [] });
+    expect(result(withAnswer(false), "PE-DPO_REP-01")).toBeUndefined();
+    expect(withAnswer(true).openQuestions).toEqual([]);
+    expect(withAnswer(false).openQuestions).toEqual([]);
   });
 });
 
@@ -311,7 +328,34 @@ describe("reference case: every threshold answer is \"Don't know\"", () => {
     const qs = report.openQuestions;
     expect(qs.map((q) => q.impact)).toEqual([...qs.map((q) => q.impact)].sort((a, b) => b - a));
     expect(qs.filter((q) => q.priority)).toEqual(qs.slice(0, 10));
-    expect(qs.slice(0, 10).every((q) => q.impact > 0)).toBe(true);
+  });
+
+  it("counts only questions that affect an obligation; the rest are listed separately", () => {
+    expect(report.openQuestions.every((q) => q.impact > 0)).toBe(true);
+    expect(report.unansweredNoEffect.length).toBeGreaterThan(0);
+    const open = new Set(report.openQuestions.map((q) => q.id));
+    expect(report.unansweredNoEffect.some((u) => open.has(u.id))).toBe(false);
+  });
+
+  it("asks for a total once, as a grouped question with its sub-answers", () => {
+    const q = question(report, "group:j.people.total:US-CA")!;
+    expect(q.kind).toBe("group");
+    expect(q.subAnswers!.map((s) => s.fact)).toEqual(["j.people.staff", "j.people.business", "j.people.other"]);
+    expect(q.subAnswers!.every((s) => s.unresolved && s.answer === "Don't know")).toBe(true);
+    expect(q.resolveHref).toBe("/assess#q-people-staff-US-CA");
+    expect(q.impact).toBeGreaterThan(1);
+    // the three answers are not asked again, neither as open questions nor as "no effect"
+    for (const id of ["people-staff:US-CA", "people-business:US-CA", "people-other:US-CA"]) {
+      expect(question(report, id)).toBeUndefined();
+      expect(report.unansweredNoEffect.find((u) => u.id === id)).toBeUndefined();
+    }
+  });
+
+  it("reports governance findings from owners and categories", () => {
+    const officer = report.governance.findings.find((f) => f.id === "local-officer")!;
+    expect(officer.jurisdictions.length).toBeGreaterThan(1);
+    expect(officer.detail).toMatch(/no named local privacy contacts/);
+    expect(report.governance.findings.every((f) => f.obligationIds.length > 0)).toBe(true);
   });
 
   it("asks group-level questions once across jurisdictions", () => {

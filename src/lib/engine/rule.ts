@@ -35,6 +35,12 @@ export type Pivot = {
   condition: Condition;
 };
 
+/**
+ * Answered threshold questions ("is the total 100,000 or more?"), per fact:
+ * the value is kept on the answered side of each threshold.
+ */
+export type Clamps = Record<string, { n: number; atLeast: boolean }[]>;
+
 export type RuleOutcome = { status: "applies" | "excluded" } | { status: "mixed"; pivots: Pivot[] };
 
 const uniqueSorted = (xs: string[]) => [...new Set(xs)].sort();
@@ -59,7 +65,7 @@ function candidates(path: string, facts: BaseFacts, comparisons: Comparison[]): 
  * @param logic       rule with { threshold } references already replaced by amounts
  * @param rawLogic    the rule as written, to recover which threshold a boundary came from
  */
-export function evaluateRule(logic: JsonLogic, rawLogic: JsonLogic, facts: BaseFacts): RuleOutcome {
+export function evaluateRule(logic: JsonLogic, rawLogic: JsonLogic, facts: BaseFacts, clamps: Clamps = {}): RuleOutcome {
   const vars = uniqueSorted(walkRule(logic).vars);
   const comparisons = collectComparisons(logic);
   const rawComparisons = collectComparisons(rawLogic);
@@ -82,7 +88,12 @@ export function evaluateRule(logic: JsonLogic, rawLogic: JsonLogic, facts: BaseF
   for (;;) {
     open.forEach((p, i) => (current[p] = points[i]![index[i]!]!));
     const flat: Record<string, Scalar> = {};
-    for (const v of vars) flat[v] = derivedFacts[v] ? derivedFacts[v].compute(get) : get(v);
+    for (const v of vars) {
+      let value = derivedFacts[v] ? derivedFacts[v].compute(get) : get(v);
+      if (typeof value === "number")
+        for (const c of clamps[v] ?? []) value = c.atLeast ? Math.max(value, c.n) : Math.min(value, c.n - 1);
+      flat[v] = value;
+    }
     const result = Boolean(jsonLogic.apply(logic as never, buildContext(flat as Record<string, string | number | boolean>)));
     rows.push({ values: openVars.map((v) => flat[v]!), result });
 

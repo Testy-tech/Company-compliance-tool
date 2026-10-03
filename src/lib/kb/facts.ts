@@ -90,7 +90,9 @@ export const facts: readonly FactDef[] = [
     kind: "count", bandSet: "people", path: "j.people.other", label: "number of other individuals (end users, site visitors, public) located in {country}",
     questionId: "people-other", resolvable: true, followUp: "Roughly how many other individuals (end users, site visitors, members of the public) located in {country} do you hold personal data about?",
   },
-  { kind: "count", bandSet: "people", path: "j.people.total", label: "total number of individuals located in {country}", derived: true },
+  { kind: "count", bandSet: "people", path: "j.people.total", label: "total number of individuals located in {country}", derived: true,
+    followUp: "Roughly how many individuals located in {country} do you hold personal data about in total (employees and contractors, business contacts, and others)?",
+  },
   {
     kind: "count", bandSet: "sensitiveHeld", path: "j.people.sensitive", label: "number of individuals located in {country} whose sensitive data you hold",
     questionId: "people-sensitive", resolvable: true, followUp: "Roughly how many individuals located in {country} do you hold sensitive personal data about per year?",
@@ -182,7 +184,9 @@ export const facts: readonly FactDef[] = [
   },
 
   // ── Infrastructure and flows ────────────────────────────────────────────────
-  bool("flows.exportsOut", "personal data leaving {country}", { derived: true }),
+  bool("flows.exportsOut", "personal data leaving {country}", {
+    derived: true, followUp: "Does the {country} entity send any personal data outside {country}, and roughly how many individuals' data per year?",
+  }),
   bool("flows.groupAccessFromAbroad", "access to {country} data by group entities abroad", { questionId: "flows-group-access" }),
   bool("flows.localProcessesForGroup", "the {country} entity processing data on behalf of other group entities"),
   bool("flows.hostedLocally", "hosting of {country} data inside {country}"),

@@ -64,14 +64,20 @@ export type ObligationResult = {
   penalty?: PenaltyExposure;
 };
 
+/** One answer inside a grouped open question. */
+export type SubAnswer = { fact: string; questionId: string; label: string; answer: string; unresolved: boolean };
+
+/** An unresolved answer or band that at least one reported obligation hinges on (impact > 0). */
 export type OpenQuestion = {
   /** Stable key: one per unresolved answer, however many obligations or facts depend on it. */
   id: string;
   /**
    * `unresolved`: a "Don't know" / "Prefer not to say" answer.
-   * `precision`: the answers are known bands, but together they straddle a threshold.
+   * `group`: several unresolved answers that are summed into one fact (e.g. total individuals); asked once.
+   * `precision`: the answers are known bands, but together they straddle a threshold; asked as a yes/no
+   *              question in the report and stored in intake.thresholdAnswers.
    */
-  kind: "unresolved" | "precision";
+  kind: "unresolved" | "group" | "precision";
   questionId: string;
   /** Fact paths this answer feeds. */
   facts: string[];
@@ -80,6 +86,10 @@ export type OpenQuestion = {
   /** Client-facing follow-up question. */
   question: string;
   whyItMatters: string;
+  /** `group` only: the answers that make up the total. */
+  subAnswers?: SubAnswer[];
+  /** `precision` only: the yes/no threshold question ("is <fact> n or more?") and where its answer is stored. */
+  threshold?: { key: string; fact: string; n: number };
   /** Obligations reported as "assumed" that hinge on this answer. */
   obligationIds: string[];
   jurisdictions: JurisdictionId[];
@@ -87,9 +97,14 @@ export type OpenQuestion = {
   impact: number;
   /** The ten highest-impact questions, for the executive summary. */
   priority: boolean;
-  /** Deep link back into the wizard; absent when no wizard question can settle it. */
+  /** Deep link back into the wizard; absent for `precision` questions, which are answered in the report. */
   resolveHref?: string;
 };
+
+/** An unresolved answer that no reported obligation depends on. Not an open question; listed collapsed. */
+export type UnansweredNoEffect = { id: string; questionId: string; jurisdiction?: JurisdictionId; question: string; resolveHref?: string };
+
+export type GovernanceFinding = { id: string; title: string; detail: string; jurisdictions: JurisdictionId[]; obligationIds: string[] };
 
 export type JurisdictionReport = {
   jurisdiction: JurisdictionId;
@@ -106,8 +121,11 @@ export type Report = {
   gdprBaseline: boolean;
   jurisdictions: JurisdictionReport[];
   notAssessed: string[];
-  /** Sorted by impact, highest first. */
+  /** Impact > 0 only, sorted by impact, highest first. */
   openQuestions: OpenQuestion[];
+  /** Excluded from the open-question count and from the follow-up questionnaire. */
+  unansweredNoEffect: UnansweredNoEffect[];
+  governance: { model: "centralized" | "hub_and_spoke" | "decentralized"; localContacts: boolean; findings: GovernanceFinding[] };
   summary: {
     obligations: number;
     assumed: number;
