@@ -1,8 +1,8 @@
 import type { Obligation, ObligationCategory, JurisdictionId } from "@/lib/kb/schema";
 
 /*
- * Engine contract: evaluate(intake, knowledgeBase, options) → Report.
- * Implemented in Phase 4; defined now so the KB, wizard and report agree on it.
+ * Engine contract: evaluate(assessment, knowledgeBase, fx) → Report. A pure
+ * function: no clock, no I/O, so the same assessment always gives the same report.
  *
  * Unresolved answers ("Don't know" / "Prefer not to say") are handled
  * conservatively: numeric facts become intervals and each rule is evaluated at
@@ -22,20 +22,35 @@ export type Applicability = "applies" | "assumed";
 export type Assumption = {
   /** Fact path, e.g. "j.transfers.nonSensitive". */
   fact: string;
-  /** Wizard question to revisit ("Resolve"). */
-  questionId: string;
   /** The value (or range) assumed, in display form, e.g. "≥ 1,000,000". */
   assumedValue: string;
-  /** Plain-English sentence, e.g. "Assumed China transfers exceed 1,000,000 individuals/year". */
+  /** Plain-English sentence, e.g. "Assumed number of individuals whose non-sensitive data China sends abroad per year is at least 1,000,000". */
   sentence: string;
+  /** Open questions (by id) that would settle this assumption. */
+  openQuestionIds: string[];
 };
 
 export type Alternative = {
   obligationId: string;
   title: string;
-  /** When this less strict tier would apply instead, e.g. "if China transfers are 100,000–999,999 individuals/year". */
+  /** When this less strict tier would apply instead, e.g. "if … is between 100,000 and 999,999". */
   condition: string;
 };
+
+export type PenaltyExposure =
+  | { kind: "computed"; amount: number; currency: string; basis: string }
+  | {
+      kind: "formula";
+      /** The statutory maximum as stated in the KB. */
+      formula: string;
+      /**
+       * Why no figure is computed. `not_computable`: revenue is known, but the KB
+       * holds penalties as text only (no structured percentage to apply).
+       */
+      reason: "revenue_not_provided" | "revenue_unknown" | "not_revenue_based" | "not_computable";
+      /** Shown next to the formula, e.g. "Revenue not provided". */
+      note?: string;
+    };
 
 export type ObligationResult = {
   jurisdiction: JurisdictionId;
@@ -46,22 +61,35 @@ export type ObligationResult = {
   /** Section numbering in the report, e.g. "3.4". */
   paragraph: string;
   roadmapBucket: 30 | 60 | 90;
+  penalty?: PenaltyExposure;
 };
 
 export type OpenQuestion = {
+  /** Stable key: one per unresolved answer, however many obligations or facts depend on it. */
+  id: string;
+  /**
+   * `unresolved`: a "Don't know" / "Prefer not to say" answer.
+   * `precision`: the answers are known bands, but together they straddle a threshold.
+   */
+  kind: "unresolved" | "precision";
   questionId: string;
-  fact: string;
+  /** Fact paths this answer feeds. */
+  facts: string[];
+  /** Set for per-country questions. */
+  jurisdiction?: JurisdictionId;
   /** Client-facing follow-up question. */
   question: string;
   whyItMatters: string;
-  affects: { jurisdiction: JurisdictionId; obligationIds: string[] }[];
-  /** Deep link back into the wizard. */
-  resolveHref: string;
+  /** Obligations reported as "assumed" that hinge on this answer. */
+  obligationIds: string[];
+  jurisdictions: JurisdictionId[];
+  /** Number of obligations whose applicability this answer bears on (= obligationIds.length). */
+  impact: number;
+  /** The ten highest-impact questions, for the executive summary. */
+  priority: boolean;
+  /** Deep link back into the wizard; absent when no wizard question can settle it. */
+  resolveHref?: string;
 };
-
-export type PenaltyExposure =
-  | { kind: "computed"; amount: number; currency: string; basis: string }
-  | { kind: "formula"; formula: string; reason: "revenue_not_provided" | "revenue_unknown" | "not_revenue_based" };
 
 export type JurisdictionReport = {
   jurisdiction: JurisdictionId;
@@ -73,12 +101,12 @@ export type JurisdictionReport = {
 };
 
 export type Report = {
-  generatedAt: string;
   assessmentDate: string;
   /** GDPR-delta columns are shown only when the user indicated a GDPR baseline. */
   gdprBaseline: boolean;
   jurisdictions: JurisdictionReport[];
   notAssessed: string[];
+  /** Sorted by impact, highest first. */
   openQuestions: OpenQuestion[];
   summary: {
     obligations: number;
