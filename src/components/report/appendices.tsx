@@ -1,55 +1,89 @@
 import type { ObligationResult, Report } from "@/lib/engine/types";
 import type { Jurisdiction } from "@/lib/kb/schema";
-import type { TransferFlow } from "@/lib/report/derive";
-import { governanceModelLabels, jurisdictionAnchor, ownerLabels } from "@/lib/report/labels";
+import { governanceModelLabels, jurisdictionAnchor, ownerLabels, questionAnchor } from "@/lib/report/labels";
 
 import { AssumptionBadge, ItemLink } from "./parts";
 
 /* ── A. Transfer map ──────────────────────────────────────────────────────── */
 
-export function TransferMap({ flows }: { flows: TransferFlow[] }) {
-  if (!flows.length) return <p className="text-sm text-muted-foreground">On your answers, no assessed entity sends personal data to another country.</p>;
+const statusLabel = { applies: "Required", none: "Nothing required" } as const;
+
+export function TransferMap({ report }: { report: Report }) {
+  const { flows } = report;
+  const byId = new Map(report.jurisdictions.flatMap((j) => j.results).map((r) => [r.obligation.id, r]));
+  if (!flows.length) return <p className="text-sm text-muted-foreground">On your answers, no assessed entity sends personal data to another entity, provider or country.</p>;
   return (
     <div>
       <p className="max-w-prose text-sm text-muted-foreground">
-        One row per country that sends personal data abroad. The assessment asks how much data leaves each country, not who receives each part of it, so the
-        destination is described rather than listed entity by entity.
+        One row per flow, from the entity that sends personal data to where it goes. The mechanism is the one required by the exporting country; the importing
+        country&apos;s own duties are in its section above.
       </p>
       <div className="relative mt-4 overflow-x-auto rounded-lg border" tabIndex={0} role="region" aria-label="Transfer map">
-        <table className="w-full min-w-[46rem] border-collapse text-left text-sm">
+        <table className="w-full min-w-[52rem] border-collapse text-left text-sm">
           <thead>
             <tr className="border-b bg-secondary">
               <th scope="col" className="px-3 py-2 font-medium">From</th>
               <th scope="col" className="px-3 py-2 font-medium">To</th>
-              <th scope="col" className="px-3 py-2 font-medium">Individuals per year</th>
-              <th scope="col" className="px-3 py-2 font-medium">Mechanism required at origin</th>
+              <th scope="col" className="px-3 py-2 font-medium">Mechanism required by the exporting country</th>
+              <th scope="col" className="px-3 py-2 font-medium">Owner</th>
+              <th scope="col" className="px-3 py-2 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
-            {flows.map((f) => (
-              <tr key={f.jurisdiction} className="border-b align-top last:border-0">
+            {flows.map((f, i) => (
+              <tr key={f.id} className="border-b align-top last:border-0">
                 <th scope="row" className="px-3 py-3 font-medium">
-                  <a href={`#${jurisdictionAnchor(f.jurisdiction)}`} className="underline decoration-brass-rule underline-offset-4">
-                    {f.from}
-                  </a>
+                  {flows[i - 1]?.origin === f.origin ? (
+                    <span className="sr-only">{f.originName}</span>
+                  ) : (
+                    <a href={`#${jurisdictionAnchor(f.origin)}`} className="underline decoration-brass-rule underline-offset-4">
+                      {f.originName}
+                    </a>
+                  )}
                 </th>
-                <td className="px-3 py-3">{f.to}</td>
                 <td className="px-3 py-3">
-                  Non-sensitive: {f.nonSensitive}
-                  <br />
-                  Sensitive: {f.sensitive}
+                  {f.destination.name}
+                  {f.destination.remoteAccess ? <span className="block text-xs text-muted-foreground">Remote access to local systems</span> : null}
                 </td>
                 <td className="px-3 py-3">
-                  {f.mechanisms.length ? (
-                    <ul className="space-y-1.5">
-                      {f.mechanisms.map((m) => (
-                        <li key={m.obligation.id}>
-                          <ItemLink result={m} /> {m.applicability === "assumed" ? <AssumptionBadge className="ml-1 align-middle" /> : null}
-                        </li>
+                  {f.mechanism}
+                  {f.note ? <span className="mt-1 block text-xs text-muted-foreground">{f.note}</span> : null}
+                  {f.obligationIds.length ? (
+                    <span className="mt-1 block text-xs">
+                      {f.obligationIds.map((id, k) => (
+                        <span key={id}>
+                          {k ? ", " : ""}
+                          <ItemLink result={byId.get(id)!} showTitle={false} />
+                        </span>
                       ))}
-                    </ul>
+                    </span>
+                  ) : null}
+                  {f.sources?.length ? (
+                    <span className="mt-1 block text-xs text-muted-foreground">
+                      {f.sources.map((s, k) => (
+                        <span key={k}>
+                          {k ? "; " : ""}
+                          <a href={s.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+                            {s.pinpoint}
+                          </a>
+                        </span>
+                      ))}
+                    </span>
+                  ) : null}
+                </td>
+                <td className="px-3 py-3">{f.owner ? ownerLabels[f.owner] : <span className="text-muted-foreground">—</span>}</td>
+                <td className="px-3 py-3">
+                  {f.status === "assumed" ? (
+                    <>
+                      <AssumptionBadge />
+                      {f.openQuestionIds.map((id) => (
+                        <a key={id} href={`#${questionAnchor(id)}`} className="no-print mt-1 block text-xs underline underline-offset-4">
+                          Open question
+                        </a>
+                      ))}
+                    </>
                   ) : (
-                    <span className="text-muted-foreground">No transfer item applies on your answers</span>
+                    <span className={f.status === "none" ? "text-muted-foreground" : undefined}>{statusLabel[f.status]}</span>
                   )}
                 </td>
               </tr>

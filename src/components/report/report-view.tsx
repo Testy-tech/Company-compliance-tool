@@ -11,7 +11,7 @@ import { emptyDraft, fromIntake, toAssessment, type Draft } from "@/lib/intake/d
 import type { FxTable } from "@/lib/intake/money";
 import { SessionIntakeStore, type IntakeDraft } from "@/lib/intake/store";
 import type { Jurisdiction } from "@/lib/kb/schema";
-import { deadlines, transferFlows } from "@/lib/report/derive";
+import { deadlines } from "@/lib/report/derive";
 import { formatDate, jurisdictionAnchor } from "@/lib/report/labels";
 
 import { Glossary, GovernanceFindings, Roadmap, TransferMap } from "./appendices";
@@ -218,7 +218,7 @@ function ReportBody({ kb, fx }: Props) {
         <section aria-labelledby="transfers">
           <ReportHeading id="transfers" mark="A" eyebrow="Appendix">Transfer map</ReportHeading>
           <div className="mt-6">
-            <TransferMap flows={transferFlows(report, intake)} />
+            <TransferMap report={report} />
           </div>
         </section>
 

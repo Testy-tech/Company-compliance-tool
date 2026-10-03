@@ -1,6 +1,4 @@
 import type { ObligationResult, Report } from "@/lib/engine/types";
-import { bandSets, type BandSetId } from "@/lib/intake/bands";
-import type { Answer, Intake } from "@/lib/intake/schema";
 import type { Jurisdiction, JurisdictionId } from "@/lib/kb/schema";
 
 import { priorityRank } from "./labels";
@@ -9,50 +7,6 @@ import { priorityRank } from "./labels";
  * View models the report builds from the engine output, the intake and the KB.
  * Presentation only: nothing here decides whether an obligation applies.
  */
-
-const bandLabel = (set: BandSetId, a: Answer<string>): string =>
-  a.status === "known" ? bandSets[set].bands.find((b) => b.id === a.value)?.label ?? a.value : a.status === "not_asked" ? "Not applicable" : "Don't know";
-
-/* ── Transfer map ─────────────────────────────────────────────────────────── */
-
-export type TransferFlow = {
-  jurisdiction: JurisdictionId;
-  from: string;
-  to: string;
-  nonSensitive: string;
-  sensitive: string;
-  /** Cross-border transfer items that apply at the origin. */
-  mechanisms: ObligationResult[];
-};
-
-/**
- * One row per assessed country that sends data abroad (or may do). The intake
- * asks how much leaves each country, not who receives it, so the destination is
- * described rather than listed entity by entity.
- */
-export function transferFlows(report: Report, intake: Intake): TransferFlow[] {
-  const hq = report.jurisdictions.find((j) => j.role === "hq");
-  const remote = intake.infrastructure.groupAccessFromAbroad;
-  return report.jurisdictions.flatMap((j) => {
-    const e = intake.footprint.entities.find((x) => x.jurisdiction === j.jurisdiction)!;
-    const none = (a: Answer<string>) => a.status === "known" && a.value === "0";
-    if (none(e.transfers.nonSensitive) && none(e.transfers.sensitive) && !remote) return [];
-    const to =
-      j.role === "hq"
-        ? "Group entities and service providers in other countries"
-        : `${hq ? `${hq.name} (headquarters)` : "Headquarters"}${remote ? ", including remote access to local systems" : ""}, and other recipients abroad`;
-    return [
-      {
-        jurisdiction: j.jurisdiction,
-        from: `${j.name}${j.role === "hq" ? " (headquarters)" : ""}`,
-        to,
-        nonSensitive: bandLabel("transfersNonSensitive", e.transfers.nonSensitive),
-        sensitive: bandLabel("transfersSensitive", e.transfers.sensitive),
-        mechanisms: j.results.filter((r) => r.obligation.category === "cross_border_transfer"),
-      },
-    ];
-  });
-}
 
 /* ── Deadlines ────────────────────────────────────────────────────────────── */
 
