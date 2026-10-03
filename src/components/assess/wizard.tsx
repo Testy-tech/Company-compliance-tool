@@ -6,7 +6,7 @@ import { Check, ChevronLeft, ChevronRight, CircleAlert, RotateCcw } from "lucide
 import { Button } from "@/components/ui/button";
 import { emptyDraft, type Draft } from "@/lib/intake/draft";
 import { SessionIntakeStore } from "@/lib/intake/store";
-import type { WizardConfig } from "@/lib/kb/wizard-config";
+import { wizardConfigAt, type WizardSource } from "@/lib/kb/wizard-config";
 import { cn } from "@/lib/utils";
 
 import { steps } from "./steps";
@@ -43,14 +43,14 @@ function stepForHash(hash: string): number {
   return best;
 }
 
-export function Wizard({ config }: { config: WizardConfig }) {
+export function Wizard({ source }: { source: WizardSource }) {
   // Answers live in sessionStorage, so the form is rendered on the client only.
   const isClient = useSyncExternalStore(noopSubscribe, () => true, () => false);
   if (!isClient) return <p className="text-muted-foreground">Loading your saved answers…</p>;
-  return <WizardForm config={config} />;
+  return <WizardForm source={source} />;
 }
 
-function WizardForm({ config }: { config: WizardConfig }) {
+function WizardForm({ source }: { source: WizardSource }) {
   const store = useMemo(() => new SessionIntakeStore(), []);
   const [initial] = useState(() => {
     const saved = store.load();
@@ -62,6 +62,8 @@ function WizardForm({ config }: { config: WizardConfig }) {
 
   const [draft, setDraft] = useState(initial.draft);
   const [assessmentDate, setAssessmentDate] = useState(initial.assessmentDate);
+  // Thresholds are the ones in effect on the assessment's own date, not on the build date.
+  const config = useMemo(() => wizardConfigAt(source, assessmentDate), [source, assessmentDate]);
   const [step, setStep] = useState(initial.step);
   const [reached, setReached] = useState(initial.reached);
   const [issues, setIssues] = useState<StepIssue[]>([]);
