@@ -106,6 +106,19 @@ export const thresholdSchema = z.object({
   source: sourceSchema,
 });
 
+/**
+ * A statutory term whose meaning differs between laws (e.g. "consumer"). The
+ * report shows these as a glossary / tooltip next to `requirement` text.
+ */
+export const definedTermSchema = z.object({
+  term: z.string().min(2),
+  /** Short name of the law the definition comes from, e.g. "CCPA". */
+  law: z.string().min(2),
+  /** Plain-language meaning, in our own words. */
+  definition: z.string().min(20).max(500),
+  source: sourceSchema,
+});
+
 export const jurisdictionSchema = z.object({
   id: z.enum(["IT", "DE", "CN", "SG", "PE", "CL", "US-CA", "US-TX", "KR", "IN"]),
   name: z.string().min(2),
@@ -113,6 +126,7 @@ export const jurisdictionSchema = z.object({
   regulators: z.array(z.object({ name: z.string().min(2), url })).min(1),
   scopeNotes: z.string().min(40),
   thresholds: z.array(thresholdSchema).default([]),
+  definedTerms: z.array(definedTermSchema).default([]),
   obligations: z.array(obligationSchema).min(1),
   upcomingChanges: z.array(
     z.object({
@@ -125,7 +139,8 @@ export const jurisdictionSchema = z.object({
   lastReviewed: isoDate,
 });
 
-export type Threshold = z.infer<typeof thresholdSchema>;
+export type DefinedTerm = z.infer<typeof definedTermSchema>;
+export type Threshold =z.infer<typeof thresholdSchema>;
 export type Obligation = z.infer<typeof obligationSchema>;
 export type Jurisdiction = z.infer<typeof jurisdictionSchema>;
 export type JurisdictionId = Jurisdiction["id"];

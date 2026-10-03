@@ -37,6 +37,20 @@
     { "name": "Office of the Texas Attorney General — Consumer Protection Division", "url": "https://www.texasattorneygeneral.gov/consumer-protection" }
   ],
   "scopeNotes": "The TDPSA applies to persons conducting business in Texas (or producing products/services consumed by Texans) that process or sell personal data and are not small businesses under the US SBA definitions; small businesses must still obtain consent before selling sensitive data. Crucially, a 'consumer' is a Texas resident acting in an individual or household context and excludes individuals acting in a commercial or employment context — so employee, applicant and B2B contact data fall outside the TDPSA. Employee biometrics are, however, relevant under CUBI, and breach notification (ch. 521) applies to all personal information of Texans. The Attorney General has exclusive enforcement authority; there is no private right of action under the TDPSA.",
+  "definedTerms": [
+    {
+      "term": "consumer",
+      "law": "TDPSA",
+      "definition": "A Texas resident acting in a personal or household capacity only. People acting in a commercial or employment context are excluded, so employees, job applicants and business contacts are not consumers under this law — the opposite of California.",
+      "source": { "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "Bus. & Com. Code § 541.001(7)" }
+    },
+    {
+      "term": "sale of personal data",
+      "law": "TDPSA",
+      "definition": "Passing personal data to a third party in return for money or other valuable consideration. The statute lists exceptions (not encoded here), such as disclosures to a processor acting for the controller.",
+      "source": { "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "Bus. & Com. Code § 541.001(28)" }
+    }
+  ],
   "obligations": [
     {
       "id": "US-TX-SENSITIVE-01",

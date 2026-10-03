@@ -62,6 +62,10 @@ export function validateJurisdiction(
     if (!isOfficial(law.officialUrl))
       issues.push({ level: "warning", where: `${fileId}:laws`, message: `non-official URL for ${law.shortName}: ${law.officialUrl}` });
 
+  for (const d of j.definedTerms)
+    if (!isOfficial(d.source.url))
+      issues.push({ level: "warning", where: `${fileId}:definedTerms`, message: `non-official source for "${d.term}": ${d.source.url}` });
+
   const thresholdIds = new Set(j.thresholds.map((t) => t.id));
   for (const t of j.thresholds) {
     if (!t.id.startsWith(`${j.id}-`)) issues.push({ level: "error", where: `${fileId}:thresholds`, message: `threshold id "${t.id}" must start with "${j.id}-"` });

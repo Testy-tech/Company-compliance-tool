@@ -49,6 +49,20 @@
       "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Updated 2025 amount, Civ. Code § 1798.199.95(d)" }
     }
   ],
+  "definedTerms": [
+    {
+      "term": "consumer",
+      "law": "CCPA",
+      "definition": "Any individual who is a California resident. Despite the everyday meaning of the word, this includes your employees, job applicants, contractors and business contacts in California, not only private customers.",
+      "source": { "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.140", "pinpoint": "Civ. Code § 1798.140(i)" }
+    },
+    {
+      "term": "sell / share",
+      "law": "CCPA",
+      "definition": "Selling is passing personal information to a third party for money or other value. Sharing is disclosing it to a third party for cross-context behavioural advertising, even when nothing is paid — which is how advertising pixels are commonly caught.",
+      "source": { "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.140", "pinpoint": "Civ. Code § 1798.140(ad), (ah)" }
+    }
+  ],
   "obligations": [
     {
       "id": "US-CA-NOTICE-01",
