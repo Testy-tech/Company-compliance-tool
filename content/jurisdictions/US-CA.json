@@ -38,7 +38,8 @@
       "amount": 25000000,
       "currency": "USD",
       "effectiveDate": "2023-01-01",
-      "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Previous amount (before 1 Jan 2025 adjustment)" }
+      "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Previous amount (before 1 Jan 2025 adjustment)" },
+      "confidence": "needs_review"
     },
     {
       "id": "US-CA-CCPA_REVENUE",
@@ -46,7 +47,8 @@
       "amount": 26625000,
       "currency": "USD",
       "effectiveDate": "2025-01-01",
-      "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Updated 2025 amount, Civ. Code § 1798.199.95(d)" }
+      "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Updated 2025 amount, Civ. Code § 1798.199.95(d)" },
+      "confidence": "needs_review"
     }
   ],
   "definedTerms": [

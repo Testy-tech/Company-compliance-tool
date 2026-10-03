@@ -104,6 +104,8 @@ export const thresholdSchema = z.object({
   currency: z.enum(["USD", "EUR"]),
   effectiveDate: isoDate,
   source: sourceSchema,
+  /** Same scale as obligations; automated research never sets "verified". */
+  confidence: z.enum(["verified", "needs_review", "unverified"]),
 });
 
 /**
