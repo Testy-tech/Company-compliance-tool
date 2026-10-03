@@ -53,25 +53,25 @@ function WizardForm({ config }: { config: WizardConfig }) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
   const pendingAnchor = useRef<string | null>(initial.anchor);
-  const firstRender = useRef(true);
+  const shownStep = useRef(initial.step);
 
   useEffect(() => {
     store.save({ version: 1, step, values: draft, updatedAt: new Date().toISOString() });
   }, [store, draft, step]);
 
   // On a step change, move focus to the step heading — or to the question a "Resolve" link asked for.
+  // Idempotent, because React runs effects twice in development.
   useEffect(() => {
     const anchor = pendingAnchor.current;
-    pendingAnchor.current = null;
     const target = anchor ? document.getElementById(anchor) : null;
     if (target) {
       target.scrollIntoView({ block: "start" });
       target.focus({ preventScroll: true });
-    } else if (!firstRender.current) {
+    } else if (shownStep.current !== step) {
       headingRef.current?.scrollIntoView({ block: "start" });
       headingRef.current?.focus({ preventScroll: true });
     }
-    firstRender.current = false;
+    shownStep.current = step;
   }, [step]);
 
   useEffect(() => {
@@ -87,14 +87,40 @@ function WizardForm({ config }: { config: WizardConfig }) {
   }, []);
 
   const goTo = useCallback((i: number) => {
+    pendingAnchor.current = null;
     setIssues([]);
     setStep(i);
     setReached((r) => Math.max(r, i));
   }, []);
 
+  // A "Resolve" link followed while the wizard is already open only changes the hash.
+  useEffect(() => {
+    function onHashChange() {
+      const linked = stepForHash(window.location.hash);
+      if (linked < 0) return;
+      const anchor = window.location.hash.slice(1);
+      if (linked === step) {
+        const target = document.getElementById(anchor);
+        target?.scrollIntoView({ block: "start" });
+        target?.focus({ preventScroll: true });
+      } else {
+        goTo(linked);
+        pendingAnchor.current = anchor;
+      }
+    }
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, [step, goTo]);
+
   const current = steps[step]!;
   const isLast = step === steps.length - 1;
-  const errors = useMemo(() => Object.fromEntries(issues.map((i) => [i.anchor, i.message])), [issues]);
+  // After a failed "Next", keep only the problems that are still open as the user answers them.
+  const openIssues = useMemo(() => {
+    if (!issues.length) return issues;
+    const still = new Set(current.validate(draft, config).map((i) => i.anchor));
+    return issues.filter((i) => still.has(i.anchor));
+  }, [issues, current, draft, config]);
+  const errors = useMemo(() => Object.fromEntries(openIssues.map((i) => [i.anchor, i.message])), [openIssues]);
 
   function next() {
     const found = current.validate(draft, config);
@@ -164,14 +190,14 @@ function WizardForm({ config }: { config: WizardConfig }) {
         <p className="mt-4 max-w-prose text-muted-foreground">{current.intro}</p>
       </div>
 
-      {issues.length ? (
+      {openIssues.length ? (
         <div ref={errorRef} tabIndex={-1} role="alert" className="mt-6 rounded-lg border border-destructive bg-card p-4 outline-none">
           <p className="flex items-center gap-2 font-medium text-destructive">
             <CircleAlert aria-hidden="true" className="size-4" />
-            {issues.length === 1 ? "1 question still needs an answer" : `${issues.length} questions still need an answer`}
+            {openIssues.length === 1 ? "1 question still needs an answer" : `${openIssues.length} questions still need an answer`}
           </p>
           <ul className="mt-2 list-disc space-y-1 pl-6 text-sm">
-            {issues.map((i) => (
+            {openIssues.map((i) => (
               <li key={i.anchor}>
                 <a
                   href={`#${i.anchor}`}
