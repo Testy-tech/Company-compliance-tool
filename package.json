@@ -10,6 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:a11y": "tsx scripts/a11y.mts",
+    "dev:developments": "tsx scripts/developments-check.mts",
+    "dev:tailor-compare": "tsx scripts/tailor-compare.mts",
     "validate:kb": "tsx scripts/validate-kb.ts",
     "prebuild": "npm run validate:kb",
     "check:links": "tsx scripts/check-kb-links.mts"

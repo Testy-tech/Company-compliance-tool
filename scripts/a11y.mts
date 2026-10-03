@@ -87,8 +87,14 @@ for (const sample of ["unknown", "low"] as const) {
   await page.route("**/api/developments", (route) =>
     route.fulfill({
       json: {
-        ok: true, cached: false, checkedAt: "2026-10-03T10:00:00Z", since: "2026-09-27", searchedDomains: ["gob.cl"],
-        items: [{ title: "Stubbed development", date: "2026-10-01", summary: "A stubbed one-sentence summary.", url: "https://www.gob.cl/stub" }],
+        ok: true,
+        results: {
+          CL: {
+            jurisdiction: "CL", checkedAt: "2026-10-05T05:25:00Z", since: "2026-09-27", model: "stub", searchedDomains: ["gob.cl"],
+            usage: { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0, webSearches: 0 },
+            items: [{ title: "Stubbed development", date: "2026-10-01", summary: "A stubbed one-sentence summary.", url: "https://www.gob.cl/stub" }],
+          },
+        },
       },
     }),
   );
@@ -96,7 +102,6 @@ for (const sample of ["unknown", "low"] as const) {
   await page.getByRole("checkbox", { name: /I agree that this report may send/ }).check();
   await page.getByRole("button", { name: "Tailor the report" }).click();
   await page.getByRole("button", { name: "Tailor again" }).waitFor();
-  await page.locator("#dev-CL").locator("xpath=..").getByRole("button", { name: "Check official sources" }).click();
   await page.locator("#dev-CL").locator("xpath=..").getByText("Stubbed development").waitFor();
   await check(page, "/report with tailored items and a developments panel (stubbed)");
   await context.close();

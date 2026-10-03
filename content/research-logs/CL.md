@@ -33,3 +33,12 @@
 - The KB records Law 21.719 as `enacted_not_in_force` with `effectiveDate` 2026-12-01, citing the Diario Oficial publication of 13 December 2024 (First Transitory Article: first day of the 24th month after publication).
 - Re-checked on 2026-10-03: the Biblioteca del Congreso Nacional's Ley Chile record for Law 21.719 (idNorma 1209272) still shows 1 December 2026 as the date it takes effect. The record itself could not be loaded through the fetch tool (it is a JavaScript application); the date was read from the page title and summary returned by a search restricted to official domains.
 - The Government's bill to postpone the date to 1 December 2027 (announced 1 September 2026) was still a bill in the same search; nothing on an official domain showed it enacted. Until it is, 1 December 2026 remains the legal date. **Counsel should re-check this before the date.**
+
+## Leads from the developments check (2026-10-03, not reviewed)
+
+A verification run of the developments search with a look-back to 1 January 2025 returned four items from official domains. They are leads only: none has been read against the primary text or added to the knowledge base.
+
+- A law published on 5 February 2026 (Law 21.806) is recorded on the Ley Chile page as amending transitional provisions of Law 21.719, reportedly on the Agency's statutes and the first Board. **Counsel should check whether it touches the entry-into-force rule**; the Ley Chile summary still showed 1 December 2026 on 2026-10-03.
+- A resolution in the Diario Oficial of 19 December 2025 approving model contractual clauses for cross-border transfers. Relevant to `CL-TRANSFER-01` if confirmed.
+- The Senate did not confirm the first proposed Board members (reported for May 2026).
+- The Government's postponement bill (Boletín 18.623-07), already recorded as an upcoming change.
