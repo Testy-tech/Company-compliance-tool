@@ -75,6 +75,32 @@ for (const sample of ["unknown", "low"] as const) {
   await check(page, `/report sample "${sample}", reviewer mode`);
   await context.close();
 }
+// ── Report with the AI features in use (both routes stubbed: no API call is made) ──
+{
+  const { context, page } = await session();
+  await page.route("**/api/tailor", async (route) => {
+    const body = JSON.parse(route.request().postData() ?? "{}") as { obligations: { id: string }[] };
+    await route.fulfill({
+      json: { ok: true, model: "stub", items: body.obligations.slice(0, 2).map((o) => ({ id: o.id, tailoredExplanation: "Stubbed tailored explanation for the accessibility check.", tailoredSteps: ["First stubbed step.", "Second stubbed step."] })) },
+    });
+  });
+  await page.route("**/api/developments", (route) =>
+    route.fulfill({
+      json: {
+        ok: true, cached: false, checkedAt: "2026-10-03T10:00:00Z", since: "2026-09-27", searchedDomains: ["gob.cl"],
+        items: [{ title: "Stubbed development", date: "2026-10-01", summary: "A stubbed one-sentence summary.", url: "https://www.gob.cl/stub" }],
+      },
+    }),
+  );
+  await loadSample(page, "low");
+  await page.getByRole("checkbox", { name: /I agree that this report may send/ }).check();
+  await page.getByRole("button", { name: "Tailor the report" }).click();
+  await page.getByRole("button", { name: "Tailor again" }).waitFor();
+  await page.locator("#dev-CL").locator("xpath=..").getByRole("button", { name: "Check official sources" }).click();
+  await page.locator("#dev-CL").locator("xpath=..").getByText("Stubbed development").waitFor();
+  await check(page, "/report with tailored items and a developments panel (stubbed)");
+  await context.close();
+}
 {
   const { context, page } = await session("dark");
   await loadSample(page, "unknown");
