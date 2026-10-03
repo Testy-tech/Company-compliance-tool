@@ -248,14 +248,12 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle,
 /* ── One jurisdiction ─────────────────────────────────────────────────────── */
 
 export function JurisdictionSection({
-  index, section, kb, gdprBaseline, reviewer, checklist, onToggle, tailored, showStandard, onShowStandard, aiConsent, developments, onCheckDevelopments,
+  index, section, kb, gdprBaseline, reviewer, checklist, onToggle, tailored, showStandard, onShowStandard, developments,
 }: {
   tailored: Record<string, Tailored>;
   showStandard: Record<string, boolean>;
   onShowStandard: (id: string, standard: boolean) => void;
-  aiConsent: boolean;
   developments: DevelopmentsState;
-  onCheckDevelopments: () => void;
   index: number;
   section: JurisdictionReport;
   kb: Jurisdiction;
@@ -319,14 +317,7 @@ export function JurisdictionSection({
         ))}
       </div>
 
-      <DevelopmentsPanel
-        jurisdiction={section.jurisdiction}
-        name={section.name}
-        lastReviewed={section.lastReviewed}
-        consent={aiConsent}
-        state={developments}
-        onCheck={onCheckDevelopments}
-      />
+      <DevelopmentsPanel jurisdiction={section.jurisdiction} name={section.name} lastReviewed={section.lastReviewed} state={developments} />
     </section>
   );
 }

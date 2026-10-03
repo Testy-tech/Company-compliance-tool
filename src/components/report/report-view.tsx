@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { Pencil, Printer } from "lucide-react";
 import { AlertDialog } from "radix-ui";
 
 import { Button } from "@/components/ui/button";
 import { assessmentSignature, buildTailorRequests } from "@/lib/ai/build-request";
+import type { StoredDevelopments } from "@/lib/ai/developments";
 import type { TailoredItem } from "@/lib/ai/tailor-schema";
 import { evaluate } from "@/lib/engine/evaluate";
 import { referenceIntake } from "@/lib/engine/fixtures";
@@ -87,7 +88,19 @@ function ReportBody({ kb, fx }: Props) {
   /* ── Optional AI assistance (opt-in) ── */
   const [progress, setProgress] = useState<TailorProgress[]>([]);
   const [tailoring, setTailoring] = useState(false);
-  const [developments, setDevelopments] = useState<Record<string, DevelopmentsState>>({});
+  // Stored results of the scheduled developments check: read once, never triggered from here.
+  const [developments, setDevelopments] = useState<{ status: "loading" | "unavailable" } | { status: "ready"; results: Record<string, StoredDevelopments | null> }>({ status: "loading" });
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/developments")
+      .then((r) => r.json() as Promise<{ ok: boolean; results?: Record<string, StoredDevelopments | null> }>)
+      .then((body) => !cancelled && setDevelopments(body.ok && body.results ? { status: "ready", results: body.results } : { status: "unavailable" }))
+      .catch(() => !cancelled && setDevelopments({ status: "unavailable" }));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const developmentsFor = (id: string): DevelopmentsState => (developments.status === "ready" ? { status: "ready", result: developments.results[id] ?? null } : developments);
   const signature = assessment?.success ? assessmentSignature(assessment.data.intake, assessment.data.assessmentDate) : "";
   // Tailored text is only shown for the assessment it was written for.
   const tailored = state.tailored?.signature === signature ? state.tailored.items : {};
@@ -131,26 +144,6 @@ function ReportBody({ kb, fx }: Props) {
     }
     if (Object.keys(items).length) updateState({ tailored: { signature, model, items }, showStandard: {} });
     setTailoring(false);
-  }
-
-  async function checkDevelopments(jurisdiction: string, name: string) {
-    if (!state.aiConsent) return;
-    setDevelopments((d) => ({ ...d, [jurisdiction]: { status: "loading" } }));
-    const result = await post("/api/developments", { consent: true, jurisdiction });
-    setDevelopments((d) => ({
-      ...d,
-      [jurisdiction]:
-        result?.ok === true
-          ? {
-              status: "ok",
-              items: result.items as never,
-              checkedAt: String(result.checkedAt),
-              since: String(result.since),
-              cached: result.cached === true,
-              searchedDomains: (result.searchedDomains as string[]) ?? [],
-            }
-          : { status: "unavailable", message: typeof result?.message === "string" ? result.message : `Developments check unavailable for ${name}` },
-    }));
   }
 
   if (!report || !assessment?.success) {
@@ -327,9 +320,7 @@ function ReportBody({ kb, fx }: Props) {
             tailored={tailored}
             showStandard={state.showStandard}
             onShowStandard={(id, standard) => updateState({ showStandard: { ...state.showStandard, [id]: standard } })}
-            aiConsent={state.aiConsent}
-            developments={developments[j.jurisdiction] ?? { status: "idle" }}
-            onCheckDevelopments={() => checkDevelopments(j.jurisdiction, j.name)}
+            developments={developmentsFor(j.jurisdiction)}
           />
         ))}
 

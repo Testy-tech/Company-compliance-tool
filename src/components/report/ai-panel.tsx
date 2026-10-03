@@ -29,12 +29,13 @@ export function AiPanel({
       </h2>
       <p className="mt-2 max-w-prose text-sm text-muted-foreground">
         The report above is produced without AI. If you opt in, Claude (a model made by Anthropic) can reword each item&apos;s explanation and steps for your
-        situation, and search official sources for recent changes. It cannot add, remove or change an obligation.
+        situation. It cannot add, remove or change an obligation. (The “recent developments” panels are filled by a scheduled check that sends nothing from your
+        assessment.)
       </p>
 
       <label className="mt-4 flex items-start gap-2.5 text-sm font-medium">
         <input type="checkbox" checked={consent} onChange={(e) => onConsent(e.target.checked)} aria-describedby="ai-sent" className="mt-0.5 size-4 shrink-0 accent-primary" />
-        I agree that this report may send the data described below to Anthropic when I press one of the AI buttons.
+        I agree that this report may send the data described below to Anthropic when I press “Tailor the report”.
       </label>
 
       <div id="ai-sent" className="mt-3 grid gap-4 text-sm sm:grid-cols-2">
@@ -53,7 +54,7 @@ export function AiPanel({
             <li>A company name</li>
             <li>Headcount, revenue, numbers of individuals or transfer volumes</li>
             <li>The other countries you listed, or your checklist ticks</li>
-            <li>Anything at all for the developments check, beyond the country it is for</li>
+            <li>Anything about you for the developments panels: they show a scheduled check that runs without your data</li>
           </ul>
         </div>
       </div>
