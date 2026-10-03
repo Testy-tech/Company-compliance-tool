@@ -43,7 +43,7 @@
     {
       "id": "CL-GOVERNANCE-01",
       "category": "governance",
-      "title": "Prepare the Chilean entity for Law 21.719 before 1 December 2026",
+      "title": "Prepare the Chilean entity for Law 21.719 (entry into force 1 December 2026, date under review)",
       "requirement": "Law 21.719 applies from 1 December 2026 unless the Government's postponement bill (announced 1 September 2026, proposing 1 December 2027) is enacted first. A GDPR programme covers much of the new law, but Chilean-specific items (public transparency page, 30-day response deadline, biometric notices, breach reporting to the new Agency, Spanish-language documentation) must be in place by the start date.",
       "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
       "appliesIfNote": "Applies because the group has an entity in Chile processing personal data.",
