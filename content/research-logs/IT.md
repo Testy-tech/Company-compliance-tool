@@ -24,6 +24,13 @@
 - **DPIA list:** the Garante publishes a list of processing types that require a DPIA. I did not open it in this pass, so it is referenced generically.
 - **IT-EMPLOYEE-01 penalty:** Art. 171 of the Code refers to the sanctions of Art. 38 of L. 300/1970. I did not verify the amounts in Art. 38 itself.
 
+## EU outbound transfers per destination (added 2026-10-03)
+
+- The engine now picks a mechanism for each flow whose exporter is in the EEA, by destination. The data is in `content/config/eu-transfers.json`, not in this jurisdiction file, because it applies to any EEA exporter (Italy and Germany today).
+- **Adequacy list:** re-read the Commission's adequacy page on 2026-10-03 (the page shows a last update of 23 July 2026). It lists sixteen countries or territories; the file records each with a scope note where the page gives one (Canada: commercial organisations; United States: organisations certified under the Data Privacy Framework). The European Patent Organisation is also listed but is not a country destination and is not encoded.
+- **Mechanism per destination:** inside the EEA, none; adequate country, the adequacy decision (Art. 45); a US group entity, the Data Privacy Framework if it is certified (new wizard question), otherwise standard contractual clauses with a transfer impact assessment (Art. 46(2)(c)); every other destination, standard contractual clauses with a transfer impact assessment. Unknown certification or an unknown destination is treated as the clauses route and marked as an assumption.
+- **Not encoded:** binding corporate rules, Art. 49 derogations, and the scope limits of individual decisions beyond the two noted. US service providers are shown as "clauses unless the provider is certified", because certification is a fact about each provider that the wizard does not ask. The Data Privacy Framework decision number (Implementing Decision (EU) 2023/1795) is cited from memory of the Official Journal reference and should be checked. **Counsel should confirm** this section.
+
 ## Open questions for counsel
 
 1. Should the Italian Garante DPIA list (2018) be encoded item by item?
