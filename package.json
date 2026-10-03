@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
     "validate:kb": "tsx scripts/validate-kb.ts",
     "prebuild": "npm run validate:kb",
     "check:links": "tsx scripts/check-kb-links.mts"
@@ -39,6 +40,7 @@
     "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   }
 }

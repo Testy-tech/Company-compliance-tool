@@ -1,0 +1,17 @@
+{
+  "$comment": "Allowlist for the band alignment test (src/lib/kb/bands.test.ts). Count thresholds must sit exactly on a band boundary. Monetary thresholds are in USD while revenue bands are in EUR, so a band may straddle a threshold at the rate in fx.json. Every such straddle must be listed here; the test fails if the computed set differs (e.g. after an fx.json or threshold update). A straddling answer makes the wizard ask a yes/no follow-up ('Is annual revenue above US$X?'); if that stays unanswered the engine reports the affected obligations as assumed.",
+  "straddles": [
+    {
+      "thresholdId": "US-CA-CCPA_REVENUE",
+      "bands": ["10m-25m"],
+      "note": "USD 26,625,000 is roughly EUR 23.7M at the 2026-10-02 ECB rate, inside the EUR 10-25M band."
+    }
+  ],
+  "textOnlyTiers": [
+    {
+      "jurisdiction": "US-CA",
+      "obligationId": "US-CA-SECURITY-01",
+      "note": "The first cybersecurity audit report's due date depends on revenue tiers of USD 50M and 100M. These set a deadline, not applicability, so they are described in the obligation text and are not rule thresholds."
+    }
+  ]
+}
