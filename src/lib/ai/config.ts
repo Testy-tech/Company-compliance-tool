@@ -11,11 +11,12 @@
 
 import { MAX_OBLIGATIONS_PER_REQUEST } from "./tailor-schema";
 
-const DEFAULT_MODEL = "claude-opus-5";
+const DEFAULT_TAILOR_MODEL = "claude-sonnet-5";
+const DEFAULT_DEVELOPMENTS_MODEL = "claude-opus-5";
 
 export const aiConfig = {
   tailor: {
-    model: process.env.TAILOR_MODEL || DEFAULT_MODEL,
+    model: process.env.TAILOR_MODEL || DEFAULT_TAILOR_MODEL,
     /** Hard cap on output (and thinking) tokens for one request. */
     maxTokens: 8000,
     effort: "medium" as const,
@@ -27,7 +28,7 @@ export const aiConfig = {
   },
 
   developments: {
-    model: process.env.DEVELOPMENTS_MODEL || DEFAULT_MODEL,
+    model: process.env.DEVELOPMENTS_MODEL || DEFAULT_DEVELOPMENTS_MODEL,
     maxTokens: 6000,
     effort: "medium" as const,
     /** Hard cap on web searches for one request. */

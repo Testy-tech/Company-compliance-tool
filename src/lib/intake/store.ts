@@ -22,7 +22,7 @@ export type ReportState = {
   /** The user allowed this report to send data to Anthropic (off by default). */
   aiConsent: boolean;
   /** Tailored wording per obligation id, valid only for the assessment it was made for. */
-  tailored?: { signature: string; model: string; items: Record<string, { explanation: string; steps: string[] }> };
+  tailored?: { signature: string; model: string; items: Record<string, { explanation: string; steps: string[]; considerations?: string[] }> };
   /** Obligation id → the user switched this item back to the standard text. */
   showStandard: Record<string, boolean>;
 };

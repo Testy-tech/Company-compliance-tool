@@ -119,7 +119,7 @@ function ReportBody({ kb, fx }: Props) {
   async function tailorReport() {
     if (!report || !assessment?.success || !state.aiConsent || tailoring) return;
     setTailoring(true);
-    const items: Record<string, { explanation: string; steps: string[] }> = {};
+    const items: Record<string, { explanation: string; steps: string[]; considerations?: string[] }> = {};
     let model = "";
     let status: TailorProgress[] = report.jurisdictions.map((j) => ({ jurisdiction: j.jurisdiction, name: j.name, status: "waiting" }));
     const mark = (id: string, change: Partial<TailorProgress>) => {
@@ -136,7 +136,7 @@ function ReportBody({ kb, fx }: Props) {
         const known = new Set(request.obligations.map((o) => o.id));
         for (const item of result.items as TailoredItem[]) {
           if (!known.has(item.id)) continue;
-          items[item.id] = { explanation: item.tailoredExplanation, steps: item.tailoredSteps };
+          items[item.id] = { explanation: item.tailoredExplanation, steps: item.tailoredSteps, considerations: item.considerations ?? [] };
           count++;
         }
         model = String(result.model ?? model);

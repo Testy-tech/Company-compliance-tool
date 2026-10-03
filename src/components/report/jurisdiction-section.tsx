@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { DevelopmentsPanel, type DevelopmentsState } from "./developments-panel";
 import { AssumptionBadge, ReportHeading, Tag } from "./parts";
 
-export type Tailored = { explanation: string; steps: string[] };
+export type Tailored = { explanation: string; steps: string[]; considerations?: string[] };
 
 /* ── Defined terms ────────────────────────────────────────────────────────── */
 
@@ -196,6 +196,16 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle,
             <li key={i}>{s}</li>
           ))}
         </ol>
+        {useTailored && tailored.considerations?.length ? (
+          <div className="mt-3 rounded-lg border border-dashed border-brass-rule p-3 text-sm">
+            <p className="eyebrow">Points to discuss with counsel · AI-generated, not part of the action steps</p>
+            <ul className="mt-1.5 list-disc space-y-1 pl-5">
+              {tailored.considerations.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         {tailored ? (
           <button
             type="button"

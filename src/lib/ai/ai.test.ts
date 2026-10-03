@@ -8,7 +8,7 @@ import { aiConfig, WEB_SEARCH_TOOL } from "./config";
 import { isAuthorisedCron, readStoredDevelopments, runDevelopments, runScheduledDevelopments } from "./developments";
 import { DEVELOPMENTS_SYSTEM, SOURCE_RULES, TAILOR_SYSTEM } from "./prompts";
 import { rateLimit } from "./rate-limit";
-import { introducesLegalContent, runTailor, tailorRequestSchema, type AiClient, type TailorRequest } from "./tailor";
+import { introducesLegalContent, runTailor, stepsProblem, tailorRequestSchema, type AiClient, type TailorRequest } from "./tailor";
 
 /* The SDK is stubbed: these tests never call the API. */
 
@@ -54,7 +54,19 @@ const request: TailorRequest = tailorRequestSchema.parse({
 });
 
 const message = (parsed_output: unknown, stop_reason = "end_turn") => ({ parsed_output, stop_reason, usage, content: [], _request_id: "req_ok_1" });
-const item = (id: string, applicability: string, extra = {}) => ({ id, applicability, tailoredExplanation: "For your Chinese subsidiary this means localising the HR notice.", tailoredSteps: ["Reuse the group notice.", "Translate it."], ...extra });
+/** A well-behaved tailored item: one reworded step per standard step, in order. */
+const goodSteps: Record<string, string[]> = {
+  "CN-NOTICE-01": ["Localise the group privacy notice for the Chinese subsidiary's staff."],
+  "CN-TRANSFER-04": ["Confirm the transfer volumes with headquarters first.", "File the application once the volumes are confirmed."],
+};
+const item = (id: string, applicability: string, extra = {}) => ({
+  id,
+  applicability,
+  tailoredExplanation: "For your Chinese subsidiary this means localising the HR notice.",
+  tailoredSteps: goodSteps[id] ?? ["Localise the privacy notice."],
+  considerations: [],
+  ...extra,
+});
 
 describe("tailor request", () => {
   it("requires the opt-in flag and rejects unknown fields", () => {
@@ -75,7 +87,7 @@ describe("runTailor", () => {
     const result = await runTailor(client, request);
     expect(result).toMatchObject({ ok: true, requestId: "req_ok_1", usage: { inputTokens: 1200, outputTokens: 300, cacheWriteTokens: 900 } });
     expect(result.ok && result.items.map((i) => i.id)).toEqual(["CN-NOTICE-01", "CN-TRANSFER-04"]);
-    expect(result.ok && result.items[0]).toEqual({ id: "CN-NOTICE-01", tailoredExplanation: expect.any(String), tailoredSteps: ["Reuse the group notice.", "Translate it."] });
+    expect(result.ok && result.items[0]).toEqual({ id: "CN-NOTICE-01", tailoredExplanation: expect.any(String), tailoredSteps: goodSteps["CN-NOTICE-01"], considerations: [] });
     expect(info.mock.calls.flat().join(" ")).toContain('"inputTokens":1200');
   });
 
@@ -84,6 +96,8 @@ describe("runTailor", () => {
     await runTailor(client, request);
     const [params, options] = parse.mock.calls[0]!;
     expect(params.model).toBe(aiConfig.tailor.model);
+    expect(aiConfig.tailor.model).toBe(process.env.TAILOR_MODEL || "claude-sonnet-5");
+    expect(params.system[0].text).toMatch(/Exactly one tailored step for each standard step, in the same order/);
     expect(params.max_tokens).toBe(aiConfig.tailor.maxTokens);
     expect(params.system[0].text).toContain(SOURCE_RULES);
     expect(params.system[0].text).toMatch(/under 15 words/);
@@ -149,6 +163,57 @@ describe("runTailor", () => {
     expect(introducesLegalContent(original, "Put the Art. 28 arrangement in writing and keep the 72-hour clock in the playbook.", ["Check Arts. 5 and 30 are reflected."])).toBeUndefined();
     expect(introducesLegalContent(original, "Report within 48 hours.", [])).toBe("time:48 hour");
     expect(introducesLegalContent(original, "This follows from § 38 BDSG.", [])).toBe("art:38");
+  });
+
+  describe("steps must map one-to-one onto the standard steps", () => {
+    const transfer = request.obligations[1]!; // standard steps: "Confirm volumes." / "File the application."
+    const tailor = async (steps: string[], extra = {}) => {
+      const { client } = stub(message({ items: [item("CN-NOTICE-01", "applies"), item("CN-TRANSFER-04", "assumed", { tailoredSteps: steps, ...extra })] }));
+      const result = await runTailor(client, request);
+      return result.ok ? result.items.map((i) => i.id) : "rejected";
+    };
+
+    it("keeps an item whose steps reword each standard step in order", async () => {
+      expect(await tailor(goodSteps["CN-TRANSFER-04"]!)).toEqual(["CN-NOTICE-01", "CN-TRANSFER-04"]);
+    });
+
+    it("drops an item with an extra step, a missing step or merged steps (the others are kept)", async () => {
+      expect(await tailor([...goodSteps["CN-TRANSFER-04"]!, "Brief the works council as well."])).toEqual(["CN-NOTICE-01"]);
+      expect(await tailor(["Confirm the volumes and file the application."])).toEqual(["CN-NOTICE-01"]);
+      expect(info.mock.calls.flat().join(" ")).toContain("CN-TRANSFER-04 (1 steps for 2 standard steps)");
+    });
+
+    it("drops an item whose steps are reordered or replaced by something else", async () => {
+      expect(await tailor([goodSteps["CN-TRANSFER-04"]![1]!, goodSteps["CN-TRANSFER-04"]![0]!])).toEqual(["CN-NOTICE-01"]);
+      expect(await tailor(["Appoint a project manager for the Chinese subsidiary.", "File the application once ready."])).toEqual(["CN-NOTICE-01"]);
+    });
+
+    it("drops an item whose step introduces a deadline, a document, an authority or a new abbreviation", async () => {
+      const first = "Confirm the transfer volumes with headquarters first.";
+      expect(await tailor([first, "File the application before 2027."])).toEqual(["CN-NOTICE-01"]); // a date
+      expect(await tailor([first, "File the application within 30 days."])).toEqual(["CN-NOTICE-01"]); // a time limit
+      expect(await tailor([first, "File the application with a signed data transfer agreement."])).toEqual(["CN-NOTICE-01"]); // a document
+      expect(await tailor([first, "File the application with the provincial authority."])).toEqual(["CN-NOTICE-01"]); // an authority
+      expect(await tailor([first, "File the application through the CAC portal."])).toEqual(["CN-NOTICE-01"]); // an abbreviation not in the text
+      expect(info.mock.calls.flat().join(" ")).toContain("introduces a document");
+    });
+
+    it("lets a step name an existing GDPR artefact from the company's own facts", () => {
+      // "DPIA process and template" is among the artefacts sent with the request
+      expect(stepsProblem(transfer, ["Confirm the volumes using the DPIA template.", "File the application."], request.facts.gdprArtefactsInPlace)).toBeUndefined();
+      expect(stepsProblem(transfer, ["Confirm the volumes using the DPIA template.", "File the application."], [])).toMatch(/introduces/);
+    });
+
+    it("keeps extra points as considerations, apart from the steps, capped at three", async () => {
+      const { client } = stub(
+        message({ items: [item("CN-TRANSFER-04", "assumed", { considerations: ["Ask counsel whether the works council should be briefed.", "  ", "x".repeat(400), "Second point.", "Third point.", "Fourth point."] })] }),
+      );
+      const result = await runTailor(client, request);
+      expect(result.ok && result.items[0]).toMatchObject({
+        tailoredSteps: goodSteps["CN-TRANSFER-04"],
+        considerations: ["Ask counsel whether the works council should be briefed.", "Second point.", "Third point."],
+      });
+    });
   });
 
   it("treats a refusal or a truncated answer as a failure", async () => {

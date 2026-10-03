@@ -127,7 +127,7 @@ export function buildWorkbook(input: ExportInput): ExcelJS.Workbook {
     { header: "Notes", width: 36 },
     { header: "Source URL", width: 48, wrap: false },
     { header: "Action steps", width: 60 },
-    ...(hasTailored ? [{ header: `${TAILORED} Explanation`, width: 60 }, { header: `${TAILORED} Action steps`, width: 60 }] : []),
+    ...(hasTailored ? [{ header: `${TAILORED} Explanation`, width: 60 }, { header: `${TAILORED} Action steps`, width: 60 }, { header: `${TAILORED} Points to discuss with counsel`, width: 50 }] : []),
     ...(reviewer ? [{ header: "KB confidence", width: 24 }, { header: "Verified by", width: 30 }, { header: "Last verified", width: 14 }] : []),
   ];
   const STATUS_COLUMN = 12;
@@ -153,7 +153,7 @@ export function buildWorkbook(input: ExportInput): ExcelJS.Workbook {
         "",
         o.sources.map((x) => x.url).join("\n"),
         numbered(o.actionSteps),
-        ...(hasTailored ? [t?.explanation ?? "", t ? numbered(t.steps) : ""] : []),
+        ...(hasTailored ? [t?.explanation ?? "", t ? numbered(t.steps) : "", (t?.considerations ?? []).map((x) => `• ${x}`).join("\n")] : []),
         ...(reviewer ? [confidenceLabels[o.confidence], o.verifiedBy, o.lastVerified] : []),
       ];
     });

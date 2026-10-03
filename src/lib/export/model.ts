@@ -37,7 +37,7 @@ export type ExportDoc = {
   blocks: Block[];
 };
 
-export type Tailored = Record<string, { explanation: string; steps: string[] }>;
+export type Tailored = Record<string, { explanation: string; steps: string[]; considerations?: string[] }>;
 
 export type ExportInput = {
   report: Report;
@@ -316,6 +316,10 @@ function itemBlocks(r: ObligationResult, input: ExportInput): Block[] {
     blocks.push({ kind: "paragraph", style: "tailored", runs: [{ text: `${TAILORED} For your situation (AI-generated, not reviewed): `, bold: true }, { text: tailored.explanation }] });
   blocks.push({ kind: "paragraph", runs: [{ text: tailored ? `Action steps ${TAILORED}` : "Action steps", bold: true }] });
   blocks.push({ kind: "list", ordered: true, items: tailored ? tailored.steps : o.actionSteps });
+  if (tailored?.considerations?.length) {
+    blocks.push({ kind: "paragraph", style: "tailored", runs: [{ text: `${TAILORED} Points to discuss with counsel (AI-generated, not part of the action steps):`, bold: true }] });
+    blocks.push({ kind: "list", ordered: false, items: tailored.considerations });
+  }
   blocks.push(p(`Last verified ${formatDate(o.lastVerified)}`, "small"));
   if (input.reviewer) blocks.push(p(`Reviewer: ${confidenceLabels[o.confidence]} · ${o.id} · verified by ${o.verifiedBy}`, "reviewer"));
   return blocks;

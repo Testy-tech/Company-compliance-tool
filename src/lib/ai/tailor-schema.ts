@@ -53,4 +53,5 @@ export const tailorRequestSchema = z
 
 export type TailorRequest = z.infer<typeof tailorRequestSchema>;
 
-export type TailoredItem = { id: string; tailoredExplanation: string; tailoredSteps: string[] };
+/** `tailoredSteps` map one-to-one onto the obligation's standard steps; `considerations` are extra points for counsel, kept separate. */
+export type TailoredItem = { id: string; tailoredExplanation: string; tailoredSteps: string[]; considerations: string[] };
