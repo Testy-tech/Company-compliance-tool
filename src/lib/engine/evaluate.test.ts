@@ -22,6 +22,7 @@ const fx = readJson("config", "fx.json") as FxTable;
 
 const known = <T,>(value: T) => ({ status: "known", value }) as const;
 const unknown = { status: "unknown" } as const;
+const hqOnly = known({ hq: true, group: [], providers: [] });
 
 const run = (a: Assessment) => evaluate(a, kb, fx);
 const result = (r: Report, id: string) => r.jurisdictions.flatMap((j) => j.results).find((x) => x.obligation.id === id);
@@ -65,7 +66,7 @@ describe("2. a single unknown answer", () => {
   const report = run(
     referenceAssessment("low", (i) => {
       const cn = entityOf(i, "CN");
-      cn.transfers = { nonSensitive: unknown, sensitive: known("0"), hrOnly: known("no") };
+      cn.transfers = { nonSensitive: unknown, sensitive: known("0"), hrOnly: known("no"), destinations: hqOnly };
     }),
   );
 
@@ -105,14 +106,14 @@ describe("3. tiered group with unknown answers", () => {
 
   it("describes when the lesser tier would apply instead", () => {
     const report = run(
-      referenceAssessment("low", (i) => void (entityOf(i, "CN").transfers = { nonSensitive: unknown, sensitive: known("0"), hrOnly: known("no") })),
+      referenceAssessment("low", (i) => void (entityOf(i, "CN").transfers = { nonSensitive: unknown, sensitive: known("0"), hrOnly: known("no"), destinations: hqOnly })),
     );
     expect(result(report, "CN-TRANSFER-04")!.alternatives[0]!.condition).toContain("is between 100,000 and 999,999");
   });
 
   it("reports the lesser tier on its own when the answers settle it", () => {
     const report = run(
-      referenceAssessment("low", (i) => void (entityOf(i, "CN").transfers = { nonSensitive: known("100k-999999"), sensitive: known("0"), hrOnly: known("no") })),
+      referenceAssessment("low", (i) => void (entityOf(i, "CN").transfers = { nonSensitive: known("100k-999999"), sensitive: known("0"), hrOnly: known("no"), destinations: hqOnly })),
     );
     expect(result(report, "CN-TRANSFER-03")).toMatchObject({ applicability: "applies", alternatives: [] });
     expect(result(report, "CN-TRANSFER-04")).toBeUndefined();
@@ -163,7 +164,7 @@ describe("4. exemption that depends on an unknown answer", () => {
 
   it("does not assume China's HR-only transfer exemption", () => {
     const report = run(
-      referenceAssessment("low", (i) => void (entityOf(i, "CN").transfers = { nonSensitive: known("100k-999999"), sensitive: known("0"), hrOnly: unknown })),
+      referenceAssessment("low", (i) => void (entityOf(i, "CN").transfers = { nonSensitive: known("100k-999999"), sensitive: known("0"), hrOnly: unknown, destinations: hqOnly })),
     );
     const r = result(report, "CN-TRANSFER-03")!;
     expect(r.applicability).toBe("assumed");

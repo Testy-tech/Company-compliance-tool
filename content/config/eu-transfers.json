@@ -1,0 +1,49 @@
+{
+  "$comment": "EU/EEA outbound transfer data used by the engine to pick the mechanism for each flow whose exporter is in the EEA. Paraphrased; cite by article and URL only. Re-check the adequacy list against the Commission page before each release and update lastVerified.",
+  "lastVerified": "2026-10-03",
+  "verifiedBy": "claude-research (pending counsel review)",
+  "confidence": "needs_review",
+  "eea": ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO"],
+  "adequacy": {
+    "source": {
+      "url": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en",
+      "pinpoint": "Commission list of adequacy decisions (page last updated 23 July 2026; checked 2026-10-03)"
+    },
+    "countries": [
+      { "code": "AD", "name": "Andorra" },
+      { "code": "AR", "name": "Argentina" },
+      { "code": "BR", "name": "Brazil" },
+      { "code": "CA", "name": "Canada", "scope": "Commercial organisations only." },
+      { "code": "FO", "name": "Faroe Islands" },
+      { "code": "GG", "name": "Guernsey" },
+      { "code": "IL", "name": "Israel" },
+      { "code": "IM", "name": "Isle of Man" },
+      { "code": "JP", "name": "Japan" },
+      { "code": "JE", "name": "Jersey" },
+      { "code": "NZ", "name": "New Zealand" },
+      { "code": "KR", "name": "Republic of Korea" },
+      { "code": "CH", "name": "Switzerland" },
+      { "code": "GB", "name": "United Kingdom" },
+      { "code": "UY", "name": "Uruguay" },
+      { "code": "US", "name": "United States", "scope": "Only for commercial organisations certified under the EU–US Data Privacy Framework.", "certifiedOnly": true }
+    ]
+  },
+  "mechanisms": {
+    "none": {
+      "label": "No transfer mechanism needed (destination is inside the EEA)",
+      "source": { "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "GDPR Art. 44 (Chapter V applies to transfers to third countries)" }
+    },
+    "adequacy": {
+      "label": "Adequacy decision",
+      "source": { "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "GDPR Art. 45" }
+    },
+    "dpf": {
+      "label": "EU–US Data Privacy Framework (recipient is certified)",
+      "source": { "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/1795/oj", "pinpoint": "Commission Implementing Decision (EU) 2023/1795; GDPR Art. 45" }
+    },
+    "sccs": {
+      "label": "Standard contractual clauses plus a transfer impact assessment",
+      "source": { "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "GDPR Art. 46(2)(c)" }
+    }
+  }
+}

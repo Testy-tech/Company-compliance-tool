@@ -6,12 +6,12 @@ import { Check, CircleAlert, CircleHelp, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { bandSets, type BandSetId } from "@/lib/intake/bands";
 import {
-  countUnresolved, isUS, needsDataStaff, needsTxSale, needsUnionQuestion, sendsNothing, straddledThresholds, toIntake, type Draft,
+  countUnresolved, isUS, needsDataStaff, needsDpf, needsTxSale, needsUnionQuestion, sendsNothing, straddledThresholds, toIntake, type Draft,
 } from "@/lib/intake/draft";
 import { formatUSD } from "@/lib/intake/money";
 import {
   consentBannerLabels, employeeRepLabels, entityTypeLabels, frameworkLabels, governanceLabels, hostingLabels, hrOnlyLabels,
-  industryLabels, processingLabels, sensitiveLabels, subjectLabels, trackerLabels, vendorLabels,
+  industryLabels, processingLabels, providerRegionLabels, sensitiveLabels, subjectLabels, trackerLabels, vendorLabels,
 } from "@/lib/intake/options";
 import type { Answer } from "@/lib/intake/schema";
 import type { WizardConfig } from "@/lib/kb/wizard-config";
@@ -104,6 +104,14 @@ function summarize(draft: Draft, config: WizardConfig): Section[] {
         answerRow("Non-sensitive data (individuals)", e.transfers.nonSensitive, band("transfersNonSensitive")),
         answerRow("Sensitive data (individuals)", e.transfers.sensitive, band("transfersSensitive")),
         answerRow("Mainly HR data", sendsNothing(e.transfers) ? { status: "not_asked" } : e.transfers.hrOnly, lookup(hrOnlyLabels)),
+        answerRow("Destinations", sendsNothing(e.transfers) ? { status: "not_asked" } : e.transfers.destinations, (d) =>
+          [
+            ...(d.hq ? ["Group headquarters"] : []),
+            ...d.group.map((g) => `${countryName(config, g)} entity`),
+            ...d.providers.map((p) => `providers in ${lookup(providerRegionLabels)(p)}`),
+          ].join(", "),
+        ),
+        ...(needsDpf(e, draft) ? [answerRow("Certified under the EU–US Data Privacy Framework", e.dpfCertified, bool)] : []),
         ...(e.jurisdiction === "CN"
           ? [answerRow("Notified as a CIIO", e.cn.ciio, bool), answerRow("Handles potential ‘important data’", e.cn.importantData, bool)]
           : []),

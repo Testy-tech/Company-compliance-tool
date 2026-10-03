@@ -38,7 +38,8 @@ function entity(jurisdiction: CoveredJurisdiction, variant: "unknown" | "low"): 
       smallBusinessSBA: us ? unknown : undefined,
       txSale: jurisdiction === "US-TX" ? unknown : undefined,
       people: { staff: unknown, business: unknown, other: unknown, sensitive: unknown, soldShared: unknown },
-      transfers: { nonSensitive: unknown, sensitive: unknown, hrOnly: unknown },
+      transfers: { nonSensitive: unknown, sensitive: unknown, hrOnly: unknown, destinations: unknown },
+      dpfCertified: us ? unknown : undefined,
       cn: jurisdiction === "CN" ? { ciio: unknown, importantData: unknown } : undefined,
     };
   return {
@@ -49,7 +50,14 @@ function entity(jurisdiction: CoveredJurisdiction, variant: "unknown" | "low"): 
     smallBusinessSBA: us ? known(true) : undefined,
     txSale: jurisdiction === "US-TX" ? notAsked : undefined,
     people: { staff: known("1-9999"), business: known("1-9999"), other: known("0"), sensitive: known("1-9999"), soldShared: known("0") },
-    transfers: { nonSensitive: known("1-9999"), sensitive: known("0"), hrOnly: known("only_hr") },
+    transfers: {
+      nonSensitive: known("1-9999"),
+      sensitive: known("0"),
+      hrOnly: known("only_hr"),
+      // Headquarters shares HR data with every subsidiary and uses EU and US providers; subsidiaries report to headquarters.
+      destinations: isHq ? known({ hq: false, group: [...subsidiaries], providers: ["EEA", "US"] }) : known({ hq: true, group: [], providers: [] }),
+    },
+    dpfCertified: us ? known(false) : undefined,
     cn: jurisdiction === "CN" ? { ciio: known(false), importantData: known(false) } : undefined,
   };
 }

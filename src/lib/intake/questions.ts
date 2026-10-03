@@ -146,6 +146,15 @@ export const questions = {
     label: "Is this data mainly employee/HR data needed to manage staff?",
     why: "Transfers needed for group HR management are exempt from some transfer procedures (e.g. in China).",
   },
+  "transfers-destinations": {
+    label: "Where does the {country} entity's personal data go?",
+    why: "The transfer mechanism depends on the destination: some destinations need no extra step, others need a contract, a filing or an approval.",
+  },
+  "entity-dpf": {
+    label: "Is the {country} entity certified under the EU–US Data Privacy Framework?",
+    why: "A certified US recipient can receive personal data from the EU under an adequacy decision; otherwise standard contractual clauses and a transfer impact assessment are needed.",
+    help: "Certification is a public self-certification with the US Department of Commerce: https://www.dataprivacyframework.gov/list",
+  },
   "cn-ciio": {
     label: "Has the China entity been notified that it is a Critical Information Infrastructure Operator (CIIO)?",
     why: "These statuses can trigger a mandatory government security assessment regardless of volume.",

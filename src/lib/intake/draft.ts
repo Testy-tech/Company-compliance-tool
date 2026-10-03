@@ -1,3 +1,4 @@
+import { isEEA } from "@/lib/kb/eu-transfers";
 import type { WizardConfig } from "@/lib/kb/wizard-config";
 
 import { bandInterval } from "./bands";
@@ -15,6 +16,8 @@ import {
 
 type A<T> = Answer<T> | undefined;
 
+export type Destinations = { hq: boolean; group: string[]; providers: string[] };
+
 export type EntityDraft = {
   jurisdiction: CoveredJurisdiction;
   role: "hq" | "current" | "target";
@@ -29,7 +32,8 @@ export type EntityDraft = {
   smallBusinessSBA: A<boolean>;
   txSale: A<boolean>;
   people: { staff: A<string>; business: A<string>; other: A<string>; sensitive: A<string>; soldShared: A<string> };
-  transfers: { nonSensitive: A<string>; sensitive: A<string>; hrOnly: A<string> };
+  transfers: { nonSensitive: A<string>; sensitive: A<string>; hrOnly: A<string>; destinations: A<Destinations> };
+  dpfCertified: A<boolean>;
   cn: { ciio: A<boolean>; importantData: A<boolean> };
 };
 
@@ -89,7 +93,8 @@ export function emptyEntity(jurisdiction: CoveredJurisdiction, role: EntityDraft
     headcount: undefined, dataStaff: undefined, revenue: undefined, revenueAbove: {},
     employeeRep: undefined, unionData: undefined, smallBusinessSBA: undefined, txSale: undefined,
     people: { staff: undefined, business: undefined, other: undefined, sensitive: undefined, soldShared: undefined },
-    transfers: { nonSensitive: undefined, sensitive: undefined, hrOnly: undefined },
+    transfers: { nonSensitive: undefined, sensitive: undefined, hrOnly: undefined, destinations: undefined },
+    dpfCertified: undefined,
     cn: { ciio: undefined, importantData: undefined },
   };
 }
@@ -125,6 +130,20 @@ export const needsUnionQuestion = (e: EntityDraft) =>
 export function needsTxSale(e: EntityDraft): boolean {
   const s = e.people.soldShared;
   return e.jurisdiction === "US-TX" && !!s && !(s.status === "known" && s.value === "0");
+}
+
+/** US entities of a group headquartered in the EEA are asked about Data Privacy Framework certification. */
+export const needsDpf = (e: EntityDraft, draft: Draft) => isUS(e) && isEEA(draft.company.hqCountry);
+
+/** A destinations answer with at least one destination chosen. */
+export const hasDestination = (d: Destinations) => d.hq || d.group.length > 0 || d.providers.length > 0;
+
+/** Drop destinations that no longer exist in the footprint (a country was removed after answering). */
+function cleanDestinations(e: EntityDraft, draft: Draft): A<Destinations> {
+  const d = e.transfers.destinations;
+  if (d?.status !== "known") return d;
+  const others = draft.footprint.entities.filter((x) => x.jurisdiction !== e.jurisdiction && x.role !== "hq").map((x) => x.jurisdiction as string);
+  return { status: "known", value: { hq: d.value.hq && e.role !== "hq", group: d.value.group.filter((g) => others.includes(g)), providers: d.value.providers } };
 }
 
 /** Nothing leaves the country, so the "mainly HR data?" question is skipped. */
@@ -167,7 +186,10 @@ export function toIntake(draft: Draft) {
         unionData: needsUnionQuestion(e) ? e.unionData : undefined,
         smallBusinessSBA: isUS(e) ? e.smallBusinessSBA : undefined,
         txSale: e.jurisdiction !== "US-TX" ? undefined : needsTxSale(e) ? e.txSale : e.people.soldShared ? { status: "not_asked" } : undefined,
-        transfers: sendsNothing(e.transfers) ? { ...e.transfers, hrOnly: { status: "not_asked" } } : e.transfers,
+        transfers: sendsNothing(e.transfers)
+          ? { ...e.transfers, hrOnly: { status: "not_asked" }, destinations: { status: "not_asked" } }
+          : { ...e.transfers, destinations: cleanDestinations(e, draft) },
+        dpfCertified: needsDpf(e, draft) ? e.dpfCertified : undefined,
         cn: e.jurisdiction === "CN" ? e.cn : undefined,
       })),
     },
@@ -190,7 +212,8 @@ export function fromIntake(intake: Intake): Draft {
         unionData: e.unionData,
         smallBusinessSBA: e.smallBusinessSBA,
         txSale: asked(e.txSale),
-        transfers: { ...e.transfers, hrOnly: asked(e.transfers.hrOnly) },
+        transfers: { ...e.transfers, hrOnly: asked(e.transfers.hrOnly), destinations: asked(e.transfers.destinations) },
+        dpfCertified: e.dpfCertified,
         cn: e.cn ?? { ciio: undefined, importantData: undefined },
       })),
     },

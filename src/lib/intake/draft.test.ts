@@ -12,7 +12,8 @@ function answerEntity(e: EntityDraft): EntityDraft {
     status: e.status ?? "operating",
     headcount: unknown, dataStaff: unknown, revenue: unknown, employeeRep: unknown, smallBusinessSBA: unknown, txSale: unknown,
     people: { staff: unknown, business: unknown, other: unknown, sensitive: unknown, soldShared: unknown },
-    transfers: { nonSensitive: unknown, sensitive: unknown, hrOnly: unknown },
+    transfers: { nonSensitive: unknown, sensitive: unknown, hrOnly: unknown, destinations: unknown },
+    dpfCertified: unknown,
     cn: { ciio: unknown, importantData: unknown },
   };
 }
@@ -77,18 +78,19 @@ describe("skipped questions", () => {
   it("stores \"Mainly HR data?\" as not_asked, not as an answer, when nothing is sent abroad", () => {
     const d = allUnknownDraft();
     const zero = { status: "known", value: "0" } as const;
-    d.footprint.entities[0]!.transfers = { nonSensitive: zero, sensitive: zero, hrOnly: undefined };
+    d.footprint.entities[0]!.transfers = { nonSensitive: zero, sensitive: zero, hrOnly: undefined, destinations: undefined };
     const result = toIntake(d);
     expect(result.success, JSON.stringify(result.error?.issues)).toBe(true);
     expect(result.data!.footprint.entities[0]!.transfers.hrOnly).toEqual({ status: "not_asked" });
+    expect(result.data!.footprint.entities[0]!.transfers.destinations).toEqual({ status: "not_asked" });
   });
 
   it("does not count not_asked as an open question", () => {
     const d = allUnknownDraft();
     const before = countUnresolved(toIntake(d).data!);
     const zero = { status: "known", value: "0" } as const;
-    d.footprint.entities[0]!.transfers = { nonSensitive: zero, sensitive: zero, hrOnly: undefined };
-    expect(countUnresolved(toIntake(d).data!)).toBe(before - 3);
+    d.footprint.entities[0]!.transfers = { nonSensitive: zero, sensitive: zero, hrOnly: undefined, destinations: undefined };
+    expect(countUnresolved(toIntake(d).data!)).toBe(before - 4);
   });
 });
 
@@ -112,5 +114,27 @@ describe("Texas sale follow-up", () => {
     const intake = toIntake(d).data!;
     expect(intake.footprint.entities.find((e) => e.jurisdiction === "US-TX")?.txSale).toEqual({ status: "not_asked" });
     expect(intake.footprint.entities.find((e) => e.jurisdiction === "US-CA")?.txSale).toBeUndefined();
+  });
+});
+
+describe("transfer destinations", () => {
+  it("asks US entities about Data Privacy Framework certification only when headquarters is in the EEA", () => {
+    const d = allUnknownDraft();
+    const us = d.footprint.entities.find((e) => e.jurisdiction === "US-CA")!;
+    const intakeOf = (x: Draft) => toIntake(x).data!.footprint.entities.find((e) => e.jurisdiction === "US-CA")!;
+    expect(intakeOf(d).dpfCertified).toEqual(unknown);
+    d.company.hqCountry = "JP"; // not in the EEA (and not an assessed country)
+    syncHqEntity(d, covered);
+    d.footprint.entities.find((e) => e.jurisdiction === "IT")!.entityType = "subsidiary";
+    expect(us.dpfCertified).toEqual(unknown); // still in the draft…
+    expect(intakeOf(d).dpfCertified).toBeUndefined(); // …but not part of the intake
+  });
+
+  it("drops destinations for countries no longer in the footprint", () => {
+    const d = allUnknownDraft();
+    const cn = d.footprint.entities.find((e) => e.jurisdiction === "CN")!;
+    cn.transfers.destinations = { status: "known", value: { hq: true, group: ["DE", "SG"], providers: ["US"] } };
+    const out = toIntake(d).data!.footprint.entities.find((e) => e.jurisdiction === "CN")!.transfers.destinations;
+    expect(out).toEqual({ status: "known", value: { hq: true, group: ["DE"], providers: ["US"] } });
   });
 });

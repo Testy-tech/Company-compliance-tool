@@ -45,6 +45,8 @@ export const industries = ["engineering_construction", "manufacturing", "energy_
 export const entityTypes = ["subsidiary", "branch", "rep_office", "none"] as const;
 export const employeeRepValues = ["works_council", "union", "both", "none"] as const;
 export const hrOnlyValues = ["only_hr", "mixed", "no"] as const;
+/** Where service providers or cloud hosting may be located (country code, "EEA", or "OTHER"). */
+export const providerRegions = ["EEA", "GB", "US", "CH", "JP", "KR", "SG", "IN", "CN", "OTHER"] as const;
 export const trackerValues = ["analytics", "ad_pixels", "session_replay", "chat", "embeds"] as const;
 export const consentBannerValues = ["blocking", "informational", "none"] as const;
 export const hostingValues = ["hq_eu", "local", "cloud_eu", "cloud_us", "cloud_other"] as const;
@@ -98,7 +100,17 @@ export const entitySchema = z.object({
     sensitive: answer(z.enum(bandIds("transfersSensitive"))),
     /** Skipped ("not_asked") when nothing is sent abroad. */
     hrOnly: answerOrNotAsked(z.enum(hrOnlyValues)),
+    /** Where the data goes; skipped ("not_asked") when nothing is sent abroad. */
+    destinations: answerOrNotAsked(
+      z.object({
+        hq: z.boolean(),
+        group: z.array(jurisdictionIdSchema),
+        providers: z.array(z.enum(providerRegions)),
+      }),
+    ),
   }),
+  /** US entities of an EEA-headquartered group: certified under the EU–US Data Privacy Framework? */
+  dpfCertified: answer(z.boolean()).optional(),
   /** Texas only; skipped ("not_asked") when no data is sold or shared. TDPSA § 541.001(28). */
   txSale: answerOrNotAsked(z.boolean()).optional(),
   /** China only. */

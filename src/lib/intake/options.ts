@@ -1,6 +1,6 @@
 import type {
   consentBannerValues, employeeRepValues, entityTypes, frameworkKeys, hostingValues, hrOnlyValues, industries,
-  processingKeys, sensitiveKeys, subjectKeys, trackerValues, vendorValues,
+  processingKeys, providerRegions, sensitiveKeys, subjectKeys, trackerValues, vendorValues,
 } from "./schema";
 
 /* Display labels for option values. Never use the word "consumers" here. */
@@ -34,6 +34,19 @@ export const hrOnlyLabels: Labels<typeof hrOnlyValues> = {
   only_hr: "Yes, only HR data",
   mixed: "Mixed",
   no: "No",
+};
+
+export const providerRegionLabels: Labels<typeof providerRegions> = {
+  EEA: "EU / EEA",
+  GB: "United Kingdom",
+  US: "United States",
+  CH: "Switzerland",
+  JP: "Japan",
+  KR: "South Korea",
+  SG: "Singapore",
+  IN: "India",
+  CN: "China",
+  OTHER: "Another country",
 };
 
 export const trackerLabels: Labels<typeof trackerValues> = {
