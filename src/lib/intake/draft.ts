@@ -143,7 +143,7 @@ export function straddledThresholds(draft: Draft, e: EntityDraft, config: Wizard
 export function toIntake(draft: Draft) {
   const w = draft.website;
   const countrySites: A<string[]> =
-    w.countrySitesChoice === "yes" ? { status: "known", value: w.countrySites }
+    w.countrySitesChoice === "yes" ? { status: "known", value: w.countrySites.filter((c) => draft.footprint.entities.some((e) => e.jurisdiction === c)) }
       : w.countrySitesChoice === "no" ? { status: "known", value: [] }
       : w.countrySitesChoice === "unknown" ? { status: "unknown" }
       : undefined;
