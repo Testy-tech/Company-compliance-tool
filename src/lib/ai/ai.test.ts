@@ -2,11 +2,12 @@ import Anthropic from "@anthropic-ai/sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { Jurisdiction } from "@/lib/kb/schema";
+import { MemoryStore, UpstashStore } from "@/lib/store/kv";
 
 import { aiConfig, WEB_SEARCH_TOOL } from "./config";
-import { clearDevelopmentsCache, runDevelopments } from "./developments";
+import { isAuthorisedCron, readStoredDevelopments, runDevelopments, runScheduledDevelopments } from "./developments";
 import { DEVELOPMENTS_SYSTEM, SOURCE_RULES, TAILOR_SYSTEM } from "./prompts";
-import { rateLimit, resetRateLimits } from "./rate-limit";
+import { rateLimit } from "./rate-limit";
 import { introducesLegalContent, runTailor, tailorRequestSchema, type AiClient, type TailorRequest } from "./tailor";
 
 /* The SDK is stubbed: these tests never call the API. */
@@ -35,8 +36,6 @@ let info: ReturnType<typeof vi.spyOn>;
 beforeEach(() => {
   warn = vi.spyOn(console, "warn").mockImplementation(() => {});
   info = vi.spyOn(console, "info").mockImplementation(() => {});
-  clearDevelopmentsCache();
-  resetRateLimits();
 });
 afterEach(() => vi.restoreAllMocks());
 
@@ -84,7 +83,7 @@ describe("runTailor", () => {
     const { client, parse } = stub(message({ items: [] }));
     await runTailor(client, request);
     const [params, options] = parse.mock.calls[0]!;
-    expect(params.model).toBe(aiConfig.model);
+    expect(params.model).toBe(aiConfig.tailor.model);
     expect(params.max_tokens).toBe(aiConfig.tailor.maxTokens);
     expect(params.system[0].text).toContain(SOURCE_RULES);
     expect(params.system[0].text).toMatch(/under 15 words/);
@@ -203,8 +202,9 @@ describe("runDevelopments", () => {
 
   it("restricts the search to the KB's official domains and caps searches and tokens", async () => {
     const { client, parse } = stub(searchMessage([], [results()]));
-    await runDevelopments(client, chile, now);
+    await runDevelopments(client, chile, { now });
     const [params, options] = parse.mock.calls[0]!;
+    expect(params.model).toBe(aiConfig.developments.model);
     expect(params.tools).toEqual([{ type: WEB_SEARCH_TOOL, name: "web_search", max_uses: aiConfig.developments.maxSearches, allowed_domains: ["bcn.cl", "gob.cl"], allowed_callers: ["direct"] }]);
     expect(params.max_tokens).toBe(aiConfig.developments.maxTokens);
     expect(params.system[0].text).toBe(DEVELOPMENTS_SYSTEM);
@@ -217,8 +217,8 @@ describe("runDevelopments", () => {
   it("keeps items whose URL the search returned on an official domain, and counts searches in the usage", async () => {
     const url = "https://www.gob.cl/noticias/guia-brechas";
     const { client } = stub(searchMessage([development(url)], [results(url, "https://www.bcn.cl/otra")]));
-    const result = await runDevelopments(client, chile, now);
-    expect(result).toMatchObject({ ok: true, cached: false, since: "2026-09-27", usage: { webSearches: 2 } });
+    const result = await runDevelopments(client, chile, { now });
+    expect(result).toMatchObject({ ok: true, since: "2026-09-27", usage: { webSearches: 2 } });
     expect(result.ok && result.items).toEqual([{ title: "Agency publishes draft guidance", date: "2026-10-01", summary: expect.any(String), url }]);
   });
 
@@ -236,56 +236,130 @@ describe("runDevelopments", () => {
         [results(good, "https://www.bcn.cl/old", "https://lawfirm.example.com/post")],
       ),
     );
-    const result = await runDevelopments(client, chile, now);
+    const result = await runDevelopments(client, chile, { now });
     expect(result.ok && result.items.map((i) => i.url)).toEqual([good]);
+  });
+
+  it("can look back to an arbitrary date and use another model (verification runs)", async () => {
+    const old = "https://www.bcn.cl/old";
+    const { client, parse } = stub(searchMessage([development(old, "2026-09-01")], [results(old)]));
+    const result = await runDevelopments(client, chile, { now, since: "2025-01-01", model: "claude-sonnet-5" });
+    expect(parse.mock.calls[0]![0].model).toBe("claude-sonnet-5");
+    expect(JSON.parse(parse.mock.calls[0]![0].messages[0].content).lastReviewed).toBe("2025-01-01");
+    expect(result).toMatchObject({ ok: true, since: "2025-01-01", model: "claude-sonnet-5" });
+    expect(result.ok && result.items).toHaveLength(1);
   });
 
   it("returns an empty list when nothing is found, without failing", async () => {
     const { client } = stub(searchMessage([], [{ type: "web_search_tool_result", tool_use_id: "s", content: { type: "web_search_tool_result_error", error_code: "max_uses_exceeded" } }]));
-    expect(await runDevelopments(client, chile, now)).toMatchObject({ ok: true, items: [] });
+    expect(await runDevelopments(client, chile, { now })).toMatchObject({ ok: true, items: [] });
   });
 
   it("resumes a paused search turn and adds up the usage", async () => {
     const url = "https://www.gob.cl/a";
     const { client, parse } = stub(searchMessage([], [results(url)], "pause_turn"), searchMessage([development(url)], []));
-    const result = await runDevelopments(client, chile, now);
+    const result = await runDevelopments(client, chile, { now });
     expect(parse).toHaveBeenCalledTimes(2);
     expect(parse.mock.calls[1]![0].messages).toHaveLength(2);
     expect(result).toMatchObject({ ok: true, usage: { inputTokens: 2400, webSearches: 4 } });
     expect(result.ok && result.items).toHaveLength(1); // the URL came from the first, paused response
   });
 
-  it("serves a second request within 24 hours from the cache", async () => {
-    const url = "https://www.gob.cl/a";
-    const { client, parse } = stub(searchMessage([development(url)], [results(url)]));
-    await runDevelopments(client, chile, now);
-    const later = await runDevelopments(client, chile, new Date("2026-10-04T09:00:00Z"));
-    expect(parse).toHaveBeenCalledTimes(1);
-    expect(later).toMatchObject({ ok: true, cached: true });
-  });
-
-  it("checks again after 24 hours, or when the KB review date changes", async () => {
-    const { client, parse } = stub(searchMessage([], []), searchMessage([], []), searchMessage([], []));
-    await runDevelopments(client, chile, now);
-    await runDevelopments(client, chile, new Date("2026-10-04T10:00:01Z"));
-    await runDevelopments(client, { ...chile, lastReviewed: "2026-10-04" }, new Date("2026-10-04T11:00:00Z"));
-    expect(parse).toHaveBeenCalledTimes(3);
-  });
-
-  it("catches the content-filter 400 without retrying or caching, and logs the request id", async () => {
-    const { client, parse } = stub(blocked(), searchMessage([], []));
-    expect(await runDevelopments(client, chile, now)).toEqual({ ok: false, failure: "content_filter", requestId: "req_blocked_123" });
+  it("catches the content-filter 400 without retrying, and logs the request id", async () => {
+    const { client, parse } = stub(blocked());
+    expect(await runDevelopments(client, chile, { now })).toEqual({ ok: false, failure: "content_filter", requestId: "req_blocked_123" });
     expect(parse).toHaveBeenCalledTimes(1);
     expect(warn.mock.calls.flat().join(" ")).toContain('"requestId":"req_blocked_123"');
-    // not cached: the next request tries again
-    expect((await runDevelopments(client, chile, now)).ok).toBe(true);
   });
 
   it("reports a timeout and a refusal as failures", async () => {
     const timedOut = stub(new Anthropic.APIConnectionTimeoutError());
-    expect(await runDevelopments(timedOut.client, chile, now)).toMatchObject({ ok: false, failure: "timeout" });
+    expect(await runDevelopments(timedOut.client, chile, { now })).toMatchObject({ ok: false, failure: "timeout" });
     const refused = stub(searchMessage([], [], "refusal"));
-    expect(await runDevelopments(refused.client, chile, now)).toMatchObject({ ok: false, failure: "invalid_output" });
+    expect(await runDevelopments(refused.client, chile, { now })).toMatchObject({ ok: false, failure: "invalid_output" });
+  });
+});
+
+/* ── Scheduled job and shared store ───────────────────────────────────────── */
+
+describe("scheduled developments check", () => {
+  const now = new Date("2026-10-05T05:25:00Z");
+  const url = "https://www.gob.cl/a";
+
+  it("stores jurisdiction, check time, items, model and token usage for the report to read", async () => {
+    const store = new MemoryStore();
+    const { client } = stub(searchMessage([development(url)], [results(url)]));
+    expect(await readStoredDevelopments(store, "CL")).toBeNull();
+    await runScheduledDevelopments(store, client, chile, { now });
+    expect(await readStoredDevelopments(store, "CL")).toEqual({
+      jurisdiction: "CL",
+      checkedAt: "2026-10-05T05:25:00.000Z",
+      since: "2026-09-27",
+      items: [expect.objectContaining({ url })],
+      model: aiConfig.developments.model,
+      usage: expect.objectContaining({ inputTokens: 1200, outputTokens: 300, webSearches: 2 }),
+      searchedDomains: ["bcn.cl", "gob.cl"],
+    });
+  });
+
+  it("keeps the last successful result when a later check fails", async () => {
+    const store = new MemoryStore();
+    const { client } = stub(searchMessage([development(url)], [results(url)]), blocked());
+    await runScheduledDevelopments(store, client, chile, { now });
+    const failed = await runScheduledDevelopments(store, client, chile, { now: new Date("2026-10-12T05:25:00Z") });
+    expect(failed.ok).toBe(false);
+    expect((await readStoredDevelopments(store, "CL"))?.checkedAt).toBe("2026-10-05T05:25:00.000Z");
+  });
+
+  it("only runs for a request carrying the cron secret", () => {
+    const secret = "s3cret-value-of-at-least-16";
+    const call = (authorization?: string) => new Request("https://app.example/api/cron/developments/CL", { headers: authorization ? { authorization } : {} });
+    expect(isAuthorisedCron(call(`Bearer ${secret}`), secret)).toBe(true);
+    expect(isAuthorisedCron(call("Bearer wrong"), secret)).toBe(false);
+    expect(isAuthorisedCron(call(secret), secret)).toBe(false);
+    expect(isAuthorisedCron(call(), secret)).toBe(false);
+    expect(isAuthorisedCron(call("Bearer undefined"), undefined)).toBe(false); // no secret configured: always refused
+    expect(isAuthorisedCron(call("Bearer short"), "short")).toBe(false); // too short to be a secret
+  });
+});
+
+describe("key-value store", () => {
+  it("in-memory: values expire, counters keep the lifetime they were created with", async () => {
+    let t = 0;
+    const store = new MemoryStore(() => t);
+    await store.set("a", { x: 1 }, 10);
+    expect(await store.get("a")).toEqual({ x: 1 });
+    expect(await store.incr("n", 60)).toBe(1);
+    t = 30_000;
+    expect(await store.get("a")).toBeNull();
+    expect(await store.incr("n", 60)).toBe(2);
+    t = 61_000;
+    expect(await store.incr("n", 60)).toBe(1);
+    await store.set("forever", "v");
+    t = 1e12;
+    expect(await store.get("forever")).toBe("v");
+  });
+
+  it("Upstash / Vercel KV: sends REST commands with the bearer token", async () => {
+    const calls: { url: string; auth: string; body: unknown }[] = [];
+    const replies: unknown[] = [{ result: "OK" }, { result: JSON.stringify({ x: 1 }) }, { result: null }, [{ result: 3 }, { result: 0 }]];
+    const fetcher = (async (url: string, init: RequestInit) => {
+      calls.push({ url, auth: (init.headers as Record<string, string>).Authorization!, body: JSON.parse(init.body as string) });
+      return new Response(JSON.stringify(replies.shift()), { status: 200 });
+    }) as unknown as typeof fetch;
+    const store = new UpstashStore("https://kv.example/", "tok", fetcher);
+    await store.set("k", { x: 1 }, 30);
+    expect(await store.get("k")).toEqual({ x: 1 });
+    expect(await store.get("missing")).toBeNull();
+    expect(await store.incr("n", 600)).toBe(3);
+    expect(calls.map((c) => c.body)).toEqual([["SET", "k", '{"x":1}', "EX", 30], ["GET", "k"], ["GET", "missing"], [["INCR", "n"], ["EXPIRE", "n", 600, "NX"]]]);
+    expect(calls.map((c) => c.url)).toEqual(["https://kv.example", "https://kv.example", "https://kv.example", "https://kv.example/pipeline"]);
+    expect(calls.every((c) => c.auth === "Bearer tok")).toBe(true);
+  });
+
+  it("Upstash / Vercel KV: a failed request throws instead of pretending the key is absent", async () => {
+    const store = new UpstashStore("https://kv.example", "tok", (async () => new Response("no", { status: 500 })) as unknown as typeof fetch);
+    await expect(store.get("k")).rejects.toThrow(/status 500/);
   });
 });
 
@@ -294,11 +368,23 @@ describe("runDevelopments", () => {
 describe("rateLimit", () => {
   const limit = { max: 3, windowMs: 60_000 };
 
-  it("allows up to the limit per key and window, then says when to retry", () => {
-    expect([1, 2, 3].map(() => rateLimit("tailor:1.2.3.4", limit, 1000).allowed)).toEqual([true, true, true]);
-    expect(rateLimit("tailor:1.2.3.4", limit, 31_000)).toEqual({ allowed: false, retryAfterSeconds: 30 });
-    expect(rateLimit("tailor:5.6.7.8", limit, 31_000).allowed).toBe(true); // another client
-    expect(rateLimit("developments:1.2.3.4", limit, 31_000).allowed).toBe(true); // another route
-    expect(rateLimit("tailor:1.2.3.4", limit, 61_001).allowed).toBe(true); // next window
+  it("counts in the shared store: up to the limit per key and window, then says when to retry", async () => {
+    let t = 1000;
+    const store = new MemoryStore(() => t);
+    const hit = (key: string) => rateLimit(store, key, limit, t);
+    expect([(await hit("tailor:1.2.3.4")).allowed, (await hit("tailor:1.2.3.4")).allowed, (await hit("tailor:1.2.3.4")).allowed]).toEqual([true, true, true]);
+    t = 31_000;
+    expect(await hit("tailor:1.2.3.4")).toEqual({ allowed: false, retryAfterSeconds: 29 });
+    expect((await hit("tailor:5.6.7.8")).allowed).toBe(true); // another client
+    expect((await hit("developments-read:1.2.3.4")).allowed).toBe(true); // another route
+    t = 60_001;
+    expect((await hit("tailor:1.2.3.4")).allowed).toBe(true); // next window
+  });
+
+  it("is shared between two server instances using the same store", async () => {
+    const store = new MemoryStore(() => 5000);
+    const a = [await rateLimit(store, "tailor:9.9.9.9", limit, 5000), await rateLimit(store, "tailor:9.9.9.9", limit, 5000)];
+    const b = [await rateLimit(store, "tailor:9.9.9.9", limit, 5000), await rateLimit(store, "tailor:9.9.9.9", limit, 5000)];
+    expect([...a, ...b].map((r) => r.allowed)).toEqual([true, true, true, false]);
   });
 });

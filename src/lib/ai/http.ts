@@ -2,6 +2,8 @@ import "server-only";
 
 import Anthropic from "@anthropic-ai/sdk";
 
+import { getStore } from "@/lib/store/kv";
+
 import { clientIp, rateLimit } from "./rate-limit";
 
 /* Shared request plumbing for the two Claude routes. */
@@ -12,6 +14,16 @@ let client: Anthropic | null = null;
 export function getClient(): Anthropic | null {
   if (!process.env.ANTHROPIC_API_KEY) return null;
   return (client ??= new Anthropic());
+}
+
+/** Per-IP limit backed by the shared store. If the store is unreachable the request is refused rather than let through. */
+export async function limited(request: Request, route: string, limit: { max: number; windowMs: number }): Promise<Response | null> {
+  try {
+    const result = await rateLimit(getStore(), `${route}:${clientIp(request)}`, limit);
+    return result.allowed ? null : json({ ok: false, failure: "rate_limited" }, 429, { "Retry-After": String(result.retryAfterSeconds) });
+  } catch {
+    return json({ ok: false, failure: "rate_limited" }, 503);
+  }
 }
 
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -26,9 +38,8 @@ export async function readJson(
   route: string,
   limits: { maxBodyBytes: number; rateLimit: { max: number; windowMs: number } },
 ): Promise<{ body: unknown } | { response: Response }> {
-  const limited = rateLimit(`${route}:${clientIp(request)}`, limits.rateLimit);
-  if (!limited.allowed)
-    return { response: json({ ok: false, failure: "rate_limited" }, 429, { "Retry-After": String(limited.retryAfterSeconds) }) };
+  const refused = await limited(request, route, limits.rateLimit);
+  if (refused) return { response: refused };
 
   const declared = Number(request.headers.get("content-length") ?? "0");
   if (declared > limits.maxBodyBytes) return { response: json({ ok: false, failure: "too_large" }, 413) };

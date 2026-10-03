@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    { "path": "/api/cron/developments/IT", "schedule": "0 5 * * 1" },
+    { "path": "/api/cron/developments/DE", "schedule": "5 5 * * 1" },
+    { "path": "/api/cron/developments/CN", "schedule": "10 5 * * 1" },
+    { "path": "/api/cron/developments/SG", "schedule": "15 5 * * 1" },
+    { "path": "/api/cron/developments/PE", "schedule": "20 5 * * 1" },
+    { "path": "/api/cron/developments/CL", "schedule": "25 5 * * 1" },
+    { "path": "/api/cron/developments/US-CA", "schedule": "30 5 * * 1" },
+    { "path": "/api/cron/developments/US-TX", "schedule": "35 5 * * 1" },
+    { "path": "/api/cron/developments/KR", "schedule": "40 5 * * 1" },
+    { "path": "/api/cron/developments/IN", "schedule": "45 5 * * 1" }
+  ]
+}

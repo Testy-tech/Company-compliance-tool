@@ -94,8 +94,9 @@ export type TailorResult =
 /** The part of the SDK client this module uses, so tests can pass a stub. */
 export type AiClient = Pick<Anthropic, "messages">;
 
-export async function runTailor(client: AiClient, request: TailorRequest): Promise<TailorResult> {
-  const { model, tailor } = aiConfig;
+export async function runTailor(client: AiClient, request: TailorRequest, options: { model?: string } = {}): Promise<TailorResult> {
+  const { tailor } = aiConfig;
+  const model = options.model ?? tailor.model;
   const started = Date.now();
   const log = { route: "tailor" as const, model, jurisdiction: request.jurisdiction.id };
   // The consent flag is for the route; Claude gets only the content.

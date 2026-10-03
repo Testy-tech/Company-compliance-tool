@@ -1,6 +1,7 @@
 /*
- * Limits and model choice for the two Claude routes. Server-only values; the
- * model id can be overridden with ANTHROPIC_MODEL.
+ * Limits and model choice for tailoring and for the scheduled developments
+ * check. Server-only values. Each has its own model variable: TAILOR_MODEL and
+ * DEVELOPMENTS_MODEL.
  *
  * Checked against the Claude docs on 2026-10-03:
  *   - model ids:            the supported-model list on the structured outputs page below
@@ -10,10 +11,11 @@
 
 import { MAX_OBLIGATIONS_PER_REQUEST } from "./tailor-schema";
 
-export const aiConfig = {
-  model: process.env.ANTHROPIC_MODEL || "claude-opus-5",
+const DEFAULT_MODEL = "claude-opus-5";
 
+export const aiConfig = {
   tailor: {
+    model: process.env.TAILOR_MODEL || DEFAULT_MODEL,
     /** Hard cap on output (and thinking) tokens for one request. */
     maxTokens: 8000,
     effort: "medium" as const,
@@ -25,15 +27,15 @@ export const aiConfig = {
   },
 
   developments: {
+    model: process.env.DEVELOPMENTS_MODEL || DEFAULT_MODEL,
     maxTokens: 6000,
     effort: "medium" as const,
     /** Hard cap on web searches for one request. */
     maxSearches: 4,
     timeoutMs: 180_000,
-    maxBodyBytes: 2_000,
-    cacheMs: 24 * 60 * 60_000,
     maxItems: 6,
-    rateLimit: { max: 20, windowMs: 10 * 60_000 },
+    /** Reading stored results is cheap, but still limited per client. */
+    readRateLimit: { max: 120, windowMs: 10 * 60_000 },
   },
 } as const;
 
