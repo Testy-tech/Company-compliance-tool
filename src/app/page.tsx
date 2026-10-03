@@ -38,17 +38,17 @@ const steps: { num: string; title: string; body: string }[] = [
   {
     num: "1",
     title: "Describe your footprint",
-    body: "Headquarters, current and target countries, the data you process, where it is hosted and which GDPR artefacts you already maintain. About fifteen minutes.",
+    body: "Headquarters, current and target countries, the data you process, where it goes and which GDPR artefacts you already maintain. Bands, not exact figures, and “Don't know” is always an answer.",
   },
   {
     num: "2",
     title: "Rules are applied, not guessed",
-    body: "Each obligation in the knowledge base carries explicit applicability conditions, evaluated deterministically against your answers.",
+    body: "Each obligation in the knowledge base carries an explicit condition, checked against your answers by fixed rules. Where an answer is open, the item is included and marked as an assumption.",
   },
   {
     num: "3",
-    title: "Receive an actionable opinion",
-    body: "A jurisdiction-by-jurisdiction checklist with owners, priorities, sources and a 30/60/90-day roadmap, exportable to PDF, Word and Excel.",
+    title: "Receive a checklist you can act on",
+    body: "A jurisdiction-by-jurisdiction checklist with owners, priorities and sources, a transfer map and a 30/60/90-day roadmap, with open questions to take back to the business. Export to PDF, Word and Excel.",
   },
 ];
 
@@ -92,7 +92,7 @@ const principles: { title: string; body: string }[] = [
   },
   {
     title: "Your answers stay with you",
-    body: "Nothing you enter is stored on our servers. Reports live in your browser and can be downloaded or shared by link. Answers go to an AI model only if you opt in.",
+    body: "Nothing you enter is stored on our servers. Reports are calculated in your browser and exported from it. A limited set of facts goes to an AI model only if you opt in.",
   },
   {
     title: "Not legal advice",

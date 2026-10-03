@@ -20,8 +20,12 @@ export function SiteFooter() {
             shows when it was last verified.
           </p>
           <p className="text-xs text-muted-foreground">
-            Knowledge base: not yet populated. Review dates will appear here
-            once the jurisdiction files are published.
+            The knowledge base is awaiting review by qualified counsel. Review
+            dates are shown for every{" "}
+            <Link href="/jurisdictions" className="underline underline-offset-2">
+              jurisdiction
+            </Link>{" "}
+            and on every report.
           </p>
         </div>
         <nav aria-label="Footer">

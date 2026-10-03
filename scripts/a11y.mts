@@ -124,6 +124,27 @@ for (const sample of ["unknown", "low"] as const) {
   await context.close();
 }
 
+// ── Public pages: light, dark, and no sideways scrolling at 375px ──
+const publicPages = ["/", "/jurisdictions", "/jurisdictions/CL", "/jurisdictions/US-CA", "/jurisdictions/IT", "/methodology", "/legal"];
+const overflowing: string[] = [];
+for (const scheme of ["light", "dark"] as const) {
+  const { context, page } = await session(scheme);
+  for (const path of publicPages) {
+    await page.goto(`${base}${path}`);
+    await page.waitForSelector("h1");
+    await check(page, `${path} (${scheme})`);
+    if (scheme === "light") {
+      await page.setViewportSize({ width: 375, height: 800 });
+      await page.waitForTimeout(100);
+      await check(page, `${path} (375px)`);
+      if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)) overflowing.push(path);
+      await page.setViewportSize({ width: 1280, height: 900 });
+    }
+  }
+  await context.close();
+}
+console.log(overflowing.length ? `Sideways overflow at 375px: ${overflowing.join(", ")}` : `No sideways overflow at 375px on ${publicPages.length} public pages`);
+
 await browser.close();
 
 const blocking = findings.filter((f) => f.impact === "serious" || f.impact === "critical");
@@ -131,4 +152,4 @@ writeFileSync("a11y-results.json", JSON.stringify({ base, tags, checked, finding
 for (const c of checked) console.log(`${c.violations === 0 ? "ok  " : "FAIL"} ${c.page} — ${c.violations} violations, ${c.passes} rules passed`);
 for (const f of findings) console.log(`  [${f.impact}] ${f.page}: ${f.id} — ${f.help} (${f.nodes} nodes) e.g. ${f.targets[0]}`);
 console.log(`\n${checked.length} pages checked, ${findings.length} violations, ${blocking.length} serious or critical`);
-process.exit(blocking.length ? 1 : 0);
+process.exit(blocking.length || overflowing.length ? 1 : 0);
