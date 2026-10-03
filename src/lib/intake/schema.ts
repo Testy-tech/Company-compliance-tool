@@ -152,5 +152,17 @@ export const intakeSchema = z.object({
   governance: governanceStep,
 });
 
+/**
+ * An assessment is an intake plus the date it is assessed as of. The engine
+ * resolves dated KB thresholds against `assessmentDate`, so re-running an old
+ * assessment gives the same result even after a threshold is adjusted.
+ */
+export const assessmentSchema = z.object({
+  version: z.literal(1),
+  assessmentDate: z.iso.date(),
+  intake: intakeSchema,
+});
+export type Assessment = z.infer<typeof assessmentSchema>;
+
 export type Intake = z.infer<typeof intakeSchema>;
 export type IntakeInput = z.input<typeof intakeSchema>;

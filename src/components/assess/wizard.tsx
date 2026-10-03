@@ -14,6 +14,12 @@ import type { StepIssue } from "./types";
 
 const noopSubscribe = () => () => {};
 
+/** Today's date in the user's time zone, as YYYY-MM-DD. */
+const today = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
 /** Scroll to a question and focus it: the group itself for radios/checkboxes, the control for single fields. */
 function focusQuestion(anchor: string): boolean {
   const el = document.getElementById(anchor);
@@ -51,10 +57,11 @@ function WizardForm({ config }: { config: WizardConfig }) {
     const draft: Draft = saved ? { ...emptyDraft(), ...(saved.values as Draft) } : emptyDraft();
     const savedStep = Math.min(Math.max(saved?.step ?? 0, 0), steps.length - 1);
     const linked = stepForHash(window.location.hash);
-    return { draft, step: linked >= 0 ? linked : savedStep, reached: Math.max(savedStep, linked), anchor: linked >= 0 ? window.location.hash.slice(1) : null };
+    return { draft, assessmentDate: saved?.assessmentDate ?? today(), step: linked >= 0 ? linked : savedStep, reached: Math.max(savedStep, linked), anchor: linked >= 0 ? window.location.hash.slice(1) : null };
   });
 
   const [draft, setDraft] = useState(initial.draft);
+  const [assessmentDate, setAssessmentDate] = useState(initial.assessmentDate);
   const [step, setStep] = useState(initial.step);
   const [reached, setReached] = useState(initial.reached);
   const [issues, setIssues] = useState<StepIssue[]>([]);
@@ -65,8 +72,8 @@ function WizardForm({ config }: { config: WizardConfig }) {
   const shownStep = useRef(initial.step);
 
   useEffect(() => {
-    store.save({ version: 1, step, values: draft, updatedAt: new Date().toISOString() });
-  }, [store, draft, step]);
+    store.save({ version: 1, assessmentDate, step, values: draft, updatedAt: new Date().toISOString() });
+  }, [store, assessmentDate, draft, step]);
 
   // On a step change, move focus to the step heading — or to the question a "Resolve" link asked for.
   // Idempotent, because React runs effects twice in development.
@@ -137,6 +144,7 @@ function WizardForm({ config }: { config: WizardConfig }) {
     if (!window.confirm("Clear all answers and start again?")) return;
     store.clear();
     setDraft(emptyDraft());
+    setAssessmentDate(today());
     setReached(0);
     goTo(0);
   }

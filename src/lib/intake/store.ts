@@ -6,6 +6,8 @@
 
 export type IntakeDraft = {
   version: 1;
+  /** ISO date the assessment is made as of; set when the draft is started and kept on every save. */
+  assessmentDate: string;
   step: number;
   values: unknown;
   updatedAt: string;

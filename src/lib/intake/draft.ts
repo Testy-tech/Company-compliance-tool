@@ -3,7 +3,7 @@ import type { WizardConfig } from "@/lib/kb/wizard-config";
 import { bandInterval } from "./bands";
 import { bandStraddles, type MoneyThreshold } from "./money";
 import {
-  frameworkKeys, intakeSchema, processingKeys, sensitiveKeys, subjectKeys,
+  assessmentSchema, frameworkKeys, intakeSchema, processingKeys, sensitiveKeys, subjectKeys,
   type Answer, type CoveredJurisdiction, type Intake,
 } from "./schema";
 
@@ -170,6 +170,12 @@ export function toIntake(draft: Draft) {
     },
     website: { trackers: w.trackers, consentBanner: w.consentBanner, countrySites },
   });
+}
+
+/** Finished draft → validated assessment (intake + the date it is assessed as of). */
+export function toAssessment(draft: Draft, assessmentDate: string) {
+  const intake = toIntake(draft);
+  return intake.success ? assessmentSchema.safeParse({ version: 1, assessmentDate, intake: intake.data }) : intake;
 }
 
 /** Number of "Don't know" / "Prefer not to say" answers in a validated intake. */
