@@ -454,7 +454,7 @@ export function buildQuestionnaire(input: ExportInput): ExportDoc {
         ...(r.parts.length ? ([["Please give", r.parts.map((x) => `${x[0]!.toUpperCase()}${x.slice(1)}`).join("; ")]] as [string, string][]) : []),
         ["Why it matters", r.why],
         ["Affects", `${r.countries} (${plural(r.items, "item")})`],
-        ["Answer", r.answerType === "yes_no" ? "☐ Yes      ☐ No" : " "],
+        ["Answer", r.answerType === "yes_no" ? "☐ Yes      ☐ No" : "________________________________________________________"],
       ],
     });
   }
