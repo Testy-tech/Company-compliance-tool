@@ -1,7 +1,7 @@
 import type { Intake } from "@/lib/intake/schema";
 import type { JurisdictionId } from "@/lib/kb/schema";
 
-import type { GovernanceFinding, ObligationResult } from "./types";
+import type { GovernanceFinding, ObligationResult, TransferFlow } from "./types";
 
 /*
  * Governance findings: what the applicable obligations imply for how privacy is
@@ -13,7 +13,15 @@ import type { GovernanceFinding, ObligationResult } from "./types";
 const unique = <T,>(xs: T[]) => [...new Set(xs)];
 const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
-export function governanceFindings(results: readonly ObligationResult[], governance: Intake["governance"]): GovernanceFinding[] {
+/** From this many cross-border flows between group entities, a single agreement is recommended. */
+const INTRA_GROUP_FLOWS = 3;
+
+export function governanceFindings(
+  results: readonly ObligationResult[],
+  governance: Intake["governance"],
+  flows: readonly TransferFlow[] = [],
+  nameOf: (id: JurisdictionId) => string = (id) => id,
+): GovernanceFinding[] {
   const findings: GovernanceFinding[] = [];
   const add = (id: string, title: string, detail: string, subset: readonly ObligationResult[]) => {
     if (!subset.length) return;
@@ -65,6 +73,25 @@ export function governanceFindings(results: readonly ObligationResult[], governa
     "Filings are made with the local authority, usually in the local language and through a local account or representative. Decide who files and who keeps the registration up to date.",
     filings,
   );
+
+  // A recommendation drawn from the transfer items already listed, not a further legal requirement.
+  const intraGroup = flows.filter((f) => f.crossBorder && (f.destination.kind === "hq" || f.destination.kind === "group"));
+  if (intraGroup.length >= INTRA_GROUP_FLOWS) {
+    const needing = intraGroup.filter((f) => f.status !== "none");
+    const exporters = unique(needing.map((f) => f.origin)).sort() as JurisdictionId[];
+    findings.push({
+      id: "intra-group-agreement",
+      title: `One intra-group data transfer agreement for ${intraGroup.length} flows between group entities`,
+      detail:
+        `Personal data moves between group entities across borders in ${intraGroup.length} flows. Instead of a separate contract for each flow, a single intra-group data transfer agreement signed by every entity is the scalable route: standard contractual clauses as the core, plus the clauses, filings or approvals that each exporting country requires. ` +
+        (exporters.length
+          ? `It has to incorporate the transfer requirements of: ${exporters.map(nameOf).join(", ")}. Where an exporting country prescribes its own contract or an approval, that step is still needed alongside the agreement.`
+          : "On your answers, none of the exporting countries requires a specific mechanism for these flows.") +
+        " This is a recommendation drawn from the items listed, not an additional legal requirement.",
+      jurisdictions: exporters,
+      obligationIds: unique(needing.flatMap((f) => f.obligationIds)).sort(),
+    });
+  }
 
   return findings;
 }

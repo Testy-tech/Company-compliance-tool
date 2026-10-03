@@ -1,6 +1,7 @@
 import { bandInterval, type BandSetId } from "@/lib/intake/bands";
 import { revenueBandToUSD, type FxTable } from "@/lib/intake/money";
 import type { Answer, Intake } from "@/lib/intake/schema";
+import { isEEA } from "@/lib/kb/eu-transfers";
 
 /*
  * Intake answers → facts for one jurisdiction.
@@ -29,9 +30,6 @@ export type DeriveContext = {
   thresholdAmount: (id: string) => number | undefined;
 };
 
-const EEA = new Set(
-  "AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO".split(" "),
-);
 
 const exact = (value: Scalar): FactValue => ({ kind: "exact", value });
 const range = (min: number, max: number, unresolved: boolean): FactValue =>
@@ -123,7 +121,7 @@ export function deriveBaseFacts(intake: Intake, e: Entity, ctx: DeriveContext): 
     "j.cn.importantData": boolFact(e.cn?.importantData),
 
     "hq.country": exact(c.hqCountry),
-    "hq.isEU": exact(EEA.has(c.hqCountry)),
+    "hq.isEU": exact(isEEA(c.hqCountry)),
     "hq.gdprBaseline": exact(c.gdprBaseline === "yes"),
     "group.headcount": bandFact("headcount", c.groupHeadcount),
     "group.revenueUSD": revenueFact(c.groupRevenue, c.groupRevenueAbove, ctx),

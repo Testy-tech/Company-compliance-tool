@@ -2,6 +2,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+import { euTransfersSchema } from "../src/lib/kb/eu-transfers";
 import { validateJurisdiction, type Issue } from "../src/lib/kb/validate";
 
 const dir = path.join(process.cwd(), "content", "jurisdictions");
@@ -28,6 +29,16 @@ for (const file of files) {
     }, {});
     console.log(`  ${id.padEnd(6)} ${String(data.obligations.length).padStart(3)} obligations  ${JSON.stringify(byConf)}`);
   }
+}
+
+// EU/EEA transfer data (adequacy list, mechanisms): schema plus a staleness warning.
+try {
+  const eu = euTransfersSchema.parse(JSON.parse(readFileSync(path.join(process.cwd(), "content", "config", "eu-transfers.json"), "utf8")));
+  const ageDays = (Date.now() - new Date(eu.lastVerified).getTime()) / 86_400_000;
+  if (ageDays > 180) all.push({ level: "warning", where: "eu-transfers.json", message: `adequacy list last verified ${eu.lastVerified}; re-check the Commission page` });
+  console.log(`  EU transfers: ${eu.adequacy.countries.length} adequacy decisions, last verified ${eu.lastVerified} (${eu.confidence})`);
+} catch (e) {
+  all.push({ level: "error", where: "eu-transfers.json", message: String(e) });
 }
 
 for (const i of all) console.log(`${i.level === "error" ? "ERROR" : "warn "} ${i.where}  ${i.message}`);

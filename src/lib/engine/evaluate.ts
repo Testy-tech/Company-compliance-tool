@@ -2,11 +2,13 @@ import { formatUSD, type FxTable } from "@/lib/intake/money";
 import { consentBannerLabels, employeeRepLabels, hrOnlyLabels } from "@/lib/intake/options";
 import { anchorId, copy, type QuestionId } from "@/lib/intake/questions";
 import type { Assessment } from "@/lib/intake/schema";
+import { euTransfers, type EuTransfers } from "@/lib/kb/eu-transfers";
 import { facts as factRegistry, factsByPath, type FactDef } from "@/lib/kb/facts";
 import { resolveThresholds, thresholdInEffect } from "@/lib/kb/rules";
 import type { Jurisdiction, JurisdictionId, Obligation, ObligationCategory } from "@/lib/kb/schema";
 
 import { deriveBaseFacts, derivedFacts, type BaseFacts, type DeriveContext, type FactValue, type Scalar } from "./derive";
+import { transferFlows } from "./flows";
 import { governanceFindings } from "./governance";
 import { evaluateRule, type Clamps, type Condition, type Pivot, type RuleOutcome } from "./rule";
 import type { Alternative, Assumption, JurisdictionReport, ObligationResult, OpenQuestion, PenaltyExposure, Report, SubAnswer } from "./types";
@@ -201,7 +203,7 @@ function clampsFor(answers: Assessment["intake"]["thresholdAnswers"], jurisdicti
   return clamps;
 }
 
-export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx: FxTable): Report {
+export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx: FxTable, eu: EuTransfers = euTransfers): Report {
   const { intake, assessmentDate } = assessment;
 
   const thresholdAmount: DeriveContext["thresholdAmount"] = (id) => {
@@ -306,6 +308,13 @@ export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx
     });
   });
 
+  // Transfer flows, and the open questions behind flows that had to be assumed.
+  const { flows, questions: flowQuestions } = transferFlows(intake, jurisdictions, kb, eu);
+  for (const { seed, obligationIds } of flowQuestions) {
+    addQuestion({ ...seed, covers: [] });
+    for (const id of obligationIds) addQuestion({ ...seed, covers: [] }, id);
+  }
+
   const all = jurisdictions.flatMap((jr) => jr.results);
   const jurisdictionOf = new Map(all.map((r) => [r.obligation.id, r.jurisdiction]));
 
@@ -329,7 +338,7 @@ export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx
   // Unresolved answers with no effect, unless an open question (e.g. a grouped one) already covers them.
   const covered = new Set(ranked.filter((r) => r.obligationIds.length > 0).flatMap((r) => r.seed.covers));
   const unansweredNoEffect = ranked
-    .filter((r) => r.obligationIds.length === 0 && !r.seed.covers.every((c) => covered.has(c)))
+    .filter((r) => r.obligationIds.length === 0 && !(r.seed.covers.length > 0 && r.seed.covers.every((c) => covered.has(c))))
     .map(({ seed }) => ({ id: seed.id, questionId: seed.questionId, jurisdiction: seed.jurisdiction, question: seed.question, resolveHref: seed.resolveHref }))
     .sort((a, b) => byString(a.id, b.id));
 
@@ -350,6 +359,7 @@ export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx
     jurisdictions,
     notAssessed,
     openQuestions,
+    flows,
     unansweredNoEffect,
     answeredThresholds: Object.keys(intake.thresholdAnswers)
       .sort(byString)
@@ -363,7 +373,7 @@ export function evaluate(assessment: Assessment, kb: readonly Jurisdiction[], fx
     governance: {
       model: intake.governance.model,
       localContacts: intake.governance.localContacts,
-      findings: governanceFindings(all, intake.governance),
+      findings: governanceFindings(all, intake.governance, flows, (id) => kb.find((k) => k.id === id)?.name ?? id),
     },
     summary: {
       obligations: all.length,

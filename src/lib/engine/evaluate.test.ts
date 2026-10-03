@@ -388,3 +388,101 @@ describe("determinism", () => {
     expect(JSON.stringify(a)).toBe(before);
   });
 });
+
+describe("transfer flows", () => {
+  const flow = (r: Report, id: string) => r.flows.find((f) => f.id === id);
+
+  describe("known destinations (low fixture: headquarters shares data with every subsidiary)", () => {
+    const report = run(referenceAssessment("low"));
+
+    it("lists one flow per origin and destination", () => {
+      const fromHq = report.flows.filter((f) => f.origin === "IT");
+      expect(fromHq.map((f) => f.id)).toEqual([
+        "IT>group:CN", "IT>group:SG", "IT>group:PE", "IT>group:CL", "IT>group:US-CA", "IT>group:US-TX", "IT>group:DE", "IT>group:KR", "IT>group:IN",
+        "IT>provider:EEA", "IT>provider:US",
+      ]);
+      expect(report.flows.filter((f) => f.origin === "CN").map((f) => f.id)).toEqual(["CN>hq"]);
+    });
+
+    it("picks the EEA exporter's mechanism by destination", () => {
+      expect(flow(report, "IT>group:DE")).toMatchObject({ status: "none", crossBorder: true, obligationIds: [] });
+      expect(flow(report, "IT>provider:EEA")).toMatchObject({ status: "none" });
+      expect(flow(report, "IT>group:KR")).toMatchObject({ status: "applies", mechanism: "Adequacy decision (Republic of Korea)" });
+      expect(flow(report, "IT>group:CN")).toMatchObject({ status: "applies", mechanism: "Standard contractual clauses plus a transfer impact assessment", owner: "HQ" });
+      expect(flow(report, "IT>group:CN")!.obligationIds).toContain("IT-TRANSFER-01");
+      expect(flow(report, "IT>provider:US")!.mechanism).toMatch(/unless the provider is certified/);
+    });
+
+    it("uses standard contractual clauses for a US entity that is not certified, and the framework for one that is", () => {
+      expect(flow(report, "IT>group:US-CA")).toMatchObject({ status: "applies", mechanism: "Standard contractual clauses plus a transfer impact assessment" });
+      const certified = run(referenceAssessment("low", (i) => void (entityOf(i, "US-CA").dpfCertified = known(true))));
+      expect(flow(certified, "IT>group:US-CA")).toMatchObject({ status: "applies", mechanism: "EU–US Data Privacy Framework (recipient is certified)" });
+    });
+
+    it("uses the exporting country's own items for exporters outside the EEA", () => {
+      const cn = flow(report, "CN>hq")!;
+      expect(cn.destination.name).toBe("Italy (headquarters)");
+      expect(cn.obligationIds.length).toBeGreaterThan(0);
+      expect(cn.obligationIds.every((id) => id.startsWith("CN-"))).toBe(true);
+      expect(cn.status).toBe("applies");
+      // Germany → Italy stays inside the EEA
+      expect(flow(report, "DE>hq")).toMatchObject({ status: "none", obligationIds: [] });
+    });
+
+    it("recommends an intra-group agreement from three cross-border group flows, naming the exporters to cover", () => {
+      const f = report.governance.findings.find((x) => x.id === "intra-group-agreement")!;
+      expect(f.title).toMatch(/intra-group data transfer agreement/);
+      expect(f.jurisdictions).toContain("CN");
+      expect(f.jurisdictions).toContain("IT");
+      expect(f.jurisdictions).not.toContain("DE");
+      expect(f.detail).toMatch(/not an additional legal requirement/);
+      expect(f.obligationIds).toContain("IT-TRANSFER-01");
+      const two = run(
+        referenceAssessment("low", (i) => {
+          i.footprint.entities = i.footprint.entities.filter((e) => ["IT", "CN", "SG"].includes(e.jurisdiction));
+          entityOf(i, "IT").transfers.destinations = known({ hq: false, group: [], providers: [] });
+          i.infrastructure.groupAccessFromAbroad = false;
+        }),
+      );
+      expect(two.flows.filter((x) => x.crossBorder)).toHaveLength(2);
+      expect(two.governance.findings.find((x) => x.id === "intra-group-agreement")).toBeUndefined();
+    });
+
+    it("has no assumed flows and no open questions", () => {
+      expect(report.flows.some((f) => f.status === "assumed")).toBe(false);
+      expect(report.openQuestions).toEqual([]);
+    });
+  });
+
+  it("assumes standard contractual clauses when certification is unknown, and asks the question once", () => {
+    const report = run(referenceAssessment("low", (i) => void (entityOf(i, "US-TX").dpfCertified = unknown)));
+    const f = flow(report, "IT>group:US-TX")!;
+    expect(f).toMatchObject({ status: "assumed", openQuestionIds: ["entity-dpf:US-TX"] });
+    expect(f.note).toMatch(/framework applies instead/);
+    const q = question(report, "entity-dpf:US-TX")!;
+    expect(q.question).toBe("Is the United States — Texas entity certified under the EU–US Data Privacy Framework?");
+    expect(q.obligationIds).toContain("IT-TRANSFER-01");
+    expect(q.resolveHref).toBe("/assess#q-entity-dpf-US-TX");
+    expect(report.openQuestions).toHaveLength(1);
+  });
+
+  it("shows an assumed flow and an open question when destinations are unknown", () => {
+    const report = run(referenceAssessment("unknown"));
+    expect(flow(report, "CN>unknown")).toMatchObject({ status: "assumed", openQuestionIds: ["transfers-destinations:CN"] });
+    expect(flow(report, "IT>unknown")).toMatchObject({ status: "assumed", mechanism: "Standard contractual clauses plus a transfer impact assessment" });
+    // remote access from headquarters is a flow even when destinations are unknown
+    expect(flow(report, "CN>hq")?.destination.remoteAccess).toBe(true);
+    expect(question(report, "transfers-destinations:CN")!.impact).toBeGreaterThan(0);
+  });
+
+  it("has no flow for an entity that sends nothing abroad and is not accessed remotely", () => {
+    const report = run(
+      referenceAssessment("low", (i) => {
+        i.infrastructure.groupAccessFromAbroad = false;
+        const sg = entityOf(i, "SG");
+        sg.transfers = { nonSensitive: known("0"), sensitive: known("0"), hrOnly: { status: "not_asked" }, destinations: { status: "not_asked" } };
+      }),
+    );
+    expect(report.flows.filter((f) => f.origin === "SG")).toEqual([]);
+  });
+});

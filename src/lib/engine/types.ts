@@ -104,6 +104,34 @@ export type OpenQuestion = {
 /** An unresolved answer that no reported obligation depends on. Not an open question; listed collapsed. */
 export type UnansweredNoEffect = { id: string; questionId: string; jurisdiction?: JurisdictionId; question: string; resolveHref?: string };
 
+/** One origin → destination flow of personal data, with the mechanism the exporting country requires. */
+export type TransferFlow = {
+  id: string;
+  origin: JurisdictionId;
+  originName: string;
+  destination: {
+    kind: "hq" | "group" | "provider" | "unknown";
+    /** Country code, "EEA", "OTHER", or "?" when unknown. */
+    code: string;
+    name: string;
+    /** The flow exists because headquarters can access local systems remotely. */
+    remoteAccess?: boolean;
+  };
+  /** False when origin and destination are in the same country. */
+  crossBorder: boolean;
+  /** What the exporting country requires for this flow. */
+  mechanism: string;
+  note?: string;
+  /** The exporting country's transfer items behind the mechanism. */
+  obligationIds: string[];
+  owner?: Obligation["owner"];
+  /** `none`: nothing is required for this flow. */
+  status: "applies" | "assumed" | "none";
+  /** Citations for mechanisms chosen by destination (EEA exporters). */
+  sources?: { url: string; pinpoint: string }[];
+  openQuestionIds: string[];
+};
+
 export type GovernanceFinding = { id: string; title: string; detail: string; jurisdictions: JurisdictionId[]; obligationIds: string[] };
 
 export type JurisdictionReport = {
@@ -123,6 +151,8 @@ export type Report = {
   notAssessed: string[];
   /** Impact > 0 only, sorted by impact, highest first. */
   openQuestions: OpenQuestion[];
+  /** One row per origin → destination. */
+  flows: TransferFlow[];
   /** Excluded from the open-question count and from the follow-up questionnaire. */
   unansweredNoEffect: UnansweredNoEffect[];
   /** Threshold questions already answered in the report (stored in intake.thresholdAnswers), so exports can list them. */
