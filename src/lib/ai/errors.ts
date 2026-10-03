@@ -64,6 +64,10 @@ export function logAi(entry: {
   usage?: AiUsage;
   failure?: AiFailure;
   detail?: string;
+  /** Tailoring only: obligations sent, items accepted, and items dropped by the guard with a reason code. */
+  sent?: number;
+  tailored?: number;
+  dropped?: { id: string; reason: string }[];
 }) {
   const line = JSON.stringify({ at: new Date().toISOString(), ...entry });
   if (entry.failure) console.warn(`[ai] ${line}`);

@@ -155,7 +155,7 @@ describe("runTailor", () => {
     );
     const result = await runTailor(client, request);
     expect(result.ok && result.items.map((i) => i.id)).toEqual(["CN-TRANSFER-04"]);
-    expect(info.mock.calls.flat().join(" ")).toContain("dropped for new legal content: CN-NOTICE-01");
+    expect(info.mock.calls.flat().join(" ")).toContain('"dropped":[{"id":"CN-NOTICE-01","reason":"new_article"}]');
   });
 
   it("allows articles and time limits that are in the obligation's own text", () => {
@@ -180,7 +180,7 @@ describe("runTailor", () => {
     it("drops an item with an extra step, a missing step or merged steps (the others are kept)", async () => {
       expect(await tailor([...goodSteps["CN-TRANSFER-04"]!, "Brief the works council as well."])).toEqual(["CN-NOTICE-01"]);
       expect(await tailor(["Confirm the volumes and file the application."])).toEqual(["CN-NOTICE-01"]);
-      expect(info.mock.calls.flat().join(" ")).toContain("CN-TRANSFER-04 (1 steps for 2 standard steps)");
+      expect(info.mock.calls.flat().join(" ")).toContain('"dropped":[{"id":"CN-TRANSFER-04","reason":"step_count"}]');
     });
 
     it("drops an item whose steps are reordered or replaced by something else", async () => {
@@ -195,13 +195,23 @@ describe("runTailor", () => {
       expect(await tailor([first, "File the application with a signed data transfer agreement."])).toEqual(["CN-NOTICE-01"]); // a document
       expect(await tailor([first, "File the application with the provincial authority."])).toEqual(["CN-NOTICE-01"]); // an authority
       expect(await tailor([first, "File the application through the CAC portal."])).toEqual(["CN-NOTICE-01"]); // an abbreviation not in the text
-      expect(info.mock.calls.flat().join(" ")).toContain("introduces a document");
+      const reasons = info.mock.calls.flat().join(" ").match(/"reason":"[a-z_]+"/g);
+      expect(reasons).toEqual(['"reason":"new_date"', '"reason":"new_time_limit"', '"reason":"new_document"', '"reason":"new_authority"', '"reason":"new_abbreviation"']);
     });
 
     it("lets a step name an existing GDPR artefact from the company's own facts", () => {
       // "DPIA process and template" is among the artefacts sent with the request
       expect(stepsProblem(transfer, ["Confirm the volumes using the DPIA template.", "File the application."], request.facts.gdprArtefactsInPlace)).toBeUndefined();
-      expect(stepsProblem(transfer, ["Confirm the volumes using the DPIA template.", "File the application."], [])).toMatch(/introduces/);
+      expect(stepsProblem(transfer, ["Confirm the volumes using the DPIA template.", "File the application."], [])).toMatchObject({ reason: "new_document" });
+    });
+
+    it("logs a reason code and counts for every run, without any request or answer text", async () => {
+      await tailor([goodSteps["CN-TRANSFER-04"]![1]!, goodSteps["CN-TRANSFER-04"]![0]!]);
+      const line = info.mock.calls.flat().join(" ");
+      expect(line).toContain('"sent":2');
+      expect(line).toContain('"tailored":1');
+      expect(line).toContain('"dropped":[{"id":"CN-TRANSFER-04","reason":"step_mismatch"}]');
+      expect(line).not.toMatch(/Confirm|headquarters|Client A|notice/i);
     });
 
     it("keeps extra points as considerations, apart from the steps, capped at three", async () => {

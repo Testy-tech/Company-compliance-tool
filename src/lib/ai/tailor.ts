@@ -55,6 +55,23 @@ export function introducesLegalContent(original: SentObligation, explanation: st
   return undefined;
 }
 
+/**
+ * Why a tailored item was dropped. Logged with the obligation id only (no text
+ * from the request or the answer), so the false-positive rate of each check can
+ * be measured later.
+ */
+export type DropReason =
+  | "new_article"
+  | "new_time_limit"
+  | "new_date"
+  | "step_count"
+  | "step_mismatch"
+  | "new_document"
+  | "new_authority"
+  | "new_abbreviation";
+
+const anchorReason = (anchor: string): DropReason => (anchor.startsWith("art:") ? "new_article" : anchor.startsWith("time:") ? "new_time_limit" : "new_date");
+
 /* ── Steps: one-to-one with the standard steps, and nothing new in them ────── */
 
 const STOP = new Set("with that this from they them their there where which while when what will would should could have been being into onto over under than then also each every your yours ours such only more most some any other same both either neither about after before within without between against during including include includes".split(" "));
@@ -82,8 +99,8 @@ const acronyms = (text: string) => new Set(text.match(/\b[A-Z][A-Z0-9]{1,}s?\b/g
  *    (the company's existing GDPR artefacts, sent with the request, may be named).
  * New deadlines, dates and article references are caught by introducesLegalContent.
  */
-export function stepsProblem(original: SentObligation, steps: string[], artefacts: readonly string[] = []): string | undefined {
-  if (steps.length !== original.actionSteps.length) return `${steps.length} steps for ${original.actionSteps.length} standard steps`;
+export function stepsProblem(original: SentObligation, steps: string[], artefacts: readonly string[] = []): { reason: DropReason; detail: string } | undefined {
+  if (steps.length !== original.actionSteps.length) return { reason: "step_count", detail: `${steps.length} steps for ${original.actionSteps.length} standard steps` };
   const source = `${ownText(original)}\n${artefacts.join("\n")}`;
   const allowedDocs = collect(source, DOCUMENT_WORDS);
   const allowedAuthorities = collect(source, AUTHORITY_WORDS);
@@ -92,10 +109,10 @@ export function stepsProblem(original: SentObligation, steps: string[], artefact
     const standard = words(original.actionSteps[i]!);
     const tailored = words(steps[i]!);
     const shared = [...standard].filter((w) => tailored.has(w)).length;
-    if (standard.size && shared / standard.size < 0.3) return `step ${i + 1} does not correspond to standard step ${i + 1}`;
-    for (const d of collect(steps[i]!, DOCUMENT_WORDS)) if (!allowedDocs.has(d)) return `step ${i + 1} introduces a document ("${d}")`;
-    for (const a of collect(steps[i]!, AUTHORITY_WORDS)) if (!allowedAuthorities.has(a)) return `step ${i + 1} introduces an authority or body ("${a}")`;
-    for (const a of acronyms(steps[i]!)) if (!allowedAcronyms.has(a)) return `step ${i + 1} introduces "${a}"`;
+    if (standard.size && shared / standard.size < 0.3) return { reason: "step_mismatch", detail: `step ${i + 1} does not correspond to standard step ${i + 1}` };
+    for (const d of collect(steps[i]!, DOCUMENT_WORDS)) if (!allowedDocs.has(d)) return { reason: "new_document", detail: `step ${i + 1} introduces a document ("${d}")` };
+    for (const a of collect(steps[i]!, AUTHORITY_WORDS)) if (!allowedAuthorities.has(a)) return { reason: "new_authority", detail: `step ${i + 1} introduces an authority or body ("${a}")` };
+    for (const a of acronyms(steps[i]!)) if (!allowedAcronyms.has(a)) return { reason: "new_abbreviation", detail: `step ${i + 1} introduces "${a}"` };
   }
   return undefined;
 }
@@ -111,11 +128,11 @@ export function stepsProblem(original: SentObligation, steps: string[], artefact
 export function validateTailorOutput(
   request: TailorRequest,
   output: z.infer<typeof tailorOutputSchema>,
-): { ok: true; items: TailoredItem[]; dropped: string[] } | { ok: false; problem: string } {
+): { ok: true; items: TailoredItem[]; dropped: { id: string; reason: DropReason }[] } | { ok: false; problem: string } {
   const sent = new Map(request.obligations.map((o) => [o.id, o]));
   const seen = new Set<string>();
   const items: TailoredItem[] = [];
-  const dropped: string[] = [];
+  const dropped: { id: string; reason: DropReason }[] = [];
   for (const item of output.items) {
     const original = sent.get(item.id);
     if (!original) return { ok: false, problem: `unknown obligation id "${item.id}"` };
@@ -127,9 +144,10 @@ export function validateTailorOutput(
     const steps = item.tailoredSteps.map((s) => s.trim()).filter(Boolean);
     if (!explanation || explanation.length > LIMITS.explanation) return { ok: false, problem: `explanation missing or too long for "${item.id}"` };
     if (steps.length < LIMITS.minSteps || steps.some((s) => s.length > LIMITS.step)) return { ok: false, problem: `steps missing or too long for "${item.id}"` };
-    const added = introducesLegalContent(original, explanation, steps) ?? stepsProblem(original, steps, request.facts.gdprArtefactsInPlace);
-    if (added) {
-      dropped.push(`${item.id} (${added})`);
+    const anchor = introducesLegalContent(original, explanation, steps);
+    const reason = anchor ? anchorReason(anchor) : stepsProblem(original, steps, request.facts.gdprArtefactsInPlace)?.reason;
+    if (reason) {
+      dropped.push({ id: item.id, reason });
       continue;
     }
     // Considerations are shown apart from the steps, as points for counsel; over-long or surplus ones are cut, not fatal.
@@ -179,7 +197,8 @@ export async function runTailor(client: AiClient, request: TailorRequest, option
       logAi({ ...log, ms: Date.now() - started, requestId, usage, failure: "invalid_output", detail: checked.problem });
       return { ok: false, failure: "invalid_output", requestId: requestId ?? undefined };
     }
-    logAi({ ...log, ms: Date.now() - started, requestId, usage, detail: checked.dropped.length ? `dropped for new legal content: ${checked.dropped.join(", ")}` : undefined });
+    // Reason codes and obligation ids only: nothing from the request or the model's text is logged.
+    logAi({ ...log, ms: Date.now() - started, requestId, usage, sent: request.obligations.length, tailored: checked.items.length, dropped: checked.dropped });
     return { ok: true, items: checked.items, usage, requestId, model };
   } catch (error) {
     const { failure, requestId, status } = classifyError(error);
