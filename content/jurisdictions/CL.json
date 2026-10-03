@@ -141,7 +141,7 @@
       "category": "impact_assessment",
       "title": "Carry out DPIAs for high-risk processing, including CCTV of public-access areas",
       "requirement": "Before high-risk processing a DPIA is required, and always for: systematic and extensive evaluation through automated decisions or profiling with significant effects; mass or large-scale processing; systematic monitoring of publicly accessible areas; and sensitive data processed under an exception to consent. The Agency will publish an indicative list and minimum guidance.",
-      "appliesIf": { "or": [{ "var": "processing.cctv" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { ">=": [{ "var": "j.individuals" }, 100000] }] },
+      "appliesIf": { "or": [{ "var": "processing.cctv" }, { "var": "processing.automatedDecisions" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { ">=": [{ "var": "j.people.total" }, 100000] }] },
       "appliesIfNote": "Applies because you run CCTV, automated decisions, sensitive-data or large-scale processing in Chile.",
       "actionSteps": [
         "Reuse the group DPIA template for the Chilean triggers (note: monitoring of publicly accessible areas is an explicit trigger).",

@@ -73,7 +73,7 @@
       "category": "legal_basis_consent",
       "title": "Obtain consent or document a First Schedule exception (incl. legitimate interests assessment)",
       "requirement": "Collection, use or disclosure requires consent (actual or deemed) unless a PDPA exception applies. The general legitimate interests exception requires the organisation to identify the interest, assess and mitigate adverse effects (with a balancing test for residual effects), disclose its reliance on the exception, and retain the assessment for as long as it relies on it. It cannot be used to send direct marketing.",
-      "appliesIf": { "or": [{ "var": "subjects.b2bContacts" }, { "var": "subjects.siteVisitors" }, { "var": "subjects.consumers" }, { "var": "processing.cctv" }, { "var": "processing.crm" }] },
+      "appliesIf": { "or": [{ "var": "subjects.b2bContacts" }, { "var": "subjects.siteVisitors" }, { "var": "subjects.endUsers" }, { "var": "processing.cctv" }, { "var": "processing.crm" }] },
       "appliesIfNote": "Applies because you process non-employee personal data in Singapore (contacts, visitors, CCTV, CRM).",
       "actionSteps": [
         "Map each non-HR processing activity to consent, deemed consent or a specific exception.",
@@ -240,7 +240,7 @@
       "category": "marketing",
       "title": "Check the Do Not Call Registry before marketing to Singapore numbers",
       "requirement": "Before sending marketing voice calls, text or fax messages to Singapore telephone numbers, organisations must check the DNC Registry unless they hold the recipient's clear and unambiguous consent. Messages sent to an organisation for the purposes of that organisation (business-to-business) are excluded under the Eighth Schedule.",
-      "appliesIf": { "and": [{ "var": "processing.marketing" }, { "var": "subjects.consumers" }] },
+      "appliesIf": { "and": [{ "var": "processing.marketing" }, { "var": "subjects.endUsers" }] },
       "appliesIfNote": "Applies because you send marketing messages to individuals in Singapore (B2B messages to organisations are excluded).",
       "actionSteps": [
         "Screen consumer telemarketing lists against the DNC Registry within the validity period of the check.",

@@ -232,12 +232,17 @@
       "appliesIf": {
         "and": [
           { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
-          { "or": [{ ">=": [{ "var": "j.individuals" }, 100000] }, { ">": [{ "var": "j.sensitiveIndividuals" }, 0] }] },
-          { "<": [{ "var": "j.individuals" }, 1000000] },
-          { "<": [{ "var": "j.sensitiveIndividuals" }, 10000] }
+          { "!": { "var": "j.cn.ciio" } },
+          { "!": { "var": "j.cn.importantData" } },
+          { "!=": [{ "var": "j.transfers.hrOnly" }, "only_hr"] },
+          { "or": [{ ">=": [{ "var": "j.transfers.nonSensitive" }, 100000] }, { ">": [{ "var": "j.transfers.sensitive" }, 0] }] },
+          { "<": [{ "var": "j.transfers.nonSensitive" }, 1000000] },
+          { "<": [{ "var": "j.transfers.sensitive" }, 10000] }
         ]
       },
-      "appliesIfNote": "Applies because your estimated annual outbound volume falls in the standard-contract band. Transfers covered by the HR or contract exemptions do not count; confirm with a volume analysis.",
+      "appliesIfNote": "Applies because the China entity's annual outbound volume falls in the standard-contract band (100,000–999,999 individuals' non-sensitive data, or any sensitive data under 10,000) and the transfers are not HR-only.",
+      "exclusiveGroup": "CN-TRANSFER_MECHANISM",
+      "strictness": 1,
       "actionSteps": [
         "Calculate individuals transferred since 1 January, excluding flows covered by Art. 5 exemptions.",
         "Execute the CAC standard contract with each overseas recipient (it cannot be replaced by EU SCCs).",
@@ -264,14 +269,26 @@
       "id": "CN-TRANSFER-04",
       "category": "cross_border_transfer",
       "title": "Apply for a CAC security assessment (high-volume transfers)",
-      "requirement": "Non-CIIO handlers that, since 1 January of the current year, have transferred personal information of 1,000,000 or more individuals (excluding sensitive data) or sensitive data of 10,000 or more individuals, or any important data, must apply through the provincial cyberspace office for a CAC security assessment before transferring. Approvals are valid for three years; renewal must be sought 60 working days before expiry.",
+      "requirement": "Critical information infrastructure operators transferring personal information, and other handlers that, since 1 January of the current year, have transferred personal information of 1,000,000 or more individuals (excluding sensitive data) or sensitive data of 10,000 or more individuals, and any handler transferring important data, must apply through the provincial cyberspace office for a CAC security assessment before transferring. Approvals are valid for three years; renewal must be sought 60 working days before expiry.",
       "appliesIf": {
         "and": [
           { "or": [{ "var": "flows.exportsOut" }, { "var": "flows.groupAccessFromAbroad" }] },
-          { "or": [{ ">=": [{ "var": "j.individuals" }, 1000000] }, { ">=": [{ "var": "j.sensitiveIndividuals" }, 10000] }] }
+          {
+            "or": [
+              { "var": "j.cn.importantData" },
+              {
+                "and": [
+                  { "!=": [{ "var": "j.transfers.hrOnly" }, "only_hr"] },
+                  { "or": [{ "var": "j.cn.ciio" }, { ">=": [{ "var": "j.transfers.nonSensitive" }, 1000000] }, { ">=": [{ "var": "j.transfers.sensitive" }, 10000] }] }
+                ]
+              }
+            ]
+          }
         ]
       },
-      "appliesIfNote": "Applies because your estimated outbound volume reaches the security-assessment threshold (exempt HR/contract flows excluded).",
+      "appliesIfNote": "Applies because the China entity transfers important data, is a CIIO, or sends abroad data of 1,000,000+ individuals (or sensitive data of 10,000+) per year, other than HR-only transfers.",
+      "exclusiveGroup": "CN-TRANSFER_MECHANISM",
+      "strictness": 2,
       "actionSteps": [
         "Confirm volumes after excluding exempt flows.",
         "Prepare the self-assessment and file through the provincial cyberspace office.",
@@ -292,8 +309,8 @@
       "category": "localization",
       "title": "Store personal information locally once the CAC volume threshold is reached",
       "requirement": "Critical information infrastructure operators and handlers processing personal information in quantities reaching a CAC-prescribed amount must store personal information collected and generated in China within China; transfers abroad then require a security assessment unless exempted. The specific CAC volume threshold for non-CIIO handlers was not confirmed in this research pass.",
-      "appliesIf": { ">=": [{ "var": "j.individuals" }, 1000000] },
-      "appliesIfNote": "Flagged because the Chinese entity processes data of 1 million or more individuals; the exact threshold needs counsel confirmation.",
+      "appliesIf": { "or": [{ "var": "j.cn.ciio" }, { ">=": [{ "var": "j.people.total" }, 1000000] }] },
+      "appliesIfNote": "Flagged because the China entity is a CIIO or the Chinese entity processes data of 1 million or more individuals; the exact threshold needs counsel confirmation.",
       "actionSteps": [
         "Ask Chinese counsel to confirm the current localisation threshold for non-CIIO handlers.",
         "If triggered, keep a primary copy of Chinese personal information on servers in mainland China."
@@ -331,7 +348,7 @@
       "category": "dpo_representative",
       "title": "Designate a PI protection officer and report them to the CAC (1 million+ individuals)",
       "requirement": "Handlers processing personal information of 1 million or more individuals must designate a personal information protection officer, publish their contact details and report the officer's name and contact details to the cyberspace authorities. Reporting is done online within 30 working days of reaching the threshold, with updates within 30 working days of material changes.",
-      "appliesIf": { ">=": [{ "var": "j.individuals" }, 1000000] },
+      "appliesIf": { ">=": [{ "var": "j.people.total" }, 1000000] },
       "appliesIfNote": "Applies because the Chinese entity processes personal information of 1 million or more individuals.",
       "actionSteps": [
         "Appoint a PI protection officer for the Chinese entity (a local contact is advisable even if the group DPO is lead).",

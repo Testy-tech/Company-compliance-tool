@@ -31,14 +31,32 @@
     { "name": "California Attorney General — Privacy Enforcement", "url": "https://oag.ca.gov/privacy" }
   ],
   "scopeNotes": "The CCPA applies to for-profit businesses doing business in California that meet one threshold: annual gross revenue of USD 26,625,000 or more in the preceding calendar year (CPI-adjusted from 1 Jan 2025); buying, selling or sharing personal information of 100,000+ California consumers or households; or deriving 50%+ of revenue from selling or sharing. Since 1 January 2023 it covers employees, job applicants, contractors and B2B contacts. The breach notification law (§ 1798.82) applies to any business owning or licensing computerized personal information of California residents, regardless of the CCPA thresholds. The CCPA is an opt-out regime: no legal basis is required, but notice, rights, opt-out of sale/sharing and, since 1 Jan 2026, risk assessments, cybersecurity audits and ADMT rules apply on phased dates.",
+  "thresholds": [
+    {
+      "id": "US-CA-CCPA_REVENUE",
+      "description": "CCPA 'business' threshold: annual gross revenue in the preceding calendar year (Civ. Code § 1798.140(d)(1)(A)), CPI-adjusted every odd-numbered year",
+      "amount": 25000000,
+      "currency": "USD",
+      "effectiveDate": "2023-01-01",
+      "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Previous amount (before 1 Jan 2025 adjustment)" }
+    },
+    {
+      "id": "US-CA-CCPA_REVENUE",
+      "description": "CCPA 'business' threshold: annual gross revenue in the preceding calendar year (Civ. Code § 1798.140(d)(1)(A)), CPI-adjusted every odd-numbered year",
+      "amount": 26625000,
+      "currency": "USD",
+      "effectiveDate": "2025-01-01",
+      "source": { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "Updated 2025 amount, Civ. Code § 1798.199.95(d)" }
+    }
+  ],
   "obligations": [
     {
       "id": "US-CA-NOTICE-01",
       "category": "notice",
       "title": "Give notices at collection and a CCPA privacy policy — including to employees and applicants",
       "requirement": "Businesses must inform consumers at or before collection of the categories of personal information and sensitive personal information collected, purposes, whether it is sold or shared, and retention periods, and publish a privacy policy describing rights and how to exercise them. 'Consumers' include California employees, job applicants, contractors and B2B contacts, so HR and B2B notices are required.",
-      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "and": [{ "var": "processing.sellsOrSharesData" }, { ">=": [{ "var": "j.individuals" }, 100000] }] }] }] },
-      "appliesIfNote": "Applies because the business meets a CCPA threshold (revenue of USD 26.625M+ or selling/sharing data of 100,000+ Californians) and processes Californians' data.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }] },
+      "appliesIfNote": "Applies because the business meets a CCPA threshold (annual revenue at or above the CPI-adjusted threshold, or buying, selling or sharing data of 100,000+ Californians, including via advertising pixels) and processes Californians' data.",
       "actionSteps": [
         "Issue a CCPA notice at collection to California employees, applicants and contractors (retention periods per category).",
         "Publish a CCPA-compliant privacy policy (updated at least every 12 months).",
@@ -63,7 +81,7 @@
       "category": "data_subject_rights",
       "title": "Honour requests to know, delete and correct within 45 days",
       "requirement": "Consumers (including employees) may request to know, delete and correct their personal information. Businesses must respond within 45 calendar days (extendable by 45 with notice), offer at least two request methods, and — since 1 Jan 2026 — allow access requests to reach back to 1 January 2022 where data is retained, and name the source of inaccurate information or inform that source when correcting.",
-      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "and": [{ "var": "processing.sellsOrSharesData" }, { ">=": [{ "var": "j.individuals" }, 100000] }] }] }] },
+      "appliesIf": { "and": [{ ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }] },
       "appliesIfNote": "Applies because the business meets a CCPA threshold and processes Californians' data.",
       "actionSteps": [
         "Configure the group DSAR tool for California (45 days, verification, authorised agents).",
@@ -88,7 +106,7 @@
       "category": "marketing",
       "title": "Offer an opt-out of selling/sharing and honour Global Privacy Control",
       "requirement": "Businesses that sell personal information or share it for cross-context behavioural advertising must provide a 'Do Not Sell or Share My Personal Information' mechanism, honour opt-out preference signals such as Global Privacy Control, and — since 1 Jan 2026 — let consumers confirm the status of their opt-out. Advertising pixels and trackers on a website commonly amount to 'sharing'.",
-      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { "or": [{ "var": "processing.sellsOrSharesData" }, { "var": "processing.websiteTracking" }] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { ">=": [{ "var": "j.individuals" }, 100000] }] }] },
+      "appliesIf": { "and": [{ ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">": [{ "var": "j.people.soldShared" }, 0] }, { "var": "web.adPixels" }] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }] },
       "appliesIfNote": "Applies because you sell or share data or use advertising trackers that reach Californians, and meet a CCPA threshold.",
       "actionSteps": [
         "Audit website/app trackers for cross-context behavioural advertising.",
@@ -112,8 +130,8 @@
       "category": "sensitive_data",
       "title": "Honour the right to limit use of sensitive personal information",
       "requirement": "Where a business uses sensitive personal information (e.g. government IDs, precise geolocation, biometrics, health, union membership, account credentials; and since 2026 data of consumers under 16) for purposes beyond those permitted by regulation, it must offer a 'Limit the Use of My Sensitive Personal Information' mechanism and honour requests.",
-      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "or": [{ "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.nationalId" }, { "var": "sensitive.union" }, { "var": "sensitive.financialAccounts" }] }] },
-      "appliesIfNote": "Applies because you process sensitive personal information of Californians and meet the CCPA revenue threshold.",
+      "appliesIf": { "and": [{ ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }, { "or": [{ "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.nationalId" }, { "var": "sensitive.union" }, { "var": "sensitive.financialAccounts" }] }] },
+      "appliesIfNote": "Applies because you process sensitive personal information of Californians and meet a CCPA threshold.",
       "actionSteps": [
         "List sensitive PI uses and check each against the permitted purposes in Regs. § 7027(m).",
         "If any use goes beyond them, implement the right-to-limit link and workflow."
@@ -135,7 +153,7 @@
       "category": "vendors_processors",
       "title": "Put CCPA-specific terms in service provider and contractor contracts",
       "requirement": "Disclosures to service providers, contractors and third parties must be governed by written contracts that limit use to specified purposes, prohibit selling/sharing, require CCPA-level protection and allow the business to take steps to stop unauthorised use. Without compliant terms, a disclosure may count as a 'sale'.",
-      "appliesIf": { "and": [{ "var": "flows.usesProcessors" }, { ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }] },
+      "appliesIf": { "and": [{ "var": "flows.usesProcessors" }, { ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }] },
       "appliesIfNote": "Applies because vendors process Californians' data for a CCPA-covered business.",
       "actionSteps": ["Add a CCPA addendum to the group DPA template and roll it out to US vendors (payroll, benefits, HR tech, cloud)."],
       "owner": "HQ",
@@ -152,7 +170,7 @@
       "category": "impact_assessment",
       "title": "Conduct CCPA risk assessments (existing processing by 31 Dec 2027; submit by 1 Apr 2028)",
       "requirement": "Since 1 Jan 2026, businesses must conduct a risk assessment before processing that presents significant risk: selling/sharing; processing sensitive personal information (HR-administration uses excepted); using ADMT for significant decisions; automated inferences about employees or applicants based on systematic observation; and training ADMT or identification technologies. Processing already under way must be assessed by 31 December 2027, with the required information submitted to the Agency by 1 April 2028. Assessments are retained for the processing's duration or five years.",
-      "appliesIf": { "and": [{ ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "or": [{ "var": "processing.sellsOrSharesData" }, { "var": "processing.automatedDecisions" }, { "var": "processing.employeeMonitoring" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.preciseLocation" }] }] },
+      "appliesIf": { "and": [{ ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }, { "or": [{ ">": [{ "var": "j.people.soldShared" }, 0] }, { "var": "processing.automatedDecisions" }, { "var": "processing.employeeMonitoring" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.health" }, { "var": "sensitive.preciseLocation" }] }] },
       "appliesIfNote": "Applies because you carry out a CCPA 'significant risk' activity (e.g. sensitive data beyond HR administration, employee monitoring analytics, ADMT) affecting Californians.",
       "actionSteps": [
         "Screen Californian processing against § 7150(b) triggers.",
@@ -174,7 +192,7 @@
       "category": "automated_decisions_ai",
       "title": "Comply with ADMT rules for significant decisions (employment) by 1 January 2027",
       "requirement": "Businesses using automated decisionmaking technology to make significant decisions — including employment or contracting opportunities and compensation — must comply with the ADMT article (pre-use notice, opt-out or appeal rights, and access to information about the ADMT) by 1 January 2027 for existing uses, and from first use thereafter.",
-      "appliesIf": { "and": [{ "var": "processing.automatedDecisions" }, { ">": [{ "var": "j.individuals" }, 0] }, { ">=": [{ "var": "group.revenueUSD" }, 26625000] }] },
+      "appliesIf": { "and": [{ "var": "processing.automatedDecisions" }, { ">": [{ "var": "j.people.total" }, 0] }, { "or": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { ">=": [{ "var": "j.people.soldShared" }, 100000] }] }] },
       "appliesIfNote": "Applies because you use automated decision-making that could affect Californian workers or applicants.",
       "actionSteps": [
         "Identify tools used for hiring, allocation, promotion or pay decisions affecting Californians.",
@@ -195,8 +213,8 @@
       "category": "security",
       "title": "Complete annual cybersecurity audits (first report 2028–2030 by revenue)",
       "requirement": "Businesses meeting the revenue threshold that processed personal information of 250,000+ consumers or sensitive personal information of 50,000+ consumers in the prior year (or that derive 50%+ of revenue from selling/sharing) must complete an independent cybersecurity audit. First reports are due 1 April 2028 (2026 revenue over USD 100M), 1 April 2029 (USD 50–100M) or 1 April 2030 (under USD 50M). All businesses must also maintain reasonable security.",
-      "appliesIf": { "and": [{ ">=": [{ "var": "group.revenueUSD" }, 26625000] }, { "or": [{ ">=": [{ "var": "j.individuals" }, 250000] }, { ">=": [{ "var": "j.sensitiveIndividuals" }, 50000] }] }] },
-      "appliesIfNote": "Applies because you meet the revenue threshold and process data of 250,000+ Californians or sensitive data of 50,000+.",
+      "appliesIf": { "and": [{ ">=": [{ "var": "group.revenueUSD" }, { "threshold": "US-CA-CCPA_REVENUE" }] }, { "or": [{ ">=": [{ "var": "j.people.total" }, 250000] }, { ">=": [{ "var": "j.people.sensitive" }, 50000] }] }] },
+      "appliesIfNote": "Applies because you meet the CCPA revenue threshold and processed data of 250,000+ Californians or sensitive data of 50,000+ in the prior year. The first audit's due date depends on revenue tier (USD 50M / 100M).",
       "actionSteps": [
         "Confirm consumer and sensitive-data volumes for California.",
         "Determine the audit due date from 2026–2028 revenue.",
@@ -217,7 +235,7 @@
       "category": "breach_notification",
       "title": "Notify affected Californians within 30 days; send the AG a sample within 15 days (500+)",
       "requirement": "Businesses owning or licensing computerized personal information must notify California residents whose unencrypted personal information was, or is reasonably believed to have been, acquired by an unauthorised person within 30 calendar days of discovery or notification of the breach. If more than 500 residents are notified for a single breach, a sample notice must be submitted electronically to the Attorney General within 15 calendar days of notifying consumers. This applies regardless of the CCPA thresholds.",
-      "appliesIf": { ">": [{ "var": "j.individuals" }, 0] },
+      "appliesIf": { ">": [{ "var": "j.people.total" }, 0] },
       "appliesIfNote": "Applies because you hold personal information of California residents (any size of business).",
       "actionSteps": [
         "Update the US incident playbook with the 30-day consumer deadline (new since 1 Jan 2026) and the 15-day AG sample.",

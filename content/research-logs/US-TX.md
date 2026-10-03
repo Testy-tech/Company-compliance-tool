@@ -16,8 +16,8 @@
 
 ## Findings and judgement calls
 
-- **The TDPSA employment exclusion is decisive for the reference case.** For a B2B engineering group, only CUBI (employee biometrics) and ch. 521 (breach) are likely to apply. TDPSA items require `subjects.consumers`.
-- **Small-business proxy:** SBA size standards vary by NAICS code. The rule uses group headcount ≥ 500 as a rough proxy and says so.
+- **The TDPSA employment exclusion is decisive for the reference case.** For a B2B engineering group, only CUBI (employee biometrics) and ch. 521 (breach) are likely to apply. TDPSA items require `subjects.endUsers` and people in the "other individuals" band.
+- **Small business (updated in Phase 3):** the 500-employee stand-in was dropped. The wizard now asks directly whether the Texas entity qualifies as an SBA small business, and an unknown answer makes TDPSA items "assumed".
 - **CUBI and employers:** I did not verify from the statute text whether an employer's capture for timekeeping counts as a "commercial purpose", or any employment-specific presumption on when the purpose expires. **Counsel should confirm.**
 - **TRAIGA penalty amounts** come from the committee analysis, not the enrolled text, so they are not repeated in obligation text.
 

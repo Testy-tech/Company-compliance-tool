@@ -65,8 +65,8 @@
       "category": "dpo_representative",
       "title": "Appoint a DPO if 20 or more persons regularly process personal data automatically",
       "requirement": "Non-public bodies must designate a data protection officer if they generally employ at least 20 persons constantly engaged in automated processing of personal data, or regardless of headcount if they carry out processing requiring a DPIA or process data commercially for transfer or market/opinion research. A mandatory DPO may be removed only for good cause under § 626 BGB and enjoys special protection against dismissal during and for one year after the appointment.",
-      "appliesIf": { "or": [{ ">=": [{ "var": "j.headcount" }, 20] }, { "var": "processing.employeeMonitoring" }, { "var": "sensitive.biometrics" }] },
-      "appliesIfNote": "Applies because local headcount is 20 or more (used as a proxy for staff constantly engaged in automated processing) or you run processing likely to require a DPIA.",
+      "appliesIf": { "or": [{ ">=": [{ "var": "j.dataStaff" }, 20] }, { "var": "processing.employeeMonitoring" }, { "var": "sensitive.biometrics" }] },
+      "appliesIfNote": "Applies because 20 or more people at the German entity regularly work with personal data on computers, or because you run processing likely to require a DPIA (employee monitoring, biometrics), which triggers a DPO regardless of headcount.",
       "actionSteps": [
         "Count staff at the German entity who constantly work with automated processing of personal data.",
         "If the threshold is met, designate a DPO (the group DPO can serve if easily accessible, Art. 37(2) GDPR) and notify the competent Land authority.",
@@ -115,7 +115,7 @@
       "requirement": "Where a works council exists, it has a right of co-determination over the introduction and use of technical devices designed to monitor employees' behaviour or performance. Without agreement, the conciliation committee (Einigungsstelle) decides. Rolling out such tools (CCTV, access control, telematics, HR analytics, some collaboration software) before agreement is reached is a significant legal and employee-relations risk.",
       "appliesIf": {
         "and": [
-          { "var": "j.employeeRepresentation" },
+          { "in": [{ "var": "j.employeeRep" }, ["works_council", "both"]] },
           { "or": [{ "var": "processing.cctv" }, { "var": "processing.employeeMonitoring" }, { "var": "processing.siteAccess" }, { "var": "processing.automatedDecisions" }] }
         ]
       },
@@ -160,7 +160,7 @@
       "category": "marketing",
       "title": "Obtain consent before setting non-essential cookies or trackers",
       "requirement": "Storing information on, or accessing information from, a user's device is permitted only with the user's consent based on clear and comprehensive information. Consent is not required where this is strictly necessary to provide a digital service the user has expressly requested, or solely to transmit a message over a public network.",
-      "appliesIf": { "var": "processing.websiteTracking" },
+      "appliesIf": { "var": "web.nonEssential" },
       "appliesIfNote": "Applies because your website or app uses non-essential cookies, pixels or similar trackers accessible to users in Germany.",
       "actionSteps": [
         "Audit cookies and trackers on group websites and apps; classify strictly necessary vs. consent-based.",

@@ -24,7 +24,7 @@
 - **Separate consent for transfers (Art. 39) vs Art. 13 last paragraph:** the obligations say separate consent is required *where consent is the basis* and that the notice and PIPIA duties always apply. This reflects the statutory text. Practice and regulator expectations may differ, so **counsel should confirm**.
 - **Remote access by HQ** is treated as provision abroad (`groupAccessFromAbroad` triggers the transfer items). This is common regulatory practice, but I did not verify it against an official text in this pass.
 - **CN-LOCALIZATION-01 is `unverified`:** PIPL Art. 40 refers to a "CAC-prescribed amount". I did not locate the currently applicable figure for non-CIIO handlers. The rule flags it at ≥1M individuals as a conservative trigger.
-- **Volume facts:** the thresholds use `j.individuals` / `j.sensitiveIndividuals` as proxies for the annual *outbound* volume. The wizard should ask for outbound volume, excluding exempt HR flows, to sharpen this.
+- **Volume facts (updated in Phase 3):** transfer tiers now use the wizard's banded outbound volumes (`j.transfers.nonSensitive`, `j.transfers.sensitive`), the "HR-only" answer, and the CIIO and important-data answers. The two tiers form an exclusive group (`CN-TRANSFER_MECHANISM`): when volumes are unknown, the security assessment is assumed.
 - **Not encoded:** the Data Security Law in detail; CIIO obligations; minors' rules beyond sensitive data; Art. 53 representative (it applies to offshore handlers under Art. 3(2), which is not the reference case); algorithm and generative-AI rules.
 - **Upcoming changes:** none verified. The CAC's 2026 enforcement campaigns and the draft rules on large platforms were seen in search results but not read, and are not relevant to a B2B engineering group.
 

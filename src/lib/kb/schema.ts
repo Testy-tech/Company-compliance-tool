@@ -69,6 +69,10 @@ export const obligationSchema = z.object({
   gdprEquivalent: z.string().optional(),
   gdprDelta: z.enum(["covered", "partial", "new"]),
   sources: z.array(sourceSchema).min(1),
+  /** Mutually exclusive tier group (e.g. China transfer mechanism). Only one tier per group is reported. */
+  exclusiveGroup: z.string().regex(/^[A-Z]{2}(-[A-Z]{2})?-[A-Z_]+$/).optional(),
+  /** Higher = stricter. When a group depends on unresolved answers, the strictest applicable tier is assumed. */
+  strictness: z.number().int().min(1).optional(),
   lastVerified: isoDate,
   verifiedBy: z.string().min(1),
   /**
@@ -88,12 +92,27 @@ export const lawSchema = z.object({
   effectiveDate: isoDate.optional(),
 });
 
+/**
+ * Monetary threshold referenced from rules as { "threshold": "<id>" }. Several
+ * entries with the same id and different effectiveDate model inflation
+ * adjustments: the engine uses the latest entry effective on the assessment date.
+ */
+export const thresholdSchema = z.object({
+  id: z.string().regex(/^[A-Z]{2}(-[A-Z]{2})?-[A-Z_]+$/, "e.g. US-CA-CCPA_REVENUE"),
+  description: z.string().min(5),
+  amount: z.number().positive(),
+  currency: z.enum(["USD", "EUR"]),
+  effectiveDate: isoDate,
+  source: sourceSchema,
+});
+
 export const jurisdictionSchema = z.object({
   id: z.enum(["IT", "DE", "CN", "SG", "PE", "CL", "US-CA", "US-TX", "KR", "IN"]),
   name: z.string().min(2),
   laws: z.array(lawSchema).min(1),
   regulators: z.array(z.object({ name: z.string().min(2), url })).min(1),
   scopeNotes: z.string().min(40),
+  thresholds: z.array(thresholdSchema).default([]),
   obligations: z.array(obligationSchema).min(1),
   upcomingChanges: z.array(
     z.object({
@@ -106,6 +125,7 @@ export const jurisdictionSchema = z.object({
   lastReviewed: isoDate,
 });
 
+export type Threshold = z.infer<typeof thresholdSchema>;
 export type Obligation = z.infer<typeof obligationSchema>;
 export type Jurisdiction = z.infer<typeof jurisdictionSchema>;
 export type JurisdictionId = Jurisdiction["id"];

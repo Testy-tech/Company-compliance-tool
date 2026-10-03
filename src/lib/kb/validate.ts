@@ -1,16 +1,11 @@
 import jsonLogic from "json-logic-js";
 
-import { factPaths, type EvaluationContext } from "./facts";
-import { jurisdictionSchema, type Jurisdiction, type JsonLogic } from "./schema";
+import { buildContext, facts, factPaths, type EvaluationContext } from "./facts";
+import { resolveThresholds, walkRule } from "./rules";
+import { jurisdictionSchema, type Jurisdiction } from "./schema";
 
 /* Cross-field checks that zod alone cannot express. Pure: used by the build
  * script and by unit tests. */
-
-const KNOWN_OPS = new Set([
-  "var", "missing", "missing_some", "if", "==", "===", "!=", "!==", "!", "!!",
-  "or", "and", ">", ">=", "<", "<=", "max", "min", "+", "-", "*", "/", "%",
-  "in", "cat", "substr", "merge", "map", "filter", "reduce", "all", "none", "some",
-]);
 
 /** Official domains per jurisdiction. Other sources produce a warning, not an error. */
 export const OFFICIAL_DOMAINS: Record<Jurisdiction["id"], string[]> = {
@@ -28,32 +23,19 @@ export const OFFICIAL_DOMAINS: Record<Jurisdiction["id"], string[]> = {
 
 export type Issue = { level: "error" | "warning"; where: string; message: string };
 
-function collectVars(logic: JsonLogic, out: string[] = []): string[] {
-  if (Array.isArray(logic)) logic.forEach((l) => collectVars(l, out));
-  else if (logic && typeof logic === "object") {
-    for (const [op, arg] of Object.entries(logic)) {
-      if (!KNOWN_OPS.has(op)) out.push(`__unknown_op__:${op}`);
-      if (op === "var") {
-        const path = Array.isArray(arg) ? arg[0] : arg;
-        if (typeof path === "string") out.push(path);
-      } else collectVars(arg, out);
-    }
-  }
-  return out;
-}
-
 /** A neutral context used to smoke-test that every rule evaluates without throwing. */
-export const smokeContext: EvaluationContext = {
-  j: { id: "XX", role: "current", entityType: "subsidiary", status: "operating", headcount: 100, individuals: 1000, sensitiveIndividuals: 100, consumers: 0, localRevenueUSD: null, employeeRepresentation: true },
-  hq: { country: "IT", isEU: true },
-  group: { headcount: 5000, revenueUSD: null, industry: "engineering", b2c: false },
-  subjects: { employees: true, contractors: true, applicants: true, b2bContacts: true, consumers: false, siteVisitors: true },
-  sensitive: { health: true, biometrics: true, criminal: false, union: false, children: false, preciseLocation: false, financialAccounts: true, nationalId: true },
-  processing: { hrPayroll: true, recruiting: true, siteAccess: true, cctv: true, marketing: false, crm: true, rnd: true, employeeMonitoring: false, automatedDecisions: false, sellsOrSharesData: false, websiteTracking: true },
-  flows: { exportsOut: true, groupAccessFromAbroad: true, localProcessesForGroup: false, hostedLocally: false, usesProcessors: true },
-  framework: { ropa: true, dpia: true, sccs: true, tia: true, dpo: true, breachProcedure: true, dsarProcedure: true, vendorDpas: true, privacyNotices: true, training: true, retentionSchedule: true },
-  governance: { model: "centralized", localContacts: false },
-};
+export const smokeContext: EvaluationContext = buildContext(
+  Object.fromEntries(
+    facts.map((f) => [
+      f.path,
+      f.kind === "bool" ? true
+        : f.kind === "count" ? 1000
+        : f.kind === "money" ? 1e9
+        : f.kind === "enum" ? f.values[0]!
+        : "XX",
+    ]),
+  ),
+);
 
 export function validateJurisdiction(
   raw: unknown,
@@ -80,6 +62,13 @@ export function validateJurisdiction(
     if (!isOfficial(law.officialUrl))
       issues.push({ level: "warning", where: `${fileId}:laws`, message: `non-official URL for ${law.shortName}: ${law.officialUrl}` });
 
+  const thresholdIds = new Set(j.thresholds.map((t) => t.id));
+  for (const t of j.thresholds) {
+    if (!t.id.startsWith(`${j.id}-`)) issues.push({ level: "error", where: `${fileId}:thresholds`, message: `threshold id "${t.id}" must start with "${j.id}-"` });
+    if (t.currency !== "USD") issues.push({ level: "error", where: `${fileId}:thresholds`, message: `threshold ${t.id}: only USD is supported by money facts` });
+  }
+
+  const groups = new Map<string, number[]>();
   const seen = new Set<string>();
   for (const o of j.obligations) {
     const where = `${fileId}:${o.id}`;
@@ -92,14 +81,21 @@ export function validateJurisdiction(
     if (o.gdprDelta !== "new" && !o.gdprEquivalent)
       issues.push({ level: "error", where, message: "covered/partial obligations must name a gdprEquivalent" });
 
-    for (const v of collectVars(o.appliesIf)) {
-      if (v.startsWith("__unknown_op__:"))
-        issues.push({ level: "error", where, message: `unknown JsonLogic operator "${v.slice(15)}"` });
-      else if (!factPaths.has(v))
-        issues.push({ level: "error", where, message: `appliesIf references unknown fact "${v}"` });
+    if (o.exclusiveGroup) {
+      if (o.strictness === undefined) issues.push({ level: "error", where, message: "exclusiveGroup requires strictness" });
+      else groups.set(o.exclusiveGroup, [...(groups.get(o.exclusiveGroup) ?? []), o.strictness]);
+    } else if (o.strictness !== undefined) {
+      issues.push({ level: "error", where, message: "strictness without exclusiveGroup" });
     }
+
+    const walk = walkRule(o.appliesIf);
+    for (const op of walk.unknownOps) issues.push({ level: "error", where, message: `unknown JsonLogic operator "${op}"` });
+    for (const v of walk.vars) if (!factPaths.has(v)) issues.push({ level: "error", where, message: `appliesIf references unknown fact "${v}"` });
+    for (const id of walk.thresholdIds) if (!thresholdIds.has(id)) issues.push({ level: "error", where, message: `unknown threshold "${id}"` });
+
     try {
-      const r = jsonLogic.apply(o.appliesIf as never, smokeContext);
+      const logic = resolveThresholds(o.appliesIf, j.thresholds, today);
+      const r = jsonLogic.apply(logic as never, smokeContext);
       if (typeof r !== "boolean")
         issues.push({ level: "error", where, message: `appliesIf must evaluate to a boolean, got ${JSON.stringify(r)}` });
     } catch (e) {
@@ -109,6 +105,10 @@ export function validateJurisdiction(
     const officialCount = o.sources.filter((s) => isOfficial(s.url)).length;
     if (officialCount === 0)
       issues.push({ level: o.confidence === "unverified" ? "warning" : "error", where, message: "no official source; mark unverified or add one" });
+  }
+  for (const [g, s] of groups) {
+    if (s.length < 2) issues.push({ level: "error", where: `${fileId}:${g}`, message: "exclusiveGroup needs at least two tiers" });
+    if (new Set(s).size !== s.length) issues.push({ level: "error", where: `${fileId}:${g}`, message: "strictness values in a group must be unique" });
   }
   return { data: j, issues };
 }

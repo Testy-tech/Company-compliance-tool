@@ -100,7 +100,7 @@
       "category": "dpo_representative",
       "title": "Designate a Personal Data Officer (phased by company size)",
       "requirement": "Controllers and processors must designate a Personal Data Officer where they process large volumes of personal data or sensitive data, or where their core business involves sensitive data. A business group may appoint a single officer if easily contactable from each establishment. Contact details must be published and communicated to the Authority within 15 days of designation or change. For private companies the duty applies progressively: sales above 2,300 UIT from 30 Nov 2025; 1,700–2,300 UIT from 30 Nov 2026; 150–1,700 UIT from 30 Nov 2027; micro-enterprises from 30 Nov 2028.",
-      "appliesIf": { "or": [{ ">": [{ "var": "j.sensitiveIndividuals" }, 0] }, { ">=": [{ "var": "j.individuals" }, 100000] }] },
+      "appliesIf": { "or": [{ ">": [{ "var": "j.people.sensitive" }, 0] }, { ">=": [{ "var": "j.people.total" }, 100000] }] },
       "appliesIfNote": "Applies because the Peruvian entity processes sensitive data or a large volume of personal data (100,000+ individuals used as a proxy; the Regulation does not fix a number).",
       "actionSteps": [
         "Determine the Peruvian entity's sales band (UIT) to fix its compliance date.",
