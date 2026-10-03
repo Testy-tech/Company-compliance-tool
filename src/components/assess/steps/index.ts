@@ -6,6 +6,7 @@ import { processingStep } from "./processing";
 import { infrastructureStep } from "./infrastructure";
 import { websiteStep } from "./website";
 import { frameworkStep } from "./framework";
+import { governanceStep } from "./governance";
 
 /** Wizard steps in order. The review step is always last. */
-export const steps: readonly StepDef[] = [companyStep, footprintStep, peopleStep, processingStep, infrastructureStep, websiteStep, frameworkStep];
+export const steps: readonly StepDef[] = [companyStep, footprintStep, peopleStep, processingStep, infrastructureStep, websiteStep, frameworkStep, governanceStep];
