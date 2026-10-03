@@ -7,20 +7,6 @@ import { jurisdictionSchema, type Jurisdiction } from "./schema";
 /* Cross-field checks that zod alone cannot express. Pure: used by the build
  * script and by unit tests. */
 
-/** Official domains per jurisdiction. Other sources produce a warning, not an error. */
-export const OFFICIAL_DOMAINS: Record<Jurisdiction["id"], string[]> = {
-  IT: ["garanteprivacy.it", "normattiva.it", "gazzettaufficiale.it", "eur-lex.europa.eu", "edpb.europa.eu", "commission.europa.eu"],
-  DE: ["gesetze-im-internet.de", "bfdi.bund.de", "datenschutzkonferenz-online.de", "eur-lex.europa.eu", "curia.europa.eu", "edpb.europa.eu", "bundesgesetzblatt.de", "recht.bund.de"],
-  CN: ["cac.gov.cn", "gov.cn", "npc.gov.cn", "flk.npc.gov.cn", "samr.gov.cn", "std.samr.gov.cn", "tc260.org.cn"],
-  SG: ["pdpc.gov.sg", "sso.agc.gov.sg", "agc.gov.sg", "dnc.gov.sg"],
-  PE: ["gob.pe", "minjus.gob.pe", "elperuano.pe", "spij.minjus.gob.pe", "leyes.congreso.gob.pe"],
-  CL: ["bcn.cl", "leychile.cl", "diariooficial.interior.gob.cl", "gob.cl", "camara.cl", "senado.cl"],
-  "US-CA": ["cppa.ca.gov", "oag.ca.gov", "leginfo.legislature.ca.gov", "law.cornell.edu", "govt.westlaw.com", "ca.gov"],
-  "US-TX": ["statutes.capitol.texas.gov", "texasattorneygeneral.gov", "capitol.texas.gov", "sos.state.tx.us", "texreg.sos.state.tx.us"],
-  KR: ["pipc.go.kr", "law.go.kr", "elaw.klri.re.kr", "kisa.or.kr", "privacy.go.kr", "commission.europa.eu"],
-  IN: ["meity.gov.in", "egazette.gov.in", "indiacode.nic.in", "dpb.gov.in", "pib.gov.in"],
-};
-
 export type Issue = { level: "error" | "warning"; where: string; message: string };
 
 /** A neutral context used to smoke-test that every rule evaluates without throwing. */
@@ -53,7 +39,7 @@ export function validateJurisdiction(
   if (j.id !== fileId) issues.push({ level: "error", where: fileId, message: `id "${j.id}" does not match file name` });
   if (j.lastReviewed > today) issues.push({ level: "error", where: fileId, message: "lastReviewed is in the future" });
 
-  const official = OFFICIAL_DOMAINS[j.id];
+  const official = j.officialDomains;
   const isOfficial = (u: string) => {
     const host = new URL(u).hostname;
     return official.some((d) => host === d || host.endsWith(`.${d}`));

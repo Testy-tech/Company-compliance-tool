@@ -70,6 +70,7 @@
   "regulators": [
     { "name": "Cyberspace Administration of China (CAC) and provincial/municipal cyberspace offices", "url": "https://www.cac.gov.cn" }
   ],
+  "officialDomains": ["cac.gov.cn", "gov.cn", "npc.gov.cn", "flk.npc.gov.cn", "samr.gov.cn", "std.samr.gov.cn", "tc260.org.cn"],
   "scopeNotes": "The PIPL applies to processing of personal information within mainland China and, extraterritorially, to processing abroad aimed at providing products or services to individuals in China or analysing their behaviour (Art. 3). Unlike the GDPR there is no 'legitimate interests' basis: processing rests on consent or on one of the listed alternatives, including human-resources management under lawfully adopted labour rules and collective contracts (Art. 13). Outbound transfers need a CAC security assessment, the CAC standard contract (filed with the provincial CAC) or certification, unless an exemption under the 2024 CBDF Provisions applies; thresholds count individuals transferred since 1 January of the current year. Hong Kong, Macau and Taiwan are outside this entry.",
   "obligations": [
     {

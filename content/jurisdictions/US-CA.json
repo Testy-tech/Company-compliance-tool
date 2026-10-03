@@ -30,6 +30,7 @@
     { "name": "California Privacy Protection Agency (CalPrivacy)", "url": "https://cppa.ca.gov" },
     { "name": "California Attorney General — Privacy Enforcement", "url": "https://oag.ca.gov/privacy" }
   ],
+  "officialDomains": ["cppa.ca.gov", "oag.ca.gov", "leginfo.legislature.ca.gov", "law.cornell.edu", "govt.westlaw.com", "ca.gov"],
   "scopeNotes": "The CCPA applies to for-profit businesses doing business in California that meet one threshold: annual gross revenue of USD 26,625,000 or more in the preceding calendar year (CPI-adjusted from 1 Jan 2025); buying, selling or sharing personal information of 100,000+ California consumers or households; or deriving 50%+ of revenue from selling or sharing. Since 1 January 2023 it covers employees, job applicants, contractors and B2B contacts. The breach notification law (§ 1798.82) applies to any business owning or licensing computerized personal information of California residents, regardless of the CCPA thresholds. The CCPA is an opt-out regime: no legal basis is required, but notice, rights, opt-out of sale/sharing and, since 1 Jan 2026, risk assessments, cybersecurity audits and ADMT rules apply on phased dates.",
   "thresholds": [
     {

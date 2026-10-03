@@ -30,6 +30,7 @@
     { "name": "Data Protection Board of India", "url": "https://www.meity.gov.in" },
     { "name": "Ministry of Electronics and Information Technology (MeitY)", "url": "https://www.meity.gov.in" }
   ],
+  "officialDomains": ["meity.gov.in", "egazette.gov.in", "indiacode.nic.in", "dpb.gov.in", "pib.gov.in"],
   "scopeNotes": "The DPDP Act commences in phases under G.S.R. 843(E) of 13 Nov 2025 (Gazette published 13/14 Nov 2025): Board and procedural provisions immediately; Consent Manager provisions after one year (Nov 2026); and the core Data Fiduciary obligations (ss. 3–5, 6 except (9), 7–17, penalties in ss. 27–34 and the omission of IT Act s. 43A by s. 44(2)) after eighteen months, i.e. on or about 13–14 May 2027. Until then the IT Act s. 43A / SPDI Rules regime continues. The Act applies to digital personal data processed in India and to processing outside India connected with offering goods or services to people in India. It has no general legitimate-interests ground but lists 'legitimate uses', including employment purposes. Cross-border transfers are permitted except to countries the Government restricts by notification. Obligation dates below assume 13 May 2027; confirm the exact day with counsel.",
   "obligations": [
     {

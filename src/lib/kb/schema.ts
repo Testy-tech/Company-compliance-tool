@@ -126,6 +126,12 @@ export const jurisdictionSchema = z.object({
   name: z.string().min(2),
   laws: z.array(lawSchema).min(1),
   regulators: z.array(z.object({ name: z.string().min(2), url })).min(1),
+  /**
+   * Official sources for this jurisdiction (regulator, legislation, government).
+   * A domain covers its subdomains. Used to check KB citations and to restrict
+   * the "recent developments" web search.
+   */
+  officialDomains: z.array(z.string().regex(/^[a-z0-9.-]+\.[a-z]{2,}$/, "bare domain, e.g. cac.gov.cn")).min(1),
   scopeNotes: z.string().min(40),
   thresholds: z.array(thresholdSchema).default([]),
   definedTerms: z.array(definedTermSchema).default([]),

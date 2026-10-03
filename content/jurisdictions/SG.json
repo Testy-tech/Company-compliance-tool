@@ -21,6 +21,7 @@
   "regulators": [
     { "name": "Personal Data Protection Commission (PDPC)", "url": "https://www.pdpc.gov.sg" }
   ],
+  "officialDomains": ["pdpc.gov.sg", "sso.agc.gov.sg", "agc.gov.sg", "dnc.gov.sg"],
   "scopeNotes": "The PDPA applies to organisations collecting, using or disclosing personal data in Singapore, including foreign organisations. Business contact information is largely outside the Data Protection Provisions. Unlike GDPR, the PDPA is consent-centred but provides deemed consent and exceptions in the First Schedule, including a general legitimate interests exception subject to a documented assessment. Employee data may be processed without consent for entering into, managing or terminating employment, but employees must still be told the purposes. The Do Not Call provisions apply to marketing messages to Singapore telephone numbers. Data intermediaries (processors) have protection, retention and breach-notification duties. Data portability provisions (Part 6B) had not commenced as of September 2026.",
   "obligations": [
     {

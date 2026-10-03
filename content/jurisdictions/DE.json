@@ -37,6 +37,7 @@
     { "name": "Supervisory authority of the Land (federal state) where the entity is established (private sector)", "url": "https://www.datenschutzkonferenz-online.de" },
     { "name": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI) — federal bodies, telecoms and postal services", "url": "https://www.bfdi.bund.de" }
   ],
+  "officialDomains": ["gesetze-im-internet.de", "bfdi.bund.de", "datenschutzkonferenz-online.de", "eur-lex.europa.eu", "curia.europa.eu", "edpb.europa.eu", "bundesgesetzblatt.de", "recht.bund.de"],
   "scopeNotes": "The GDPR applies directly; the BDSG adds national rules under GDPR opening clauses. Private-sector supervision lies with the data protection authority of the Land where the entity is established; for cross-border processing the GDPR one-stop-shop applies, so where the group's main establishment is in Italy the Garante acts as lead authority (Art. 56 GDPR). This file lists German additions only; core GDPR duties for the German entity mirror the Italian (HQ) baseline items and are covered by the group programme. § 26 BDSG (employee data) remains in the statute book, but after the CJEU judgment of 30 March 2023 (C-34/21) the BfDI considers it insufficient, and a dedicated employee data protection act is planned but not enacted as of September 2026.",
   "obligations": [
     {

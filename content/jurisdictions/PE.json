@@ -20,6 +20,7 @@
   "regulators": [
     { "name": "Autoridad Nacional de Protección de Datos Personales (ANPD) — Ministerio de Justicia y Derechos Humanos", "url": "https://www.gob.pe/minjus" }
   ],
+  "officialDomains": ["gob.pe", "minjus.gob.pe", "elperuano.pe", "spij.minjus.gob.pe", "leyes.congreso.gob.pe"],
   "scopeNotes": "Law 29733 and its 2024 Regulation apply to personal data banks and processing in Peru. The model is consent-based: there is no general legitimate-interests ground for the controller, but consent is not required for, among others, data needed to prepare, conclude and perform a contract with the data subject (including employment) (Law Art. 14(5)). Sensitive data requires written consent. Private entities must register their personal data banks and communicate cross-border data flows to the ANPD's Directorate-General for registration. The Regulation entered into force 120 calendar days after publication on 30 Nov 2024; the DPO requirement for private companies is phased in by annual sales band (2025–2028).",
   "obligations": [
     {

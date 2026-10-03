@@ -44,6 +44,7 @@
     { "name": "Garante per la protezione dei dati personali", "url": "https://www.garanteprivacy.it" },
     { "name": "Ispettorato Nazionale del Lavoro (authorisation of remote-monitoring tools)", "url": "https://www.ispettorato.gov.it" }
   ],
+  "officialDomains": ["garanteprivacy.it", "normattiva.it", "gazzettaufficiale.it", "eur-lex.europa.eu", "edpb.europa.eu", "commission.europa.eu"],
   "scopeNotes": "The GDPR applies directly to the Italian establishment (Art. 3(1) GDPR); the Privacy Code adds national rules adopted under GDPR opening clauses, notably on special-category and criminal data (Arts. 2-septies, 2-octies), employment (Arts. 113-115, referring to the Workers' Statute) and unsolicited communications (Art. 130). As headquarters of the reference group, Italy is the baseline: GDPR obligations here are marked 'covered' and Italian-specific additions 'partial' or 'new'. Outbound transfers from Italy to non-EEA group entities are governed by GDPR Chapter V: as of September 2026 the Republic of Korea is adequate, the United States only for organisations certified under the EU-US Data Privacy Framework, while China, Singapore, Peru, Chile and India have no adequacy decision.",
   "obligations": [
     {

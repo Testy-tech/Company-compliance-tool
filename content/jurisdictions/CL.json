@@ -21,6 +21,7 @@
   "regulators": [
     { "name": "Agencia de Protección de Datos Personales (created by Law 21.719; first Board appointed within 60 days before entry into force)", "url": "https://www.bcn.cl/leychile/navegar?idNorma=1209272" }
   ],
+  "officialDomains": ["bcn.cl", "leychile.cl", "diariooficial.interior.gob.cl", "gob.cl", "camara.cl", "senado.cl"],
   "scopeNotes": "IMMINENT CHANGE: Law 21.719 rewrites Law 19.628 into a GDPR-like regime with an independent Data Protection Agency and fines of up to 20,000 UTM, or for large companies up to 2%–4% of annual revenue. Under its first transitory article it enters into force on the first day of the 24th month after publication, i.e. 1 December 2026. On 1 September 2026 the Government announced a bill to postpone entry into force to 1 December 2027; until that bill is enacted, 1 December 2026 remains the legal date. Until then, the 1999 Law 19.628 applies (consent-based, with limited enforcement). The new law recognises legitimate interests, contract and legal obligation as legal bases, requires public transparency information, breach reporting, DPIAs for high-risk processing and safeguards for international transfers.",
   "obligations": [
     {

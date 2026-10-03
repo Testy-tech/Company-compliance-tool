@@ -36,6 +36,7 @@
   "regulators": [
     { "name": "Office of the Texas Attorney General — Consumer Protection Division", "url": "https://www.texasattorneygeneral.gov/consumer-protection" }
   ],
+  "officialDomains": ["statutes.capitol.texas.gov", "texasattorneygeneral.gov", "capitol.texas.gov", "sos.state.tx.us", "texreg.sos.state.tx.us"],
   "scopeNotes": "The TDPSA applies to persons conducting business in Texas (or producing products/services consumed by Texans) that process or sell personal data and are not small businesses under the US SBA definitions; small businesses must still obtain consent before selling sensitive data. Crucially, a 'consumer' is a Texas resident acting in an individual or household context and excludes individuals acting in a commercial or employment context — so employee, applicant and B2B contact data fall outside the TDPSA. Employee biometrics are, however, relevant under CUBI, and breach notification (ch. 521) applies to all personal information of Texans. The Attorney General has exclusive enforcement authority; there is no private right of action under the TDPSA.",
   "definedTerms": [
     {

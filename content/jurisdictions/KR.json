@@ -22,6 +22,7 @@
     { "name": "Personal Information Protection Commission (PIPC)", "url": "https://www.pipc.go.kr/eng" },
     { "name": "Korea Internet & Security Agency (KISA) — breach reporting", "url": "https://www.kisa.or.kr" }
   ],
+  "officialDomains": ["pipc.go.kr", "law.go.kr", "elaw.klri.re.kr", "kisa.or.kr", "privacy.go.kr", "commission.europa.eu"],
   "scopeNotes": "PIPA applies to personal information controllers processing personal information in Korea; the 2023 amendment unified the online/offline rules and added legal bases (contract performance; legitimate interests that manifestly outweigh the data subject's rights), new transfer mechanisms and automated-decision rights. Providing data to a third party (including a foreign parent acting as a separate controller) requires consent unless a narrower set of grounds applies. Cross-border transfers need separate consent or another Art. 28-8 basis; the PIPC has recognised the EU as providing an equivalent level of protection (in force by September 2025), complementing the EU's 2021 adequacy decision on Korea. Foreign controllers without a Korean address that meet decree thresholds must appoint a domestic agent; a group with a Korean subsidiary normally acts through that subsidiary. Penalty surcharges can reach 3% of total sales.",
   "obligations": [
     {
