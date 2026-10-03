@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 import { Pencil, Printer } from "lucide-react";
+import { AlertDialog } from "radix-ui";
 
 import { Button } from "@/components/ui/button";
 import { evaluate } from "@/lib/engine/evaluate";
@@ -53,6 +54,10 @@ function ReportBody({ kb, fx }: Props) {
     [store],
   );
 
+  // Loading a sample replaces the session's answers, so ask first when there are any.
+  const [pendingSample, setPendingSample] = useState<"unknown" | "low" | null>(null);
+  const requestSample = (variant: "unknown" | "low") => (saved ? setPendingSample(variant) : loadSample(variant));
+
   const loadSample = (variant: "unknown" | "low") => {
     store.clear();
     setState(store.loadReportState());
@@ -93,13 +98,33 @@ function ReportBody({ kb, fx }: Props) {
           An Italy-headquartered engineering group with entities in nine other jurisdictions. Loading a sample replaces any answers saved in this session.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Button variant="outline" onClick={() => loadSample("unknown")}>
+          <Button variant="outline" onClick={() => requestSample("unknown")}>
             Sample: every threshold “Don&apos;t know”
           </Button>
-          <Button variant="outline" onClick={() => loadSample("low")}>
+          <Button variant="outline" onClick={() => requestSample("low")}>
             Sample: known low values
           </Button>
         </div>
+
+        <AlertDialog.Root open={pendingSample !== null} onOpenChange={(open) => !open && setPendingSample(null)}>
+          <AlertDialog.Portal>
+            <AlertDialog.Overlay className="fixed inset-0 z-50 bg-foreground/40" />
+            <AlertDialog.Content className="fixed top-1/2 left-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-card p-6 shadow-lg">
+              <AlertDialog.Title className="text-xl font-semibold text-primary">Replace your answers?</AlertDialog.Title>
+              <AlertDialog.Description className="mt-2 text-sm text-muted-foreground">
+                This browser session already has assessment answers. Loading the sample deletes them, together with any checklist ticks. This cannot be undone.
+              </AlertDialog.Description>
+              <div className="mt-6 flex flex-wrap justify-end gap-3">
+                <AlertDialog.Cancel asChild>
+                  <Button variant="outline">Keep my answers</Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action asChild>
+                  <Button onClick={() => pendingSample && loadSample(pendingSample)}>Replace with the sample</Button>
+                </AlertDialog.Action>
+              </div>
+            </AlertDialog.Content>
+          </AlertDialog.Portal>
+        </AlertDialog.Root>
       </div>
     );
   }
