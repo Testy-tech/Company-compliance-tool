@@ -18,11 +18,11 @@ export type Deadline = {
   summary?: string;
   url: string;
   kind: "law" | "change";
-  /** The date is not firm (KB marks it for review); shown next to the date. */
+  /** Shown next to the date, e.g. a pending bill that would change it. */
   dateNote?: string;
+  /** The KB does not treat the date itself as settled. */
+  notFirm: boolean;
 };
-
-const DEFAULT_DATE_NOTE = "Date under review";
 
 /** Laws not yet in force and upcoming changes recorded in the KB, for the assessed countries, earliest first. */
 export function deadlines(report: Report, kb: readonly Jurisdiction[]): Deadline[] {
@@ -34,11 +34,15 @@ export function deadlines(report: Report, kb: readonly Jurisdiction[]): Deadline
       if (law.status !== "in_force")
         out.push({
           jurisdiction: j.id, name: j.name, date: law.effectiveDate ?? "Date not set", title: `${law.shortName} enters into force`, url: law.officialUrl, kind: "law",
-          dateNote: law.effectiveDateConfidence && law.effectiveDateConfidence !== "verified" ? law.effectiveDateNote ?? DEFAULT_DATE_NOTE : undefined,
+          dateNote: law.effectiveDateNote,
+          notFirm: !!law.effectiveDateConfidence && law.effectiveDateConfidence !== "verified",
         });
     for (const c of j.upcomingChanges)
-      out.push({ jurisdiction: j.id, name: j.name, date: c.expectedDate, title: c.title, summary: c.summary, url: c.sourceUrl, kind: "change", dateNote: c.dateNote });
+      out.push({ jurisdiction: j.id, name: j.name, date: c.expectedDate, title: c.title, summary: c.summary, url: c.sourceUrl, kind: "change", dateNote: c.dateNote, notFirm: false });
   }
+  // A change entry that restates a law's entry into force is as firm as the law's own date.
+  for (const d of out)
+    if (d.kind === "change") d.notFirm = out.some((l) => l.kind === "law" && l.jurisdiction === d.jurisdiction && l.date.slice(0, 10) === d.date.slice(0, 10) && l.notFirm);
   // A law's entry into force is often also recorded as an upcoming change: keep the change, which says more.
   const changeDates = new Set(out.filter((d) => d.kind === "change").map((d) => `${d.jurisdiction}|${d.date.slice(0, 10)}`));
   const unique = out.filter((d) => d.kind === "change" || !changeDates.has(`${d.jurisdiction}|${d.date.slice(0, 10)}`));

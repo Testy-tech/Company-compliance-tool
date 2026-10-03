@@ -101,7 +101,7 @@ export function buildWorkbook(input: ExportInput): ExcelJS.Workbook {
       row.alignment = { vertical: "top", wrapText: true };
     }
   for (const d of deadlines(report, input.kb).filter((x) => x.dateNote)) {
-    const row = summary.addRow([`Date to watch — ${d.name}`, `${d.date.slice(0, 10)}: ${d.title} — ${d.dateNote}.`]);
+    const row = summary.addRow([`Date to watch — ${d.name}`, `${d.date.slice(0, 10)}${d.notFirm ? " (not firm)" : ""}: ${d.title} — Note: ${d.dateNote}.`]);
     row.getCell(1).font = { bold: true };
     row.alignment = { vertical: "top", wrapText: true };
   }

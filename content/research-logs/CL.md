@@ -61,3 +61,9 @@ A verification run of the developments search with a look-back to 1 January 2025
 **KB changes.** The effective date of Law 21.719 is marked `needs_review` with the note "Entry-into-force date subject to amending legislation, under review", shown next to the date in the report, exports and library page. Two context notes were added for the jurisdiction (date may move; first Board not confirmed). No obligation was changed.
 
 **For counsel:** confirm the amending article of Law 21.806 from the Diario Oficial; confirm whether the bill has moved; decide whether titles that mention 1 December 2026 should be reworded if it is enacted.
+
+## Decisions of 2026-10-04
+
+- **Effective date confirmed.** By decision of the reviewing owner, the 1 December 2026 effective date of Law 21.719 is recorded as `verified`, cited to the first transitional article of the consolidated text on Ley Chile (article version dated 13 December 2024). The "under review" wording was removed.
+- **Postponement bill as a watch entry.** The bill (Boletín 18.623-07) is recorded under upcoming changes with its source and a last-verified date of 2026-10-03, and is shown as a note next to the date. The item title that mentions 1 December 2026 was restored.
+- **TODO — Law 21.806 citation.** The article of Law 21.806 that amended the fourth transitional article of Law 21.719 is still not cited, because the amending text could not be loaded. To be completed from the Diario Oficial PDF (5 February 2026) once it is added to `docs/sources/`.

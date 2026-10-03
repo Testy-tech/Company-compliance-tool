@@ -112,7 +112,16 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
                   official text
                 </a>
               </p>
-              {law.effectiveDateConfidence && law.effectiveDateConfidence !== "verified" ? <NotFirm>{law.effectiveDateNote ?? "Date under review"}.</NotFirm> : null}
+              {law.effectiveDateSource ? (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Date from:{" "}
+                  <a href={law.effectiveDateSource.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+                    {law.effectiveDateSource.pinpoint}
+                  </a>
+                </p>
+              ) : null}
+              {law.effectiveDateConfidence && law.effectiveDateConfidence !== "verified" ? <NotFirm>Not a firm date: under review.</NotFirm> : null}
+              {law.effectiveDateNote ? <p className="mt-1 text-sm text-muted-foreground">Note: {law.effectiveDateNote}.</p> : null}
             </li>
           ))}
         </ul>
@@ -143,7 +152,9 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
               <li key={i} className="grid gap-1 py-4 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-6">
                 <div>
                   <p className="font-medium">{displayDate(d)}</p>
-                  {d.note ? <NotFirm>{d.note}.</NotFirm> : !d.firm ? <NotFirm>No fixed date.</NotFirm> : null}
+                  {!d.firm ? <NotFirm>No fixed date.</NotFirm> : null}
+                  {d.note ? <p className="mt-1 text-sm text-muted-foreground">Note: {d.note}.</p> : null}
+                  {d.lastVerified ? <p className="mt-1 text-xs text-muted-foreground">Status checked {formatDate(d.lastVerified)}</p> : null}
                 </div>
                 <div className="text-sm">
                   <p className="font-medium">{d.title}</p>

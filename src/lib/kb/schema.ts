@@ -96,6 +96,9 @@ export const lawSchema = z.object({
    * `effectiveDateNote` next to the date instead of presenting it as firm.
    */
   effectiveDateConfidence: z.enum(["verified", "needs_review", "unverified"]).optional(),
+  /** Where the effective date comes from (article and version of the text relied on). */
+  effectiveDateSource: sourceSchema.optional(),
+  /** Shown next to the date, e.g. a pending bill that would change it. */
   effectiveDateNote: z.string().min(10).optional(),
 });
 
@@ -158,8 +161,10 @@ export const jurisdictionSchema = z.object({
       expectedDate: z.string().min(4),
       summary: z.string().min(20),
       sourceUrl: url,
-      /** The date is not firm; shown with this note next to it. */
+      /** Shown next to the date, e.g. a pending bill that would change it. */
       dateNote: z.string().min(10).optional(),
+      /** When this entry's status was last checked against its source. */
+      lastVerified: isoDate.optional(),
     }),
   ),
   lastReviewed: isoDate,

@@ -155,9 +155,9 @@ function datesToWatch(input: ExportInput): Block[] {
     {
       kind: "table",
       columns: [{ header: "Date", width: 18 }, { header: "Jurisdiction", width: 22 }, { header: "What changes", width: 60 }],
-      rows: dated.map((d) => [`${formatDate(d.date.slice(0, 10))}${d.dateNote ? " *" : ""}`, d.name, `${d.title}${d.dateNote ? ` — ${d.dateNote}.` : ""}`]),
+      rows: dated.map((d) => [`${formatDate(d.date.slice(0, 10))}${d.notFirm ? " *" : ""}`, d.name, `${d.title}${d.dateNote ? ` — Note: ${d.dateNote}.` : ""}`]),
     },
-    ...(dated.some((d) => d.dateNote) ? [p("* Not a firm date: see the note in the row.", "small")] : []),
+    ...(dated.some((d) => d.notFirm) ? [p("* Not a firm date: the knowledge base marks it for review.", "small")] : []),
   ];
 }
 

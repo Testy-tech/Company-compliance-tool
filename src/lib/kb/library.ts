@@ -4,7 +4,7 @@ import { obligationCategories, type Jurisdiction, type Obligation } from "./sche
 
 /* View models for the public jurisdiction library pages, built from the KB only. */
 
-export type LibraryDate = { date: string; firm: boolean; title: string; summary?: string; note?: string; url: string };
+export type LibraryDate = { date: string; firm: boolean; title: string; summary?: string; note?: string; url: string; lastVerified?: string };
 
 const isIso = (d: string) => /^\d{4}-\d{2}-\d{2}/.test(d);
 
@@ -18,11 +18,11 @@ export function datesToWatch(j: Jurisdiction): LibraryDate[] {
         date: law.effectiveDate ?? "Date not set",
         firm: !!law.effectiveDate && (!law.effectiveDateConfidence || law.effectiveDateConfidence === "verified"),
         title: `${law.shortName} enters into force`,
-        note: law.effectiveDateConfidence && law.effectiveDateConfidence !== "verified" ? law.effectiveDateNote : undefined,
+        note: law.effectiveDateNote,
         url: law.officialUrl,
       });
   for (const c of j.upcomingChanges)
-    out.push({ date: c.expectedDate, firm: isIso(c.expectedDate) && !c.dateNote, title: c.title, summary: c.summary, note: c.dateNote, url: c.sourceUrl });
+    out.push({ date: c.expectedDate, firm: isIso(c.expectedDate), title: c.title, summary: c.summary, note: c.dateNote, url: c.sourceUrl, lastVerified: c.lastVerified });
   return out
     .map((d, i) => ({ d, i }))
     .sort((a, b) => Number(isIso(b.d.date)) - Number(isIso(a.d.date)) || (isIso(a.d.date) ? a.d.date.localeCompare(b.d.date) : 0) || a.i - b.i)

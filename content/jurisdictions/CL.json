@@ -16,8 +16,12 @@
       "officialUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf",
       "status": "enacted_not_in_force",
       "effectiveDate": "2026-12-01",
-      "effectiveDateConfidence": "needs_review",
-      "effectiveDateNote": "Entry-into-force date subject to amending legislation, under review"
+      "effectiveDateConfidence": "verified",
+      "effectiveDateSource": {
+        "url": "https://www.leychile.cl/Consulta/obtxml?opt=7&idNorma=1209272",
+        "pinpoint": "Law 21.719, first transitional article (consolidated text on Ley Chile, article version dated 13 December 2024): first day of the 24th month after publication"
+      },
+      "effectiveDateNote": "Postponement bill (Boletín 18.623-07) pending in the Senate, first constitutional stage, government urgency"
     }
   ],
   "regulators": [
@@ -27,8 +31,8 @@
   "scopeNotes": "IMMINENT CHANGE: Law 21.719 rewrites Law 19.628 into a GDPR-like regime with an independent Data Protection Agency and fines of up to 20,000 UTM, or for large companies up to 2%–4% of annual revenue. Under its first transitory article it enters into force on the first day of the 24th month after publication, i.e. 1 December 2026. On 1 September 2026 the Government announced a bill to postpone entry into force to 1 December 2027; until that bill is enacted, 1 December 2026 remains the legal date. Until then, the 1999 Law 19.628 applies (consent-based, with limited enforcement). The new law recognises legitimate interests, contract and legal obligation as legal bases, requires public transparency information, breach reporting, DPIAs for high-risk processing and safeguards for international transfers.",
   "contextNotes": [
     {
-      "title": "The entry-into-force date may move",
-      "text": "Law 21.719 takes effect on the first day of the 24th month after its publication, which is 1 December 2026 (first transitional article, unchanged). A government bill to move that date to 1 December 2027 is before the Senate and was not enacted when last checked. Plan for December 2026 and re-check before relying on either date.",
+      "title": "A bill to postpone entry into force is pending",
+      "text": "Law 21.719 takes effect on 1 December 2026 under its first transitional article, which is unchanged. A government bill to move that date to 1 December 2027 is before the Senate and was not enacted when last checked. 1 December 2026 is the date to plan for; watch the bill.",
       "source": { "url": "https://tramitacion.senado.cl/wspublico/tramitacion.php?boletin=18623", "pinpoint": "Senate bill record 18.623-07 (last step 22 September 2026); Law 21.719, first transitional article" },
       "lastVerified": "2026-10-03"
     },
@@ -43,7 +47,7 @@
     {
       "id": "CL-GOVERNANCE-01",
       "category": "governance",
-      "title": "Prepare the Chilean entity for Law 21.719 (entry into force 1 December 2026, date under review)",
+      "title": "Prepare the Chilean entity for Law 21.719 before 1 December 2026",
       "requirement": "Law 21.719 applies from 1 December 2026 unless the Government's postponement bill (announced 1 September 2026, proposing 1 December 2027) is enacted first. A GDPR programme covers much of the new law, but Chilean-specific items (public transparency page, 30-day response deadline, biometric notices, breach reporting to the new Agency, Spanish-language documentation) must be in place by the start date.",
       "appliesIf": { "in": [{ "var": "j.entityType" }, ["subsidiary", "branch", "rep_office"]] },
       "appliesIfNote": "Applies because the group has an entity in Chile processing personal data.",
@@ -283,13 +287,14 @@
       "expectedDate": "2026-12-01",
       "summary": "Entry into force on the first day of the 24th month after publication (13 Dec 2024). Brings legitimate interests, transparency page, 30-day rights deadline, breach reporting, DPIAs, transfer safeguards and fines up to 4% of revenue for large companies.",
       "sourceUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf",
-      "dateNote": "Entry-into-force date subject to amending legislation, under review"
+      "dateNote": "Postponement bill (Boletín 18.623-07) pending in the Senate, first constitutional stage, government urgency"
     },
     {
-      "title": "Government bill to postpone Law 21.719 to 1 December 2027",
-      "expectedDate": "Bill 18.623-07, Senate, first constitutional stage; last step 2026-09-22; not enacted as of 2026-10-03",
-      "summary": "Would postpone entry into force by one year, enlarge the Agency's Board from three to five members and bring forward the first Board appointments. It is before the Senate's Constitution committee (also referred to Finance) with government urgency, renewed on 22 September 2026. Until it is enacted, 1 December 2026 remains the legal date.",
-      "sourceUrl": "https://tramitacion.senado.cl/wspublico/tramitacion.php?boletin=18623"
+      "title": "Postponement bill (Boletín 18.623-07) pending in the Senate, first constitutional stage, government urgency",
+      "expectedDate": "Entered 2026-09-01; last recorded step 2026-09-22; not enacted",
+      "summary": "The bill would move the entry into force of Law 21.719 from 1 December 2026 to 1 December 2027, enlarge the Agency's Board from three to five members and bring forward the first Board appointments. It is before the Senate's Constitution committee and was also referred to Finance. Unless and until it is enacted, 1 December 2026 remains the legal date.",
+      "sourceUrl": "https://tramitacion.senado.cl/wspublico/tramitacion.php?boletin=18623",
+      "lastVerified": "2026-10-03"
     }
   ],
   "lastReviewed": "2026-10-03"
