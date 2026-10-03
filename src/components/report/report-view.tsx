@@ -21,6 +21,7 @@ import { formatDate, jurisdictionAnchor } from "@/lib/report/labels";
 import { AiPanel, type TailorProgress } from "./ai-panel";
 import { Glossary, GovernanceFindings, Roadmap, TransferMap } from "./appendices";
 import type { DevelopmentsState } from "./developments-panel";
+import { ExportPanel } from "./export-panel";
 import { Heatmap } from "./heatmap";
 import { JurisdictionSection } from "./jurisdiction-section";
 import { OpenQuestions } from "./open-questions";
@@ -196,6 +197,9 @@ function ReportBody({ kb, fx }: Props) {
   }
 
   const { intake } = assessment.data;
+  // Tailored text goes into exports only if the user opted in, and not for items switched back to standard text.
+  const exportTailored = state.aiConsent ? Object.fromEntries(Object.entries(tailored).filter(([id]) => !state.showStandard[id])) : {};
+  const exportInput = { report, intake, kb, reviewer: state.reviewerMode, tailored: Object.keys(exportTailored).length ? exportTailored : undefined };
   const kbOf = (id: string) => kb.find((j) => j.id === id)!;
   const reviewer = state.reviewerMode;
   const allIds = report.jurisdictions.flatMap((j) => j.results.map((r) => r.obligation.id));
@@ -267,6 +271,8 @@ function ReportBody({ kb, fx }: Props) {
           setProgress([]);
         }}
       />
+
+      <ExportPanel input={exportInput} tailoredCount={Object.keys(exportInput.tailored ?? {}).length} />
 
       <nav aria-label="Report contents" className="no-print mt-8 rounded-lg border bg-card p-4 text-sm">
         <p className="eyebrow">Contents</p>
