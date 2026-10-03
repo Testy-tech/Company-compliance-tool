@@ -17,7 +17,9 @@
 
 ## Findings and judgement calls
 
-- **Headcount as a proxy:** § 38 counts *persons constantly engaged in automated processing*, not total headcount. The rule uses local headcount ≥ 20 as a conservative proxy and says so in `appliesIfNote`. The wizard could later ask for the actual number.
+- **DPO count (updated in Phase 3):** § 38 counts *persons constantly engaged in automated processing*, not total headcount. The rule now reads `j.dataStaff` (the wizard asks how many people at the German entity regularly work with personal data on computers) instead of `j.headcount`. Decision of 2026-10-03 for the Phase 4 engine: when the data-staff question is unanswered, local headcount is its upper bound, because data staff cannot exceed headcount. Headcount 0 or 1–19 therefore excludes the headcount trigger with certainty; headcount of 20 or more (or unknown) makes the DPO item "assumed", with the data-staff question as the follow-up. The separate trigger for processing that needs a DPIA is unchanged (employee monitoring and biometrics are used as indicators).
+- **Works council (updated in Phase 3):** the co-determination item applies when the employee-representation answer is "works council" or "both". A union alone does not trigger § 87 BetrVG.
+- **Trackers (updated in Phase 3):** the TDDDG § 25 item now reads `web.nonEssential`, derived from the website step (analytics, advertising pixels, session recording, chat widget, embedded content).
 - **CJEU C-34/21:** I could not load the judgment from curia/EUR-Lex through the fetch tool. The obligation cites the BfDI's official statement about the judgment instead. **Counsel should add the ECLI pinpoint.**
 - **§ 4 BDSG (video surveillance of publicly accessible spaces):** not encoded. I recall case law limiting its applicability to private bodies but could not verify it in this pass. The CCTV item therefore relies on GDPR plus the BfDI guidance.
 - **§ 22 and § 24 BDSG** (special categories, change of purpose): not encoded in this pass.
@@ -27,4 +29,4 @@
 
 1. Should § 4 BDSG be encoded, or excluded for private controllers?
 2. Should there be a separate item for special-category employee data (§ 26(3) BDSG together with Art. 9(2)(b) GDPR)?
-3. Should the wizard ask for the actual "persons constantly engaged in automated processing" count?
+3. Is "regularly work with personal data on computers" an acceptable plain-language rendering of the § 38 test for the wizard question?
