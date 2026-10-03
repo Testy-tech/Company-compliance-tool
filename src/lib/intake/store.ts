@@ -19,9 +19,15 @@ export type ReportState = {
   /** Obligation id → done. */
   checklist: Record<string, boolean>;
   reviewerMode: boolean;
+  /** The user allowed this report to send data to Anthropic (off by default). */
+  aiConsent: boolean;
+  /** Tailored wording per obligation id, valid only for the assessment it was made for. */
+  tailored?: { signature: string; model: string; items: Record<string, { explanation: string; steps: string[] }> };
+  /** Obligation id → the user switched this item back to the standard text. */
+  showStandard: Record<string, boolean>;
 };
 
-export const emptyReportState = (): ReportState => ({ version: 1, checklist: {}, reviewerMode: false });
+export const emptyReportState = (): ReportState => ({ version: 1, checklist: {}, reviewerMode: false, aiConsent: false, showStandard: {} });
 
 export interface IntakeStore {
   load(): IntakeDraft | null;

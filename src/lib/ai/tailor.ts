@@ -5,6 +5,9 @@ import { z } from "zod";
 import { aiConfig } from "./config";
 import { classifyError, logAi, usageOf, type AiFailure, type AiUsage } from "./errors";
 import { TAILOR_SYSTEM } from "./prompts";
+import { tailorRequestSchema, type TailoredItem, type TailorRequest } from "./tailor-schema";
+
+export { tailorRequestSchema, type TailoredItem, type TailorRequest };
 
 /*
  * Tailoring: Claude may reword an obligation's explanation and steps for the
@@ -12,51 +15,6 @@ import { TAILOR_SYSTEM } from "./prompts";
  * source of truth; anything that fails validation is dropped and the standard
  * text is shown.
  */
-
-const short = (max: number) => z.string().trim().min(1).max(max);
-
-/** What the browser sends: one jurisdiction's applicable obligations plus non-identifying facts. */
-export const tailorRequestSchema = z
-  .object({
-    /** The user ticked the opt-in box. */
-    consent: z.literal(true),
-    jurisdiction: z.object({ id: short(8), name: short(80) }),
-    company: z.object({
-      /** Present only when the user marked the label as anonymised; a real company name is never sent. */
-      anonymisedLabel: short(120).optional(),
-      industry: short(60),
-      hqCountry: z.string().regex(/^[A-Z]{2}$/),
-      gdprBaseline: z.boolean(),
-      governanceModel: short(40),
-      localContacts: z.boolean(),
-    }),
-    entity: z.object({ role: short(20), entityType: short(20), status: short(20) }),
-    facts: z.object({
-      subjects: z.array(short(80)).max(12),
-      sensitiveData: z.array(short(80)).max(12),
-      processing: z.array(short(80)).max(12),
-      gdprArtefactsInPlace: z.array(short(80)).max(16),
-    }),
-    obligations: z
-      .array(
-        z.object({
-          id: z.string().regex(/^[A-Z]{2}(-[A-Z]{2})?-[A-Z_]+-\d{2}$/),
-          title: short(200),
-          requirement: short(1200),
-          whyItApplies: short(400),
-          actionSteps: z.array(short(600)).min(1).max(12),
-          applicability: z.enum(["applies", "assumed"]),
-          assumptions: z.array(short(400)).max(8),
-          owner: short(40),
-          gdprEquivalent: short(200).optional(),
-        }),
-      )
-      .min(1)
-      .max(aiConfig.tailor.maxObligations),
-  })
-  .strict();
-
-export type TailorRequest = z.infer<typeof tailorRequestSchema>;
 
 /** What Claude is asked to return. Structured outputs do not support length limits, so those are checked afterwards. */
 export const tailorOutputSchema = z.object({
@@ -70,19 +28,43 @@ export const tailorOutputSchema = z.object({
   ),
 });
 
-export type TailoredItem = { id: string; tailoredExplanation: string; tailoredSteps: string[] };
-
 const LIMITS = { explanation: 900, step: 450, minSteps: 1, maxSteps: 8 };
+
+/** Article / section numbers and time limits mentioned in a text, e.g. "art:28", "time:72 hour". */
+function legalAnchors(text: string): Set<string> {
+  const found = new Set<string>();
+  for (const m of text.matchAll(/(?:\barts?\.?|\barticles?|§+|\bsec(?:tions?|s)?\.?)\s*((?:\d+[\w.()-]*(?:\s*(?:,|and|or|to|–|-)\s*)?)+)/gi))
+    for (const n of m[1]!.matchAll(/\d+/g)) found.add(`art:${n[0]}`);
+  for (const m of text.matchAll(/\b(\d+)\s*(?:calendar |working |business )?(hour|day|week|month|year)s?\b/gi)) found.add(`time:${m[1]} ${m[2]!.toLowerCase()}`);
+  return found;
+}
+
+/**
+ * An item may not cite an article or section, or state a time limit, that its
+ * own obligation text does not contain. A deterministic backstop to the prompt:
+ * such an item is dropped and keeps its standard text.
+ */
+export function introducesLegalContent(original: TailorRequest["obligations"][number], explanation: string, steps: string[]): string | undefined {
+  const allowed = legalAnchors([original.title, original.requirement, original.whyItApplies, ...original.actionSteps, ...original.assumptions, original.gdprEquivalent ?? ""].join("\n"));
+  for (const anchor of legalAnchors([explanation, ...steps].join("\n"))) if (!allowed.has(anchor)) return anchor;
+  return undefined;
+}
 
 /**
  * Accept the output only if every item refers to an obligation that was sent,
  * once, with its applicability unchanged and with usable text. One bad item
  * rejects the whole response: a model that broke one rule is not trusted on the rest.
+ * The exception is an item that mentions an article or time limit not in its
+ * source text: that item alone is dropped (reported in `dropped`).
  */
-export function validateTailorOutput(request: TailorRequest, output: z.infer<typeof tailorOutputSchema>): { ok: true; items: TailoredItem[] } | { ok: false; problem: string } {
+export function validateTailorOutput(
+  request: TailorRequest,
+  output: z.infer<typeof tailorOutputSchema>,
+): { ok: true; items: TailoredItem[]; dropped: string[] } | { ok: false; problem: string } {
   const sent = new Map(request.obligations.map((o) => [o.id, o]));
   const seen = new Set<string>();
   const items: TailoredItem[] = [];
+  const dropped: string[] = [];
   for (const item of output.items) {
     const original = sent.get(item.id);
     if (!original) return { ok: false, problem: `unknown obligation id "${item.id}"` };
@@ -95,9 +77,14 @@ export function validateTailorOutput(request: TailorRequest, output: z.infer<typ
     if (!explanation || explanation.length > LIMITS.explanation) return { ok: false, problem: `explanation missing or too long for "${item.id}"` };
     if (steps.length < LIMITS.minSteps || steps.length > LIMITS.maxSteps || steps.some((s) => s.length > LIMITS.step))
       return { ok: false, problem: `steps missing, too many or too long for "${item.id}"` };
+    const added = introducesLegalContent(original, explanation, steps);
+    if (added) {
+      dropped.push(`${item.id} (${added})`);
+      continue;
+    }
     items.push({ id: item.id, tailoredExplanation: explanation, tailoredSteps: steps });
   }
-  return { ok: true, items };
+  return { ok: true, items, dropped };
 }
 
 export type TailorResult =
@@ -139,7 +126,7 @@ export async function runTailor(client: AiClient, request: TailorRequest): Promi
       logAi({ ...log, ms: Date.now() - started, requestId, usage, failure: "invalid_output", detail: checked.problem });
       return { ok: false, failure: "invalid_output", requestId: requestId ?? undefined };
     }
-    logAi({ ...log, ms: Date.now() - started, requestId, usage });
+    logAi({ ...log, ms: Date.now() - started, requestId, usage, detail: checked.dropped.length ? `dropped for new legal content: ${checked.dropped.join(", ")}` : undefined });
     return { ok: true, items: checked.items, usage, requestId, model };
   } catch (error) {
     const { failure, requestId, status } = classifyError(error);

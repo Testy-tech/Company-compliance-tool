@@ -8,6 +8,8 @@
  *   - web search tool:      https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool
  */
 
+import { MAX_OBLIGATIONS_PER_REQUEST } from "./tailor-schema";
+
 export const aiConfig = {
   model: process.env.ANTHROPIC_MODEL || "claude-opus-5",
 
@@ -17,7 +19,7 @@ export const aiConfig = {
     effort: "medium" as const,
     timeoutMs: 120_000,
     /** One request tailors one jurisdiction. */
-    maxObligations: 20,
+    maxObligations: MAX_OBLIGATIONS_PER_REQUEST,
     maxBodyBytes: 80_000,
     rateLimit: { max: 30, windowMs: 10 * 60_000 },
   },

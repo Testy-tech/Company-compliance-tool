@@ -7,7 +7,7 @@ import { aiConfig, WEB_SEARCH_TOOL } from "./config";
 import { clearDevelopmentsCache, runDevelopments } from "./developments";
 import { DEVELOPMENTS_SYSTEM, SOURCE_RULES, TAILOR_SYSTEM } from "./prompts";
 import { rateLimit, resetRateLimits } from "./rate-limit";
-import { runTailor, tailorRequestSchema, type AiClient, type TailorRequest } from "./tailor";
+import { introducesLegalContent, runTailor, tailorRequestSchema, type AiClient, type TailorRequest } from "./tailor";
 
 /* The SDK is stubbed: these tests never call the API. */
 
@@ -72,7 +72,7 @@ describe("tailor request", () => {
 
 describe("runTailor", () => {
   it("returns tailored text for known obligations and reports token usage", async () => {
-    const { client, parse } = stub(message({ items: [item("CN-NOTICE-01", "applies"), item("CN-TRANSFER-04", "assumed")] }));
+    const { client } = stub(message({ items: [item("CN-NOTICE-01", "applies"), item("CN-TRANSFER-04", "assumed")] }));
     const result = await runTailor(client, request);
     expect(result).toMatchObject({ ok: true, requestId: "req_ok_1", usage: { inputTokens: 1200, outputTokens: 300, cacheWriteTokens: 900 } });
     expect(result.ok && result.items.map((i) => i.id)).toEqual(["CN-NOTICE-01", "CN-TRANSFER-04"]);
@@ -129,6 +129,27 @@ describe("runTailor", () => {
       const { client } = stub(message({ items }));
       expect((await runTailor(client, request)).ok).toBe(false);
     }
+  });
+
+  it("drops an item that cites an article or states a time limit its obligation does not contain", async () => {
+    const { client } = stub(
+      message({
+        items: [
+          item("CN-NOTICE-01", "applies", { tailoredExplanation: "Under Art. 17 PIPL you must publish the notice within 30 days." }),
+          item("CN-TRANSFER-04", "assumed"),
+        ],
+      }),
+    );
+    const result = await runTailor(client, request);
+    expect(result.ok && result.items.map((i) => i.id)).toEqual(["CN-TRANSFER-04"]);
+    expect(info.mock.calls.flat().join(" ")).toContain("dropped for new legal content: CN-NOTICE-01");
+  });
+
+  it("allows articles and time limits that are in the obligation's own text", () => {
+    const original = { ...request.obligations[0]!, actionSteps: ["Document the arrangement (Art. 26 or Art. 28 GDPR)."], requirement: "Notify the authority within 72 hours of becoming aware.", gdprEquivalent: "Arts. 5, 24, 30 GDPR" };
+    expect(introducesLegalContent(original, "Put the Art. 28 arrangement in writing and keep the 72-hour clock in the playbook.", ["Check Arts. 5 and 30 are reflected."])).toBeUndefined();
+    expect(introducesLegalContent(original, "Report within 48 hours.", [])).toBe("time:48 hour");
+    expect(introducesLegalContent(original, "This follows from § 38 BDSG.", [])).toBe("art:38");
   });
 
   it("treats a refusal or a truncated answer as a failure", async () => {

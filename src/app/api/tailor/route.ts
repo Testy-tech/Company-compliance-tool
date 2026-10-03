@@ -15,7 +15,8 @@ export async function POST(request: Request) {
   if ("response" in read) return read.response;
 
   const parsed = tailorRequestSchema.safeParse(read.body);
-  if (!parsed.success) return json({ ok: false, failure: "bad_request" }, 400);
+  // Field paths only, never values, so a rejected request is diagnosable without echoing its content.
+  if (!parsed.success) return json({ ok: false, failure: "bad_request", fields: parsed.error.issues.slice(0, 10).map((i) => `${i.path.join(".")}: ${i.code}`) }, 400);
 
   const client = getClient();
   if (!client) return json({ ok: false, failure: "not_configured" }, 503);
