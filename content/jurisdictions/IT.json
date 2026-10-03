@@ -372,6 +372,12 @@
   ],
   "upcomingChanges": [
     {
+      "title": "EU–US Data Privacy Framework: appeal against the adequacy decision pending",
+      "expectedDate": "Appeal C-703/25 P brought 2025-10-31; pending, no hearing date found as of 2026-10-03",
+      "summary": "The General Court upheld the framework's adequacy decision on 3 September 2025 (T-553/23). An appeal is before the Court of Justice. Transfers to certified US recipients rely on the decision staying valid; if it is annulled they need another mechanism such as standard contractual clauses.",
+      "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62025CN0703"
+    },
+    {
       "title": "EU AI Act: high-risk obligations for employment AI systems (Annex III) postponed by the AI Omnibus",
       "expectedDate": "2027-12-02",
       "summary": "The AI Omnibus entered into force on 27 July 2026. Rules for stand-alone high-risk AI systems (including those used for recruitment and worker management) now apply from 2 December 2027; those embedded in products from 2 August 2028. The company-level AI literacy duty was simplified.",

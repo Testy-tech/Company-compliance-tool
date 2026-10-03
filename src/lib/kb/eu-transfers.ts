@@ -11,7 +11,22 @@ import { sourceSchema } from "./schema";
  * Checked at build time by scripts/validate-kb.ts.
  */
 
-const mechanismSchema = z.object({ label: z.string().min(5), source: sourceSchema });
+const mechanismSchema = z.object({
+  label: z.string().min(5),
+  /** A caveat shown with every flow that uses this mechanism. */
+  note: z.string().min(10).optional(),
+  source: sourceSchema,
+});
+
+/** A pending development that could change a mechanism; shown in the report, never applied automatically. */
+const watchSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  title: z.string().min(5),
+  status: z.string().min(5),
+  summary: z.string().min(20),
+  sources: z.array(sourceSchema).min(1),
+  lastVerified: z.iso.date(),
+});
 
 export const euTransfersSchema = z.object({
   lastVerified: z.iso.date(),
@@ -33,6 +48,7 @@ export const euTransfersSchema = z.object({
       )
       .min(1),
   }),
+  watch: z.array(watchSchema).default([]),
   mechanisms: z.object({ none: mechanismSchema, adequacy: mechanismSchema, dpf: mechanismSchema, sccs: mechanismSchema }),
 });
 

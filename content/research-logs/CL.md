@@ -27,3 +27,9 @@
 1. What is the status of the postponement bill? Should obligations be re-dated to 2027 if it passes?
 2. Will the Agency issue model transfer clauses, and would EU SCCs be accepted in the meantime?
 3. Does the geolocation-data rule (Art. 16 sexies) affect site-worker tracking?
+
+## Re-check of the entry-into-force date (2026-10-03)
+
+- The KB records Law 21.719 as `enacted_not_in_force` with `effectiveDate` 2026-12-01, citing the Diario Oficial publication of 13 December 2024 (First Transitory Article: first day of the 24th month after publication).
+- Re-checked on 2026-10-03: the Biblioteca del Congreso Nacional's Ley Chile record for Law 21.719 (idNorma 1209272) still shows 1 December 2026 as the date it takes effect. The record itself could not be loaded through the fetch tool (it is a JavaScript application); the date was read from the page title and summary returned by a search restricted to official domains.
+- The Government's bill to postpone the date to 1 December 2027 (announced 1 September 2026) was still a bill in the same search; nothing on an official domain showed it enacted. Until it is, 1 December 2026 remains the legal date. **Counsel should re-check this before the date.**

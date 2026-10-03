@@ -140,7 +140,7 @@ export function transferFlows(
         // A US group entity: certified recipients fall under the adequacy decision.
         const certified = entity.dpfCertified;
         if (certified?.status === "known" && certified.value)
-          flows.push(flow({ crossBorder: true, owner, status: "applies", mechanism: m.dpf.label, sources: [m.dpf.source, eu.adequacy.source] }));
+          flows.push(flow({ crossBorder: true, owner, status: "applies", mechanism: m.dpf.label, note: m.dpf.note, sources: [m.dpf.source, eu.adequacy.source] }));
         else if (certified?.status === "known")
           flows.push(flow({ crossBorder: true, owner, status: "applies", mechanism: m.sccs.label, note: "The recipient is not certified under the Data Privacy Framework.", sources: [m.sccs.source] }));
         else {
@@ -175,7 +175,7 @@ export function transferFlows(
           flow({
             crossBorder: true, owner, status: "applies",
             mechanism: `${m.sccs.label}, unless the provider is certified under the Data Privacy Framework`,
-            note: adequate.scope,
+            note: [adequate.scope, m.dpf.note].filter(Boolean).join(" "),
             sources: [m.sccs.source, m.dpf.source],
           }),
         );
