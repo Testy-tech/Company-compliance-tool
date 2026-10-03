@@ -117,6 +117,10 @@ export const isUS = (e: EntityDraft) => e.jurisdiction.startsWith("US-");
 export const needsUnionQuestion = (e: EntityDraft) =>
   e.employeeRep?.status === "known" && (e.employeeRep.value === "union" || e.employeeRep.value === "both");
 
+/** Nothing leaves the country, so the "mainly HR data?" question is skipped. */
+export const sendsNothing = (t: EntityDraft["transfers"]) =>
+  t.nonSensitive?.status === "known" && t.nonSensitive.value === "0" && t.sensitive?.status === "known" && t.sensitive.value === "0";
+
 /** Germany: ask for data staff unless headcount already rules out the 20-person threshold. */
 export function needsDataStaff(e: EntityDraft): boolean {
   if (e.jurisdiction !== "DE" || !e.headcount) return false;
@@ -152,6 +156,8 @@ export function toIntake(draft: Draft) {
         dataStaff: needsDataStaff(e) ? e.dataStaff : undefined,
         unionData: needsUnionQuestion(e) ? e.unionData : undefined,
         smallBusinessSBA: isUS(e) ? e.smallBusinessSBA : undefined,
+        // Not asked when nothing is sent abroad; "no" keeps the answer resolved without implying an exemption.
+        transfers: sendsNothing(e.transfers) ? { ...e.transfers, hrOnly: { status: "known", value: "no" } } : e.transfers,
         cn: e.jurisdiction === "CN" ? e.cn : undefined,
       })),
     },
