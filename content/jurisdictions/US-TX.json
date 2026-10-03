@@ -92,16 +92,37 @@
       "id": "US-TX-SENSITIVE-02",
       "category": "sensitive_data",
       "title": "Obtain consent before processing consumers' sensitive data (TDPSA)",
-      "requirement": "Controllers may not process a consumer's sensitive data without consent (for known children, per COPPA). This applies to consumer data only — employee and B2B data are outside the TDPSA. Small businesses may not sell sensitive data without prior consent.",
-      "appliesIf": { "and": [{ "var": "subjects.endUsers" }, { ">": [{ "var": "j.people.other" }, 0] }, { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] }] },
-      "appliesIfNote": "Applies because you process sensitive data of Texas consumers (not employees or business contacts).",
+      "requirement": "Controllers may not process a consumer's sensitive data without consent (for known children, per COPPA). This applies to consumer data only — employee and B2B data are outside the TDPSA. The duty sits in the general controller obligations, which do not apply to SBA small businesses; their narrower duty on selling sensitive data is a separate item.",
+      "appliesIf": { "and": [{ "var": "subjects.endUsers" }, { ">": [{ "var": "j.people.other" }, 0] }, { "!": { "var": "j.smallBusinessSBA" } }, { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] }] },
+      "appliesIfNote": "Applies because you process sensitive data of Texas consumers (not employees or business contacts) and the Texas entity is not an SBA small business.",
       "actionSteps": ["Add opt-in consent for any sensitive consumer data collected from Texans."],
       "owner": "HQ",
       "priority": "medium",
       "gdprEquivalent": "Art. 9(2)(a) GDPR",
       "gdprDelta": "covered",
-      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.001(7), 541.101(b)(4), 541.107" }],
-      "lastVerified": "2026-09-27",
+      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.001(7), 541.002(a), 541.101(b)(4)" }],
+      "lastVerified": "2026-10-03",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "confidence": "needs_review"
+    },
+    {
+      "id": "US-TX-SENSITIVE-03",
+      "category": "sensitive_data",
+      "title": "Obtain consent before selling consumers' sensitive data — small businesses included (TDPSA)",
+      "requirement": "The one TDPSA duty that reaches SBA small businesses: sensitive data of a consumer may not be sold unless the consumer has consented beforehand. A sale means passing personal data to a third party in return for money or other valuable consideration. Businesses that are not small are already bound by the wider consent duty for any processing of sensitive data. Only consumer data is covered — employee and B2B data are outside the TDPSA.",
+      "appliesIf": { "and": [{ "var": "subjects.endUsers" }, { ">": [{ "var": "j.people.other" }, 0] }, { ">": [{ "var": "j.people.soldShared" }, 0] }, { "or": [{ "var": "sensitive.health" }, { "var": "sensitive.biometrics" }, { "var": "sensitive.preciseLocation" }, { "var": "sensitive.children" }] }] },
+      "appliesIfNote": "Applies because you sell or share personal data of Texans acting in a private capacity and process sensitive data; SBA small-business status makes no difference to this duty.",
+      "actionSteps": [
+        "Check whether any data passed to third parties for money or other value includes sensitive categories of Texas consumers.",
+        "If so, collect opt-in consent before the sale, or stop including sensitive data in those disclosures."
+      ],
+      "penaltyNote": "Civil penalty up to USD 7,500 per violation after a 30-day cure period, enforced by the Attorney General.",
+      "owner": "HQ",
+      "priority": "medium",
+      "gdprEquivalent": "Art. 9(2)(a) GDPR",
+      "gdprDelta": "covered",
+      "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.002(b), 541.107, 541.001(28)–(29), 541.154–.155" }],
+      "lastVerified": "2026-10-03",
       "verifiedBy": "claude-research (pending counsel review)",
       "confidence": "needs_review"
     },
@@ -182,5 +203,5 @@
     }
   ],
   "upcomingChanges": [],
-  "lastReviewed": "2026-09-27"
+  "lastReviewed": "2026-10-03"
 }
