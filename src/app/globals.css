@@ -245,6 +245,25 @@
   .no-print {
     display: none !important;
   }
+  @page {
+    margin: 16mm 14mm;
+  }
+  /* Tables and the coverage matrix must not be clipped by their scroll frame */
+  [role="region"] {
+    overflow: visible !important;
+  }
+  table {
+    min-width: 0 !important;
+    font-size: 8.5pt;
+  }
+  article {
+    break-inside: avoid-page;
+  }
+  /* Collapsed lists (items behind a finding or question) are printed in full */
+  details::details-content {
+    content-visibility: visible;
+    display: block;
+  }
   a[href^="http"]::after {
     content: " <" attr(href) ">";
     font-size: 0.8em;

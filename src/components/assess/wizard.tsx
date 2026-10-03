@@ -126,6 +126,20 @@ function WizardForm({ source }: { source: WizardSource }) {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [step, goTo]);
 
+  // Arriving through a client-side link (the report's "Resolve"), the hash is set just after
+  // the first render, so check it once more when the wizard has mounted.
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const anchor = window.location.hash.slice(1);
+      const linked = stepForHash(anchor);
+      if (linked < 0) return;
+      goTo(linked);
+      pendingAnchor.current = anchor;
+      focusQuestion(anchor);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [goTo]);
+
   const current = steps[step]!;
   const isLast = step === steps.length - 1;
   // After a failed "Next", keep only the problems that are still open as the user answers them.

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Check, CircleAlert, CircleHelp, Pencil } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -178,9 +179,12 @@ function ReviewStep({ draft, config, goTo }: StepProps) {
           <p className="mt-2 text-sm text-muted-foreground">
             {countUnresolved(result.data) === 0
               ? "There are no open questions."
-              : `${countUnresolved(result.data)} answers are “Don't know” or “Prefer not to say”. The report will treat them conservatively, mark the affected items as assumptions and list a follow-up question for each.`}{" "}
-            Your answers stay saved in this browser session. The report itself is built in a later phase.
+              : `${countUnresolved(result.data)} answers are “Don't know” or “Prefer not to say”. The report treats them conservatively: where one affects an obligation, the item is marked as an assumption and a follow-up question is listed.`}{" "}
+            Your answers stay saved in this browser session.
           </p>
+          <Button asChild className="mt-4">
+            <Link href="/report">View the report</Link>
+          </Button>
         </div>
       ) : (
         <div role="alert" className="rounded-lg border border-destructive bg-card p-4">

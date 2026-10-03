@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 
-import { PlaceholderPage } from "@/components/site/placeholder-page";
+import { ReportView } from "@/components/report/report-view";
+import { loadKnowledge } from "@/lib/kb/load";
 
 export const metadata: Metadata = { title: "Report" };
 
-export default function Page() {
+export default async function Page() {
+  const { kb, fx } = await loadKnowledge();
   return (
-    <PlaceholderPage
-      title="Report"
-      phase="Phase 5"
-      summary="Your jurisdiction-by-jurisdiction opinion: executive summary, GDPR delta heatmap, checklist, transfer map, governance recommendation and 30/60/90-day roadmap."
-    />
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <ReportView kb={kb} fx={fx} />
+    </div>
   );
 }
