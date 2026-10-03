@@ -4,6 +4,7 @@ import { DeltaBadge } from "@/components/legal/delta-badge";
 import { evaluate } from "@/lib/engine/evaluate";
 import { referenceAssessment } from "@/lib/engine/fixtures";
 import { loadKnowledge } from "@/lib/kb/load";
+import { isReviewed, libraryIsPublic } from "@/lib/kb/publication";
 import { mostUrgent } from "@/lib/report/derive";
 import { formatDate, ownerLabels, priorityLabels } from "@/lib/report/labels";
 
@@ -19,8 +20,12 @@ export async function SampleReportPreview() {
   const report = evaluate(assessment, kb, fx);
   const { summary } = report;
   const deltas = (["covered", "partial", "new"] as const).map((d) => ({ delta: d, value: summary.byDelta[d] }));
-  const top = mostUrgent(report, 3);
-  const flows = report.flows.filter((f) => f.origin === "IT" && f.destination.kind === "group").slice(0, 2);
+  // Publication gate: until the library is released, only counsel-reviewed items are shown by name.
+  const isPublic = libraryIsPublic();
+  const all = report.jurisdictions.flatMap((j) => j.results);
+  const reviewedCount = all.filter((r) => isReviewed(r.obligation)).length;
+  const top = mostUrgent(report, all.length).filter((r) => isPublic || isReviewed(r.obligation)).slice(0, 3);
+  const flows = isPublic ? report.flows.filter((f) => f.origin === "IT" && f.destination.kind === "group").slice(0, 2) : [];
 
   return (
     <figure
@@ -63,8 +68,18 @@ export async function SampleReportPreview() {
           ))}
         </div>
 
+        <p className="text-xs text-muted-foreground">
+          <span className="font-medium text-foreground tabular-nums">{reviewedCount}</span> of {all.length} items reviewed by counsel ·{" "}
+          <span className="font-medium text-foreground tabular-nums">{all.length - reviewedCount}</span> pending review
+        </p>
+
         <div>
-          <p className="eyebrow">Most urgent</p>
+          <p className="eyebrow">Most urgent{isPublic ? "" : " (reviewed items)"}</p>
+          {top.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              Item titles appear here once counsel has reviewed them. Your own report lists every item, each marked with its review status.
+            </p>
+          ) : null}
           <ol className="mt-2 space-y-3">
             {top.map((r) => (
               <li key={r.obligation.id} className="grid grid-cols-[2.75rem_1fr] gap-x-2">

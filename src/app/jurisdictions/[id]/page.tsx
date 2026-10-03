@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/legal/section-heading";
 import { Button } from "@/components/ui/button";
 import { coveredJurisdictions } from "@/lib/intake/schema";
 import { datesToWatch, describe, displayDate, lawStatusLabels, obligationsByCategory, sources } from "@/lib/kb/library";
+import { libraryIsPublic, publishable } from "@/lib/kb/publication";
 import { knowledgeBase } from "@/lib/kb/repository";
 import type { JurisdictionId } from "@/lib/kb/schema";
 import { formatDate, priorityLabels } from "@/lib/report/labels";
@@ -26,7 +27,14 @@ export async function generateMetadata({ params }: PageProps<"/jurisdictions/[id
   const j = await load(id);
   if (!j) return {};
   const title = `Data protection in ${j.name}`;
-  return { title, description: describe(j), alternates: { canonical: `/jurisdictions/${j.id}` }, openGraph: { title, description: describe(j), type: "article" } };
+  return {
+    title,
+    description: describe(j),
+    alternates: { canonical: `/jurisdictions/${j.id}` },
+    openGraph: { title, description: describe(j), type: "article" },
+    // Kept out of search engines until the library is released (PUBLIC_LIBRARY=true).
+    robots: libraryIsPublic() ? undefined : { index: false, follow: false },
+  };
 }
 
 /** Marker for anything whose date is not settled: icon and words, not colour alone. */
@@ -44,9 +52,12 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
   const j = await load(id);
   if (!j) notFound();
   const dates = datesToWatch(j);
-  const groups = obligationsByCategory(j);
-  const cited = sources(j);
-  const awaiting = j.obligations.filter((o) => o.confidence !== "verified").length;
+  const isPublic = libraryIsPublic();
+  const { shown, reviewed, pending } = publishable(j.obligations, isPublic);
+  // Only what is shown on the page is grouped and cited.
+  const visible = { ...j, obligations: shown };
+  const groups = obligationsByCategory(visible);
+  const cited = sources(visible);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -60,8 +71,8 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
       <hr className="rule-brass mt-5 w-16" />
       <p className="mt-6 max-w-prose text-muted-foreground">{j.scopeNotes}</p>
       <p className="marginal-note mt-4 max-w-prose">
-        Informational, not legal advice. {awaiting === j.obligations.length ? "All" : awaiting} of the {j.obligations.length} entries below{" "}
-        {awaiting === 1 ? "was" : "were"} checked against official sources by research and {awaiting === 1 ? "is" : "are"} awaiting review by qualified counsel.
+        Informational, not legal advice. {reviewed} of {j.obligations.length} obligations for this jurisdiction have been reviewed by qualified counsel; {pending}{" "}
+        {pending === 1 ? "is" : "are"} still under review{isPublic ? " and marked as such below" : " and not shown yet"}.
       </p>
 
       {j.contextNotes.length ? (
@@ -182,6 +193,12 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
           </Link>{" "}
           works that out.
         </p>
+        {!isPublic && pending ? (
+          <p className="mt-4 max-w-prose rounded-lg border border-dashed p-3 text-sm">
+            <span className="font-medium">{pending} {pending === 1 ? "obligation is" : "obligations are"} under review</span> and will be published here once
+            counsel has confirmed {pending === 1 ? "it" : "them"}. {reviewed === 0 ? "None has been released yet." : ""}
+          </p>
+        ) : null}
         {groups.map((g) => (
           <div key={g.category} className="mt-8">
             <h3 className="text-lg font-semibold text-primary">{g.category}</h3>
@@ -202,6 +219,7 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
                       </span>
                     ))}{" "}
                     · last verified {formatDate(o.lastVerified)}
+                    {o.confidence === "needs_review" ? " · under review by counsel" : ""}
                     {o.confidence === "unverified" ? " · official text not confirmed; do not rely on this entry" : ""}
                   </p>
                 </li>

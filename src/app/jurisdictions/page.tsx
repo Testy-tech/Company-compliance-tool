@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { datesToWatch, lawStatusLabels } from "@/lib/kb/library";
+import { libraryIsPublic, publishable, reviewSplit } from "@/lib/kb/publication";
 import { knowledgeBase } from "@/lib/kb/repository";
 import { formatDate } from "@/lib/report/labels";
 
@@ -10,22 +11,27 @@ export const metadata: Metadata = {
   title: "Jurisdictions",
   description: "The jurisdictions covered by DataBorders: applicable data protection laws, regulators, key obligations with official sources, and the date each was last reviewed.",
   alternates: { canonical: "/jurisdictions" },
+  // Kept out of search engines until the library is released (PUBLIC_LIBRARY=true).
+  robots: libraryIsPublic() ? undefined : { index: false, follow: false },
 };
 
 export default async function Page() {
   const kb = await knowledgeBase.list();
-  const total = kb.reduce((n, j) => n + j.obligations.length, 0);
+  const isPublic = libraryIsPublic();
+  const split = reviewSplit(kb);
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <p className="eyebrow">Library</p>
       <h1 className="mt-3 text-3xl font-semibold text-primary sm:text-4xl">Jurisdictions</h1>
       <hr className="rule-brass mt-5 w-16" />
       <p className="mt-6 max-w-prose text-lg text-muted-foreground">
-        {kb.length} jurisdictions and {total} obligations, each written in plain language and tied to an official source. The United States is covered state by state;
-        California and Texas are in so far.
+        {kb.length} jurisdictions and {split.total} obligations, each written in plain language and tied to an official source. The United States is covered state by
+        state; California and Texas are in so far.
       </p>
       <p className="marginal-note mt-4 max-w-prose">
-        Every entry was checked against official sources by research and is awaiting review by qualified counsel. This is information, not legal advice.
+        {split.reviewed} of {split.total} obligations have been reviewed by qualified counsel; {split.pending} are still under review.{" "}
+        {isPublic ? "Entries under review are marked as such." : "Only reviewed obligations are shown here; the rest appear once their review is complete."} This is
+        information, not legal advice.
       </p>
 
       <ul className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -42,7 +48,9 @@ export default async function Page() {
               <p className="mt-2 text-sm">{j.laws.map((l) => l.shortName).join(" · ")}</p>
               <dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1 text-sm">
                 <dt className="text-muted-foreground">Obligations</dt>
-                <dd className="tabular-nums">{j.obligations.length}</dd>
+                <dd className="tabular-nums">
+                  {publishable(j.obligations, isPublic).reviewed} reviewed · {publishable(j.obligations, isPublic).pending} under review
+                </dd>
                 {pending.length ? (
                   <>
                     <dt className="text-muted-foreground">Not yet in force</dt>

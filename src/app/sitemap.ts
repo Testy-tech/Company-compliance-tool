@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { libraryIsPublic, libraryPaths } from "@/lib/kb/publication";
 import { knowledgeBase } from "@/lib/kb/repository";
 import { site } from "@/lib/site";
 
@@ -16,8 +17,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     page("/", latest, 1),
     page("/assess", undefined, 0.8),
-    page("/jurisdictions", latest, 0.9),
-    ...kb.map((j) => page(`/jurisdictions/${j.id}`, j.lastReviewed, 0.7)),
+    // The library is listed only once the publication gate is open.
+    ...libraryPaths(kb, libraryIsPublic()).map((path) => page(path, kb.find((j) => path.endsWith(`/${j.id}`))?.lastReviewed ?? latest, path === "/jurisdictions" ? 0.9 : 0.7)),
     page("/methodology", undefined, 0.6),
     page("/legal", undefined, 0.3),
   ];
