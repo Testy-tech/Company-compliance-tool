@@ -230,13 +230,33 @@
 
 /* Print: the report must read like a paper opinion */
 @media print {
+  /* Always print in the light palette, whatever theme is on screen. */
   :root,
   .dark {
     --background: #fff;
-    --card: #fff;
     --foreground: #111;
+    --card: #fff;
+    --popover: #fff;
+    --primary: oklch(0.289 0.062 263.9);
+    --primary-foreground: #fff;
+    --secondary: oklch(0.955 0.01 86);
+    --secondary-foreground: oklch(0.289 0.062 263.9);
+    --muted: oklch(0.955 0.01 86);
     --muted-foreground: #444;
+    --accent: oklch(0.955 0.01 86);
+    --destructive: oklch(0.442 0.133 24.4);
     --border: #bbb;
+    --input: #888;
+    --brass: oklch(0.494 0.083 80.3);
+    --brass-rule: oklch(0.641 0.089 81.4);
+    --status-covered: oklch(0.452 0.072 157.7);
+    --status-partial: oklch(0.497 0.104 65.4);
+    --status-new: oklch(0.442 0.133 24.4);
+  }
+  /* The theme switcher sets color-scheme inline; without this the page margins print dark. */
+  html {
+    color-scheme: light !important;
+    background: #fff !important;
   }
   body {
     font-size: 10.5pt;
@@ -248,16 +268,65 @@
   @page {
     margin: 16mm 14mm;
   }
-  /* Tables and the coverage matrix must not be clipped by their scroll frame */
+  /* Tables and the coverage matrix must fit the page instead of scrolling */
   [role="region"] {
     overflow: visible !important;
   }
   table {
+    width: 100% !important;
     min-width: 0 !important;
-    font-size: 8.5pt;
+    table-layout: fixed;
+    font-size: 8pt;
   }
+  th,
+  td {
+    padding-inline: 3px !important;
+    overflow-wrap: break-word;
+  }
+  /* Row labels need room; the remaining columns share the rest */
+  table:not(:has(colgroup)) :is(th, td):first-child {
+    width: 19%;
+  }
+  /* A table follows its heading and legend onto the same page where it can */
+  [role="region"] {
+    break-before: avoid;
+  }
+  /* Multi-column card layouts print as a single flowing column */
+  .print-flow {
+    display: block !important;
+  }
+  .print-flow > * + * {
+    margin-top: 1rem;
+  }
+  td a {
+    min-width: 0 !important;
+    padding-inline: 2px !important;
+    gap: 2px !important;
+  }
+  /* Keep an item's heading with its text; let long items flow across pages */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    break-after: avoid;
+  }
+  li,
+  tr,
+  dl > div {
+    break-inside: avoid;
+  }
+  /* …but a card that holds a whole list may run over a page */
+  li:has(li) {
+    break-inside: auto;
+  }
+  /* An item is not split across pages unless it is longer than a page */
   article {
     break-inside: avoid-page;
+  }
+  /* Each jurisdiction starts on a fresh page */
+  section[aria-labelledby^="j-"] {
+    break-before: page;
   }
   /* Collapsed lists (items behind a finding or question) are printed in full */
   details::details-content {
@@ -269,13 +338,8 @@
     font-size: 0.8em;
     word-break: break-all;
   }
-  h1,
-  h2,
-  h3 {
-    break-after: avoid;
-  }
-  section,
-  li {
-    break-inside: avoid;
+  /* Links inside tables: the URL would not fit the column */
+  table a[href^="http"]::after {
+    content: "";
   }
 }

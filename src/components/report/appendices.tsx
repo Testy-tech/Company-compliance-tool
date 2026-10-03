@@ -20,6 +20,13 @@ export function TransferMap({ report }: { report: Report }) {
       </p>
       <div className="relative mt-4 overflow-x-auto rounded-lg border" tabIndex={0} role="region" aria-label="Transfer map">
         <table className="w-full min-w-[52rem] border-collapse text-left text-sm">
+          <colgroup>
+            <col className="w-[16%]" />
+            <col className="w-[20%]" />
+            <col className="w-[33%]" />
+            <col className="w-[14%]" />
+            <col className="w-[17%]" />
+          </colgroup>
           <thead>
             <tr className="border-b bg-secondary">
               <th scope="col" className="px-3 py-2 font-medium">From</th>
@@ -149,7 +156,7 @@ const buckets = [
 export function Roadmap({ report, checklist }: { report: Report; checklist: Record<string, boolean> }) {
   const all: ObligationResult[] = report.jurisdictions.flatMap((j) => j.results);
   return (
-    <div className="grid gap-6 lg:grid-cols-3">
+    <div className="print-flow grid gap-6 lg:grid-cols-3">
       {buckets.map((b) => {
         const items = all.filter((r) => r.roadmapBucket === b.days);
         const done = items.filter((r) => checklist[r.obligation.id]).length;
