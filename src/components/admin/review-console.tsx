@@ -187,7 +187,7 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
         </p>
       ) : null}
 
-      <Counts jurisdictions={jurisdictions} onPick={(id) => (setMode("table"), setFilters({ jurisdiction: id, priority: "", state: "", category: "" }))} />
+      {mode === "table" ? <Counts jurisdictions={jurisdictions} onPick={(id) => (setMode("table"), setFilters({ jurisdiction: id, priority: "", state: "", category: "" }))} /> : null}
 
       {mode === "table" ? (
         <section aria-labelledby="items-heading" className="mt-8">
