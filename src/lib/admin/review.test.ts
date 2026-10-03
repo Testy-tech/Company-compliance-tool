@@ -73,6 +73,11 @@ describe("editing a knowledge-base file in place", () => {
   });
 });
 
+const pickEditable = (id: string) => {
+  const o = cn.obligations.find((x) => x.id === id)!;
+  return { requirement: o.requirement, actionSteps: o.actionSteps, sources: o.sources, deadlineOrTimeline: o.deadlineOrTimeline, penaltyNote: o.penaltyNote };
+};
+
 /* ── Saving a review ──────────────────────────────────────────────────────── */
 
 describe("applyReview", () => {
@@ -140,6 +145,43 @@ describe("applyReview", () => {
     expect(o).toMatchObject({ requirement: fields.requirement, actionSteps: fields.actionSteps, deadlineOrTimeline: "Before the first transfer", sources: fields.sources });
     expect(o.penaltyNote).toBeUndefined(); // cleared
     expect(o.confidence).toBe("needs_review"); // editing is not verifying
+  });
+
+  it("Edit changes priority, owner and GDPR comparison through the same checks", async () => {
+    const fields = { requirement: target.requirement, actionSteps: target.actionSteps, sources: target.sources, deadlineOrTimeline: target.deadlineOrTimeline, penaltyNote: target.penaltyNote };
+    const result = await applyReview({ action: "edit", id: "CN-TRANSFER-04", fields: { ...fields, priority: "high", owner: "HQ", gdprDelta: "partial" } }, deps);
+    expect(result.ok, JSON.stringify(result)).toBe(true);
+    expect(item()).toMatchObject({ priority: "high", owner: "HQ", gdprDelta: "partial", exclusiveGroup: target.exclusiveGroup, strictness: target.strictness });
+    expect(deps.runChecks).toHaveBeenCalledTimes(1);
+    expect(result.ok && result.entry.before).toMatchObject({ priority: "critical" });
+    expect(result.ok && result.entry.after).toMatchObject({ priority: "high" });
+    const bad = await applyReview({ action: "edit", id: "CN-TRANSFER-04", fields: { ...fields, priority: "urgent" } }, deps);
+    expect(bad).toMatchObject({ ok: false, stage: "input" });
+  });
+
+  it("Edit changes the exclusive tier, and the validator refuses a tier that breaks its group", async () => {
+    const fields = { requirement: target.requirement, actionSteps: target.actionSteps, sources: target.sources, deadlineOrTimeline: target.deadlineOrTimeline, penaltyNote: target.penaltyNote };
+    const before = read();
+    // strictness 1 is taken by the other tier of the group
+    expect(await applyReview({ action: "edit", id: "CN-TRANSFER-04", fields: { ...fields, strictness: 1 } }, deps)).toMatchObject({ ok: false, stage: "validator" });
+    // removing the group leaves a one-tier group behind
+    expect(await applyReview({ action: "edit", id: "CN-TRANSFER-04", fields: { ...fields, exclusiveGroup: null, strictness: null } }, deps)).toMatchObject({ ok: false, stage: "validator" });
+    // a group without strictness
+    expect(await applyReview({ action: "edit", id: "CN-TRANSFER-04", fields: { ...fields, strictness: null } }, deps)).toMatchObject({ ok: false, stage: "validator" });
+    expect(read()).toBe(before);
+    expect(deps.runChecks).not.toHaveBeenCalled();
+
+    const ok = await applyReview({ action: "edit", id: "CN-TRANSFER-04", fields: { ...fields, strictness: 3 } }, deps);
+    expect(ok.ok, JSON.stringify(ok)).toBe(true);
+    expect(item()).toMatchObject({ exclusiveGroup: "CN-TRANSFER_MECHANISM", strictness: 3 });
+
+    // adding a tier to an item that had none puts both properties after the rule note, group first
+    const added = await applyReview({ action: "edit", id: "CN-TRANSFER-01", fields: { ...pickEditable("CN-TRANSFER-01"), exclusiveGroup: "CN-TRANSFER_MECHANISM", strictness: 4 } }, deps);
+    expect(added.ok, JSON.stringify(added)).toBe(true);
+    const lines = read().split(String.fromCharCode(10));
+    const at = lines.findIndex((l, i) => l.includes('"exclusiveGroup"') && lines[i + 1]!.includes('"strictness": 4'));
+    expect(at).toBeGreaterThan(0);
+    expect(lines[at - 1]).toContain('"appliesIfNote"');
   });
 
   it("rejects an invalid edit without touching the file", async () => {

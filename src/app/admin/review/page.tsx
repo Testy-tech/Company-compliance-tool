@@ -32,7 +32,8 @@ export default async function Page() {
   return (
     <div className="mx-auto max-w-[96rem] px-4 py-8 sm:px-6 lg:px-8">
       <ReviewConsole
-        jurisdictions={kb.map((j) => ({ id: j.id, name: j.name, obligations: j.obligations }))}
+        jurisdictions={kb.map((j) => ({ id: j.id, name: j.name, obligations: j.obligations, thresholds: j.thresholds }))}
+        today={deps.now().toISOString().slice(0, 10)}
         researchLogs={logs}
         reviewer={deps.reviewer ?? null}
         changes={changes}

@@ -4,9 +4,18 @@ import { obligationSchema } from "@/lib/kb/schema";
 
 /* Review actions and their validation. No Node imports: the console's edit form uses the same schema in the browser. */
 
+const shape = obligationSchema.shape;
+
+/** Left out = unchanged. For the optional ones, an empty string (or null for the tier fields) removes the property. */
 export const editFieldsSchema = obligationSchema.pick({ requirement: true, actionSteps: true, sources: true }).extend({
   deadlineOrTimeline: z.string().trim().max(300).optional(),
   penaltyNote: z.string().trim().max(600).optional(),
+  priority: shape.priority.optional(),
+  owner: shape.owner.optional(),
+  gdprDelta: shape.gdprDelta.optional(),
+  /** Exclusive tier: group and strictness go together; the KB validator checks the group as a whole. */
+  exclusiveGroup: shape.exclusiveGroup.unwrap().nullable().optional(),
+  strictness: shape.strictness.unwrap().nullable().optional(),
 });
 export type EditFields = z.infer<typeof editFieldsSchema>;
 

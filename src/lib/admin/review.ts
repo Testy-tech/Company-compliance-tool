@@ -69,6 +69,7 @@ async function findFile(kbDir: string, id: string): Promise<{ file: string; text
 }
 
 const pick = (o: Record<string, unknown>, keys: string[]) => Object.fromEntries(keys.map((k) => [k, o[k]]));
+const definedOnly = (o: Record<string, unknown>) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined));
 
 export async function applyReview(input: unknown, deps: ReviewDeps): Promise<ReviewResult> {
   if (!deps.reviewer) return { ok: false, stage: "config", errors: ["Set REVIEWER_NAME in .env.local to the reviewer's name; it is recorded as verifiedBy and in the review log."] };
@@ -93,11 +94,20 @@ export async function applyReview(input: unknown, deps: ReviewDeps): Promise<Rev
             deadlineOrTimeline: action.fields.deadlineOrTimeline || undefined,
             penaltyNote: action.fields.penaltyNote || undefined,
             sources: action.fields.sources,
+            ...definedOnly({ priority: action.fields.priority, owner: action.fields.owner, gdprDelta: action.fields.gdprDelta }),
           };
+  // Tier fields sit next to the rule they qualify. null removes them; left out means unchanged.
+  const tier: Record<string, unknown> = {};
+  if (action.action === "edit") {
+    if (action.fields.exclusiveGroup !== undefined) tier.exclusiveGroup = action.fields.exclusiveGroup ?? undefined;
+    if (action.fields.strictness !== undefined) tier.strictness = action.fields.strictness ?? undefined;
+  }
 
   let next: string;
   try {
     next = editObligation(text, action.id, fields, "confidence");
+    if ("strictness" in tier) next = editObligation(next, action.id, { strictness: tier.strictness }, "appliesIfNote");
+    if ("exclusiveGroup" in tier) next = editObligation(next, action.id, { exclusiveGroup: tier.exclusiveGroup }, "appliesIfNote");
   } catch (e) {
     return { ok: false, stage: "input", errors: [String(e)] };
   }
@@ -121,7 +131,7 @@ export async function applyReview(input: unknown, deps: ReviewDeps): Promise<Rev
     return { ok: false, stage: "tests", errors: ["The engine or KB tests failed with this change; the file was restored.", checks.output] };
   }
 
-  const keys = Object.keys(fields);
+  const keys = [...Object.keys(fields), ...Object.keys(tier)];
   const updated = (JSON.parse(next) as { obligations: Obligation[] }).obligations.find((o) => o.id === action.id)!;
   const entry: ReviewLogEntry = {
     at: deps.now().toISOString(),

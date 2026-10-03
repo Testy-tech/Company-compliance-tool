@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { editFieldsSchema, type EditFields, type ReviewResult } from "@/lib/admin/actions";
 import { logExcerpt, reviewQueue } from "@/lib/admin/queue";
-import { obligationCategories, type Obligation } from "@/lib/kb/schema";
+import { describeRule } from "@/lib/kb/describe-rule";
+import { obligationCategories, type Obligation, type Threshold } from "@/lib/kb/schema";
 import { categoryLabels, confidenceLabels, formatDate, ownerLabels, priorityLabels, priorityRank } from "@/lib/report/labels";
 
 /*
@@ -17,13 +18,16 @@ import { categoryLabels, confidenceLabels, formatDate, ownerLabels, priorityLabe
  * which validates, runs the engine tests and restores the file if they fail.
  */
 
-type JurisdictionItems = { id: string; name: string; obligations: Obligation[] };
+type JurisdictionItems = { id: string; name: string; obligations: Obligation[]; thresholds: Threshold[] };
+type Mode = "table" | "queue" | "flagged";
 type Item = Obligation & { jurisdiction: string };
-type Props = { jurisdictions: JurisdictionItems[]; researchLogs: Record<string, string>; reviewer: string | null; changes: number };
+type Props = { jurisdictions: JurisdictionItems[]; researchLogs: Record<string, string>; reviewer: string | null; changes: number; today: string };
 
 const controlClass =
   "w-full rounded-lg border border-input bg-card px-3 text-sm focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive";
 const priorities = ["critical", "high", "medium", "low"] as const;
+const owners = ["HQ", "local_entity", "both"] as const;
+const deltas = ["covered", "partial", "new"] as const;
 const states = ["verified", "needs_review", "unverified", "flagged"] as const;
 type State = (typeof states)[number];
 const stateLabels: Record<State, string> = { verified: "Verified", needs_review: "Needs review", unverified: "Unverified", flagged: "Flagged" };
@@ -34,12 +38,12 @@ const stateOf = (o: Obligation): State => (o.reviewNote && o.confidence !== "ver
 
 type Outcome = { kind: "ok"; message: string } | { kind: "error"; stage: keyof typeof stageLabels; errors: string[] } | null;
 
-export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }: Props) {
+export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes, today }: Props) {
   const router = useRouter();
   const all = useMemo<Item[]>(() => jurisdictions.flatMap((j) => j.obligations.map((o) => ({ ...o, jurisdiction: j.id }))), [jurisdictions]);
-  const names = useMemo(() => Object.fromEntries(jurisdictions.map((j) => [j.id, j.name])), [jurisdictions]);
+  const byId = useMemo(() => Object.fromEntries(jurisdictions.map((j) => [j.id, j])), [jurisdictions]);
 
-  const [mode, setMode] = useState<"table" | "queue">("table");
+  const [mode, setMode] = useState<Mode>("table");
   const [filters, setFilters] = useState({ jurisdiction: "", priority: "", state: "", category: "" });
   const [descending, setDescending] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
@@ -50,7 +54,10 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
 
   // Queue: items nobody has looked at yet. Flagged items have been looked at, so they leave the queue.
   const queue = useMemo(() => reviewQueue(all.filter((o) => stateOf(o) !== "flagged")), [all]);
-  const at = Math.min(cursor, Math.max(queue.length - 1, 0));
+  // Flagged queue: the items a reviewer sent back, in the same order.
+  const flagged = useMemo(() => reviewQueue(all.filter((o) => stateOf(o) === "flagged")), [all]);
+  const active = mode === "flagged" ? flagged : queue;
+  const at = Math.min(cursor, Math.max(active.length - 1, 0));
 
   const rows = useMemo(() => {
     const list = all.filter(
@@ -64,16 +71,22 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
     return list.sort((a, b) => (priorityRank[a.priority] - priorityRank[b.priority]) * (descending ? -1 : 1) || order.indexOf(a.id) - order.indexOf(b.id));
   }, [all, filters, descending]);
 
-  const current: Item | undefined = mode === "queue" ? queue[at] : all.find((o) => o.id === selected);
+  const current: Item | undefined = mode === "table" ? all.find((o) => o.id === selected) : active[at];
 
   const show = (id: string | null) => {
     setSelected(id);
     setPanel("none");
     setOutcome(null);
   };
+  const switchTo = (to: Mode) => {
+    setMode(to);
+    setCursor(0);
+    setPanel("none");
+    setOutcome(null);
+  };
   const next = (step = 1) => {
-    if (!queue.length) return;
-    setCursor((at + step + queue.length) % queue.length);
+    if (!active.length) return;
+    setCursor((at + step + active.length) % active.length);
     setPanel("none");
     setOutcome(null);
   };
@@ -117,9 +130,9 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
   const canAct = Boolean(reviewer) && !busy;
   const verify = () => current && canAct && current.confidence !== "verified" && send({ action: "verify", id: current.id });
 
-  // Queue shortcuts: V verify, F flag, N next, P previous. Off while typing and outside queue mode.
+  // Queue shortcuts (both queues): V verify, F flag, N next, P previous. Off while typing and in the table view.
   useEffect(() => {
-    if (mode !== "queue") return;
+    if (mode === "table") return;
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (e.metaKey || e.ctrlKey || e.altKey || (target && (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) || target.isContentEditable))) return;
@@ -167,11 +180,14 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <div role="group" aria-label="View" className="flex rounded-lg border p-0.5">
-            <Button size="sm" variant={mode === "table" ? "default" : "ghost"} aria-pressed={mode === "table"} onClick={() => (setMode("table"), setOutcome(null), setPanel("none"))}>
+            <Button size="sm" variant={mode === "table" ? "default" : "ghost"} aria-pressed={mode === "table"} onClick={() => switchTo("table")}>
               All items
             </Button>
-            <Button size="sm" variant={mode === "queue" ? "default" : "ghost"} aria-pressed={mode === "queue"} onClick={() => (setMode("queue"), setOutcome(null), setPanel("none"))}>
+            <Button size="sm" variant={mode === "queue" ? "default" : "ghost"} aria-pressed={mode === "queue"} onClick={() => switchTo("queue")}>
               Review queue ({queue.length})
+            </Button>
+            <Button size="sm" variant={mode === "flagged" ? "default" : "ghost"} aria-pressed={mode === "flagged"} onClick={() => switchTo("flagged")}>
+              Flagged ({flagged.length})
             </Button>
           </div>
           <Button size="sm" variant="outline" onClick={exportLog} disabled={Boolean(busy)}>
@@ -249,14 +265,20 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
         <section aria-labelledby="queue-heading" className="mt-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 id="queue-heading" className="text-xl font-semibold text-primary">
-              Review queue
+              {mode === "flagged" ? "Flagged items" : "Review queue"}
             </h2>
             <p className="text-sm text-muted-foreground" aria-live="polite">
-              {queue.length ? `Item ${at + 1} of ${queue.length} unreviewed` : "Nothing left to review"}
+              {mode === "flagged"
+                ? active.length
+                  ? `Item ${at + 1} of ${active.length} flagged`
+                  : "No flagged items"
+                : active.length
+                  ? `Item ${at + 1} of ${active.length} unreviewed`
+                  : "Nothing left to review"}
             </p>
           </div>
           <p className="marginal-note mt-2">
-            By priority; within a priority China, Chile and California come first. Shortcuts: <kbd>V</kbd> verify · <kbd>F</kbd> flag · <kbd>N</kbd> next · <kbd>P</kbd>{" "}
+            {mode === "flagged" ? "Items a reviewer sent back with a note. Verifying an item clears its flag; F rewrites the note. " : ""}By priority; within a priority China, Chile and California come first. Shortcuts: <kbd>V</kbd> verify · <kbd>F</kbd> flag · <kbd>N</kbd> next · <kbd>P</kbd>{" "}
             previous. They are off while you type in a field.
           </p>
         </section>
@@ -279,7 +301,9 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
         <ItemView
           key={current.id}
           item={current}
-          jurisdictionName={names[current.jurisdiction] ?? current.jurisdiction}
+          jurisdictionName={byId[current.jurisdiction]?.name ?? current.jurisdiction}
+          thresholds={byId[current.jurisdiction]?.thresholds ?? []}
+          today={today}
           log={researchLogs[current.jurisdiction] ?? ""}
           panel={panel}
           setPanel={setPanel}
@@ -288,7 +312,7 @@ export function ReviewConsole({ jurisdictions, researchLogs, reviewer, changes }
           onVerify={verify}
           onFlag={(note) => send({ action: "flag", id: current.id, note })}
           onEdit={(fields) => send({ action: "edit", id: current.id, fields })}
-          onNext={mode === "queue" ? () => next(1) : undefined}
+          onNext={mode === "table" ? undefined : () => next(1)}
         />
       ) : mode === "table" ? (
         <p className="mt-6 text-sm text-muted-foreground">Select an obligation to see its fields, sources and research notes.</p>
@@ -361,6 +385,8 @@ function Counts({ jurisdictions, onPick }: { jurisdictions: JurisdictionItems[];
 type ItemViewProps = {
   item: Item;
   jurisdictionName: string;
+  thresholds: Threshold[];
+  today: string;
   log: string;
   panel: "none" | "edit" | "flag";
   setPanel: (p: "none" | "edit" | "flag") => void;
@@ -372,9 +398,10 @@ type ItemViewProps = {
   onNext?: () => void;
 };
 
-function ItemView({ item, jurisdictionName, log, panel, setPanel, canAct, busy, onVerify, onFlag, onEdit, onNext }: ItemViewProps) {
+function ItemView({ item, jurisdictionName, thresholds, today, log, panel, setPanel, canAct, busy, onVerify, onFlag, onEdit, onNext }: ItemViewProps) {
   const excerpt = useMemo(() => logExcerpt(log, item.id), [log, item.id]);
   const state = stateOf(item);
+  const rule = useMemo(() => describeRule(item.appliesIf, { country: jurisdictionName, thresholds, onDate: today }), [item.appliesIf, jurisdictionName, thresholds, today]);
   const row = (label: string, value: React.ReactNode) =>
     value ? (
       <>
@@ -385,6 +412,14 @@ function ItemView({ item, jurisdictionName, log, panel, setPanel, canAct, busy, 
 
   return (
     <article aria-labelledby="item-heading" className="mt-6 rounded-lg border bg-card p-5">
+      {item.reviewNote ? (
+        <div className="mb-5 rounded-lg border-2 border-status-new/60 bg-status-new/10 p-4">
+          <p className="eyebrow flex items-center gap-1.5 text-status-new">
+            <Flag className="size-3.5" aria-hidden /> Flagged — reviewer&apos;s note
+          </p>
+          <p className="mt-2 max-w-prose text-lg">{item.reviewNote}</p>
+        </div>
+      ) : null}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="font-mono text-xs text-muted-foreground">
@@ -417,12 +452,6 @@ function ItemView({ item, jurisdictionName, log, panel, setPanel, canAct, busy, 
         </div>
       </div>
 
-      {item.reviewNote ? (
-        <p className="mt-4 rounded-lg border border-status-new/40 bg-status-new/10 p-3 text-sm">
-          <strong>Flagged:</strong> {item.reviewNote}
-        </p>
-      ) : null}
-
       {panel === "flag" ? <FlagForm initial={item.reviewNote ?? ""} busy={busy === "flag"} onCancel={() => setPanel("none")} onSubmit={onFlag} /> : null}
       {panel === "edit" ? <EditForm item={item} busy={busy === "edit"} onCancel={() => setPanel("none")} onSubmit={onEdit} /> : null}
 
@@ -436,8 +465,20 @@ function ItemView({ item, jurisdictionName, log, panel, setPanel, canAct, busy, 
               <li key={i}>{s}</li>
             ))}
           </ol>
+          <div className="mt-5 max-w-prose rounded-lg border bg-background p-3 text-sm">
+            <p>
+              <span className="font-semibold">Applies if:</span> {rule}
+            </p>
+            <details className="mt-2">
+              <summary className="cursor-pointer text-muted-foreground">Rule as JSON</summary>
+              <pre className="mt-2 overflow-auto rounded border bg-card p-3 text-xs" tabIndex={0}>
+                {JSON.stringify(item.appliesIf, null, 2)}
+              </pre>
+            </details>
+          </div>
           <dl className="mt-5 grid grid-cols-[9rem_minmax(0,1fr)] gap-x-4 gap-y-2 text-sm">
-            {row("Applies if", item.appliesIfNote)}
+            {row("Rule note", item.appliesIfNote)}
+            {row("Priority", priorityLabels[item.priority])}
             {row("Timeline", item.deadlineOrTimeline)}
             {row("Penalty", item.penaltyNote)}
             {row("Owner", ownerLabels[item.owner])}
@@ -446,10 +487,6 @@ function ItemView({ item, jurisdictionName, log, panel, setPanel, canAct, busy, 
             {row("Confidence", confidenceLabels[item.confidence])}
             {row("Last verified", `${formatDate(item.lastVerified)} by ${item.verifiedBy}`)}
           </dl>
-          <details className="mt-5 text-sm">
-            <summary className="cursor-pointer text-muted-foreground">Rule (appliesIf)</summary>
-            <pre className="mt-2 overflow-auto rounded border bg-background p-3 text-xs" tabIndex={0}>{JSON.stringify(item.appliesIf, null, 2)}</pre>
-          </details>
         </div>
 
         <div>
@@ -515,6 +552,11 @@ function EditForm({ item, busy, onCancel, onSubmit }: { item: Obligation; busy: 
   const [timeline, setTimeline] = useState(item.deadlineOrTimeline ?? "");
   const [penalty, setPenalty] = useState(item.penaltyNote ?? "");
   const [sources, setSources] = useState(item.sources.map((s) => ({ ...s })));
+  const [priority, setPriority] = useState(item.priority);
+  const [owner, setOwner] = useState(item.owner);
+  const [delta, setDelta] = useState(item.gdprDelta);
+  const [group, setGroup] = useState(item.exclusiveGroup ?? "");
+  const [strictness, setStrictness] = useState(item.strictness === undefined ? "" : String(item.strictness));
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const submit = (e: React.FormEvent) => {
@@ -525,6 +567,12 @@ function EditForm({ item, busy, onCancel, onSubmit }: { item: Obligation; busy: 
       deadlineOrTimeline: timeline,
       penaltyNote: penalty,
       sources: sources.map((s) => ({ url: s.url.trim(), pinpoint: s.pinpoint.trim() })),
+      priority,
+      owner,
+      gdprDelta: delta,
+      // empty = no tier; the server removes the property
+      exclusiveGroup: group.trim() || null,
+      strictness: strictness.trim() === "" ? null : Number(strictness),
     });
     if (!parsed.success) {
       const found: Record<string, string> = {};
@@ -561,6 +609,39 @@ function EditForm({ item, busy, onCancel, onSubmit }: { item: Obligation; busy: 
       <div className="grid gap-4 lg:grid-cols-2">
         {field("deadlineOrTimeline", "Timeline", "Optional. Leave empty to remove.", <input type="text" value={timeline} onChange={(e) => setTimeline(e.target.value)} {...described("deadlineOrTimeline")} className={`${controlClass} mt-1 h-10`} />)}
         {field("penaltyNote", "Penalty", "Optional. Leave empty to remove.", <textarea rows={2} value={penalty} onChange={(e) => setPenalty(e.target.value)} {...described("penaltyNote")} className={`${controlClass} mt-1 py-2`} />)}
+      </div>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {field("priority", "Priority", "Drives report order and the review queue.", (
+          <select value={priority} onChange={(e) => setPriority(e.target.value as Obligation["priority"])} {...described("priority")} className={`${controlClass} mt-1 h-10`}>
+            {priorities.map((p) => (
+              <option key={p} value={p}>
+                {priorityLabels[p]}
+              </option>
+            ))}
+          </select>
+        ))}
+        {field("owner", "Owner", "Who carries out the steps.", (
+          <select value={owner} onChange={(e) => setOwner(e.target.value as Obligation["owner"])} {...described("owner")} className={`${controlClass} mt-1 h-10`}>
+            {owners.map((o) => (
+              <option key={o} value={o}>
+                {ownerLabels[o]}
+              </option>
+            ))}
+          </select>
+        ))}
+        {field("gdprDelta", "GDPR comparison", "Covered by, partly covered by, or new against a GDPR programme.", (
+          <select value={delta} onChange={(e) => setDelta(e.target.value as Obligation["gdprDelta"])} {...described("gdprDelta")} className={`${controlClass} mt-1 h-10`}>
+            {deltas.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
+          </select>
+        ))}
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {field("exclusiveGroup", "Exclusive tier group", "Optional, e.g. CN-TRANSFER_MECHANISM. Only one tier of a group is reported. Leave empty for none.", <input type="text" value={group} onChange={(e) => setGroup(e.target.value)} {...described("exclusiveGroup")} className={`${controlClass} mt-1 h-10 font-mono`} />)}
+        {field("strictness", "Strictness", "Whole number from 1, unique within the group; higher is stricter. Required with a group.", <input type="number" min={1} step={1} value={strictness} onChange={(e) => setStrictness(e.target.value)} {...described("strictness")} className={`${controlClass} mt-1 h-10`} />)}
       </div>
       <fieldset>
         <legend className="text-sm font-medium">Sources</legend>
