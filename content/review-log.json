@@ -1,0 +1,1804 @@
+[
+  {
+    "at": "2026-10-04T20:50:59.301Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-BREACH-01",
+    "title": "Notify data subjects within 72 hours; report to PIPC/KISA within 72 hours when thresholds are met",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:51:17.158Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-GOVERNANCE-01",
+    "title": "Prepare the Chilean entity for Law 21.719 before 1 December 2026",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:51:23.969Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-LEGAL_BASIS-01",
+    "title": "Rely on a PIPL legal basis — there is no 'legitimate interests' ground",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:51:33.481Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-SENSITIVE-01",
+    "title": "Justify, protect and separately consent to sensitive personal information",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:51:49.058Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-TRANSFER-01",
+    "title": "Inform individuals and obtain separate consent for outbound transfers (where consent-based)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:52:11.366Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-TRANSFER-03",
+    "title": "Sign and file the CAC standard contract, or obtain certification (mid-volume transfers)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:52:19.899Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-TRANSFER-04",
+    "title": "Apply for a CAC security assessment (high-volume transfers)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:52:36.081Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-DPO_REP-01",
+    "title": "Designate a data protection officer and publish their business contact information",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:52:50.853Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-NOTICE-01",
+    "title": "Publish a permanent data protection transparency page",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:52:58.464Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-BREACH-01",
+    "title": "Report security breaches to the Agency without undue delay",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:53:23.042Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-SENSITIVE-01",
+    "title": "Give specific notices before using biometric systems",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:55:19.741Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-TRANSFER-01",
+    "title": "Use adequacy, contractual clauses, BCRs or certification for international transfers",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:55:26.533Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "DE-DPO_REP-01",
+    "title": "Appoint a DPO if 20 or more persons regularly process personal data automatically",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:55:38.200Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-IMPACT-01",
+    "title": "Conduct a PIPIA before sensitive, automated, shared, entrusted or cross-border processing",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:55:50.637Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-DPO_REP-01",
+    "title": "Designate a PI protection officer and report them to the CAC (1 million+ individuals)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:55:58.125Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-LEGAL_BASIS-02",
+    "title": "Inform individuals and obtain separate consent before sharing with other handlers",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:58:00.548Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-GOVERNANCE-01",
+    "title": "Adopt PDPA policies, a complaints process and staff communication",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:58:12.428Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-RIGHTS-01",
+    "title": "Respond to access and correction requests; notify if beyond 30 days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:59:21.398Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-DPO_REP-01",
+    "title": "Consider a certified infringement-prevention model and a data protection delegate",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:59:28.465Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-RIGHTS-01",
+    "title": "Answer Texas consumer rights requests within 45 days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T20:59:59.333Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-RIGHTS-01",
+    "title": "Publish how to exercise rights and resolve grievances within 90 days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:00:11.168Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-SENSITIVE-03",
+    "title": "Obtain consent before selling consumers' sensitive data — small businesses included (TDPSA)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-10-03"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:00:20.885Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-TRANSFER-01",
+    "title": "Check transfers against Government restrictions (negative-list model)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:00:33.552Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-NOTICE-01",
+    "title": "Publish Chinese-law processing rules before collecting personal information",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:01:15.581Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-TRANSFER-02",
+    "title": "Use the HR-management exemption only under lawful labour rules",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:01:21.536Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-BREACH-01",
+    "title": "Remediate immediately, notify authorities and individuals; report major incidents within 4 hours",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:01:32.564Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "DE-EMPLOYEE-02",
+    "title": "Secure works council co-determination before introducing monitoring technology",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:01:41.603Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-GOVERNANCE-01",
+    "title": "Prepare the Indian entity for DPDP commencement (May 2027)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:01:49.193Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-LEGAL_BASIS-01",
+    "title": "Base processing on consent or a listed legitimate use (incl. employment)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:02:51.514Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-AI-01",
+    "title": "Avoid AI uses prohibited by TRAIGA",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:02:57.835Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-VENDORS-01",
+    "title": "Include TDPSA terms in processor contracts",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:04.306Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-IMPACT-01",
+    "title": "Document data protection assessments for targeted ads, sale, profiling and sensitive data",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:10.694Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-MARKETING-01",
+    "title": "Check the Do Not Call Registry before marketing to Singapore numbers",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:17.947Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-MARKETING-01",
+    "title": "Honour objections to advertising within 10 days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:24.330Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "DE-MARKETING-01",
+    "title": "Obtain consent before setting non-essential cookies or trackers",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:30.193Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-MARKETING-01",
+    "title": "Obtain consent for automated, e-mail and SMS marketing; respect the opt-out register",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:36.532Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-IMPACT-01",
+    "title": "Consider a data protection impact assessment for sensitive or profiling processing",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:45.463Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-SECURITY-01",
+    "title": "Protect personal data and cease retention when no longer needed",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:50.292Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-RIGHTS-01",
+    "title": "Honour requests to know, delete and correct within 45 days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:03:55.395Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-SENSITIVE-01",
+    "title": "Honour the right to limit use of sensitive personal information",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:00.605Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-SECURITY-01",
+    "title": "Complete annual cybersecurity audits (first report 2028–2030 by revenue)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:05.904Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-SENSITIVE-02",
+    "title": "Obtain consent before processing consumers' sensitive data (TDPSA)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-10-03"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:10.935Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-VENDORS-01",
+    "title": "Put CCPA-specific terms in service provider and contractor contracts",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:16.181Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-EMPLOYEE-01",
+    "title": "Tell employees the purposes of processing their data",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:29.663Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-RIGHTS-01",
+    "title": "Meet Peru's short response deadlines for data subject requests",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:34.764Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-NOTICE-01",
+    "title": "Inform data subjects of all Art. 18 conditions of processing",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:40.127Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-LEGAL_BASIS-01",
+    "title": "Map processing to a PIPA legal basis (stricter legitimate interests test)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:45.415Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-RIGHTS-01",
+    "title": "Grant access within 10 days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:04:50.717Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-AI-01",
+    "title": "Provide refusal and explanation rights for fully automated decisions",
+    "before": {
+      "confidence": "unverified",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:05:04.999Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-RECORDS-01",
+    "title": "Maintain a record of processing activities",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:05:11.064Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-DPO_REP-01",
+    "title": "Assess DPO requirement; publish and notify DPO contact details",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:05:17.193Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-IMPACT-01",
+    "title": "Carry out DPIAs for high-risk processing",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:05:25.336Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-VENDORS-01",
+    "title": "Bind processors with Art. 28 data processing agreements",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:07:44.292Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-NOTICE-01",
+    "title": "Provide GDPR privacy notices to all data subject groups",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:07:53.049Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-EMPLOYEE-02",
+    "title": "Do not inquire into candidates' or workers' opinions or irrelevant facts",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:07:59.508Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-CHILDREN-01",
+    "title": "Obtain verifiable parental consent before processing children's data",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:05.963Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-RIGHTS-01",
+    "title": "Answer data subject requests within one month",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:12.763Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-SECURITY-01",
+    "title": "Implement appropriate technical and organisational security measures",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:26.673Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-GOVERNANCE-02",
+    "title": "Until May 2027, comply with the IT Act s. 43A / SPDI Rules regime",
+    "before": {
+      "confidence": "unverified",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:34.274Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-NOTICE-01",
+    "title": "Give stand-alone, itemised consent notices with a withdrawal link",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:41.575Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-DPO_REP-01",
+    "title": "Publish a contact person for data questions (India-based DPO if Significant)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:48.710Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-RECORDS-01",
+    "title": "Retain processing logs for at least one year, then erase",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:08:55.000Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "DE-EMPLOYEE-01",
+    "title": "Re-base employee data processing on GDPR legal bases, not § 26 BDSG alone",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:09:01.505Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "DE-EMPLOYEE-03",
+    "title": "Limit CCTV to justified, signposted surveillance",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:09:12.414Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-GOVERNANCE-01",
+    "title": "Run periodic PI compliance audits",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:09:18.953Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-VENDORS-01",
+    "title": "Contract with and supervise entrusted processors",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:09:35.511Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-RIGHTS-01",
+    "title": "Provide a convenient rights-request mechanism and explain refusals",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:09:42.972Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-AI-01",
+    "title": "Keep automated decisions transparent and fair; allow refusal of significant ones",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:10:06.867Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-SECURITY-01",
+    "title": "Implement PIPL security measures and identify any important data",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:10:56.499Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-EMPLOYEE-01",
+    "title": "Limit CCTV and identity-recognition devices in public places",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:11:03.625Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-LOCALIZATION-02",
+    "title": "Do not answer foreign court or enforcement requests without Chinese approval",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:11:10.108Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "DE-GOVERNANCE-01",
+    "title": "Extend the group GDPR programme to the German entity",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:11.448Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-NOTICE-01",
+    "title": "Give notices at collection and a CCPA privacy policy — including to employees and applicants",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:18.137Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-MARKETING-01",
+    "title": "Offer an opt-out of selling/sharing and honour Global Privacy Control",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:26.853Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-IMPACT-01",
+    "title": "Conduct CCPA risk assessments (existing processing by 31 Dec 2027; submit by 1 Apr 2028)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:33.580Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-AI-01",
+    "title": "Comply with ADMT rules for significant decisions (employment) by 1 January 2027",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:39.058Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-BREACH-01",
+    "title": "Notify affected Texans within 60 days; the Attorney General within 30 days (250+)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:53.973Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-BREACH-01",
+    "title": "Assess breaches promptly; notify the PDPC within 3 calendar days if notifiable",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:12:59.776Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-BREACH-01",
+    "title": "Notify qualifying security incidents to the Authority within 48 hours",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:08.123Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-LEGAL_BASIS-01",
+    "title": "Obtain consent or document a First Schedule exception (incl. legitimate interests assessment)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:14.483Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-SENSITIVE-01",
+    "title": "Stop indiscriminate collection of NRIC and other national ID numbers",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:21.236Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "SG-TRANSFER-01",
+    "title": "Ensure overseas recipients are bound by legally enforceable obligations",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:30.324Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-SENSITIVE-01",
+    "title": "Do not process resident registration numbers unless the law specifically allows it",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:37.688Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-REGISTRATION-01",
+    "title": "Register personal data banks with the National Registry",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:44.842Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-TRANSFER-01",
+    "title": "Provide guarantees for cross-border flows and communicate them to the Authority",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:51.447Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-LEGAL_BASIS-01",
+    "title": "Obtain consent unless a statutory exception applies; written consent for sensitive data",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:13:59.685Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "PE-DPO_REP-01",
+    "title": "Designate a Personal Data Officer (phased by company size)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:07.280Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-TRANSFER-01",
+    "title": "Use an Art. 28-8 basis for cross-border transfers (EU equivalence available)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:14.204Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CN-LOCALIZATION-01",
+    "title": "Store personal information locally once the CAC volume threshold is reached",
+    "before": {
+      "confidence": "unverified",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:20.306Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-IMPACT-01",
+    "title": "Carry out DPIAs for high-risk processing, including CCTV of public-access areas",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:26.270Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-LEGAL_BASIS-01",
+    "title": "Document a legal basis for each processing activity",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:32.696Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-RIGHTS-01",
+    "title": "Answer rights requests within 30 calendar days; handle blocking requests within 2 business days",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:39.297Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-SECURITY-01",
+    "title": "Apply privacy by design and by default and adequate security measures",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:44.695Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "CL-AI-01",
+    "title": "Respect the right not to be subject to automated decisions",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:14:56.767Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-CA-BREACH-01",
+    "title": "Notify affected Californians within 30 days; send the AG a sample within 15 days (500+)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:15:03.325Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "US-TX-SENSITIVE-01",
+    "title": "Inform and obtain consent before capturing biometric identifiers (CUBI)",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:15:15.187Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-SENSITIVE-01",
+    "title": "Apply the Garante's safeguard measures to health, genetic and biometric data",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:15:22.000Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-SENSITIVE-02",
+    "title": "Process criminal-record data only where authorised by law",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:15:28.383Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-DPO_REP-01",
+    "title": "Designate a Chief Privacy Officer",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:15:38.149Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "KR-LEGAL_BASIS-02",
+    "title": "Obtain consent (or another narrow ground) before providing data to HQ as a third party",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:15:46.393Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-AI-01",
+    "title": "Inform workers and unions about automated decision-making and monitoring systems",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:16:00.348Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-SECURITY-01",
+    "title": "Implement minimum security safeguards and keep access logs for one year",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:16:07.439Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IN-BREACH-01",
+    "title": "Report every personal data breach to the Board (detailed report within 72 hours) and to individuals",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:16:44.720Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-TRANSFER-01",
+    "title": "Put a Chapter V mechanism in place for every transfer outside the EEA",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:16:53.033Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-BREACH-01",
+    "title": "Notify personal data breaches to the Garante within 72 hours",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  },
+  {
+    "at": "2026-10-04T21:16:59.268Z",
+    "reviewer": "Oluwatofunmisin Akinwumi",
+    "action": "verify",
+    "id": "IT-EMPLOYEE-01",
+    "title": "Obtain union agreement or Labour Inspectorate authorisation before remote-monitoring tools",
+    "before": {
+      "confidence": "needs_review",
+      "verifiedBy": "claude-research (pending counsel review)",
+      "lastVerified": "2026-09-27"
+    },
+    "after": {
+      "confidence": "verified",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "lastVerified": "2026-10-04"
+    }
+  }
+]

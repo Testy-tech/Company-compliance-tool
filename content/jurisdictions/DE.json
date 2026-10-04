@@ -57,9 +57,9 @@
       "gdprEquivalent": "Arts. 5, 24, 26, 28, 30 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 24, 26, 28, 30, 56" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "DE-DPO_REP-01",
@@ -81,9 +81,9 @@
         { "url": "https://www.gesetze-im-internet.de/bdsg_2018/__38.html", "pinpoint": "§ 38(1)–(2)" },
         { "url": "https://www.gesetze-im-internet.de/bdsg_2018/__6.html", "pinpoint": "§ 6(4)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "DE-EMPLOYEE-01",
@@ -105,9 +105,9 @@
         { "url": "https://www.gesetze-im-internet.de/bdsg_2018/__26.html", "pinpoint": "§ 26(1)–(3)" },
         { "url": "https://www.bfdi.bund.de/DE/Buerger/Inhalte/Arbeit-Besch%C3%A4ftigung/Besch%C3%A4ftigtendatenschutz/FAQ_Besch%C3%A4ftigtendatenschutz.html", "pinpoint": "FAQ Beschäftigtendatenschutz — note on CJEU C-34/21 (30 March 2023)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "DE-EMPLOYEE-02",
@@ -131,9 +131,9 @@
       "gdprEquivalent": "Art. 88 GDPR (collective agreements as a basis)",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.gesetze-im-internet.de/betrvg/__87.html", "pinpoint": "§ 87(1) No. 6, § 87(2)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "DE-EMPLOYEE-03",
@@ -152,9 +152,9 @@
       "gdprEquivalent": "Arts. 6(1)(f), 13, 35 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.bfdi.bund.de/DE/Buerger/Inhalte/Arbeit-Besch%C3%A4ftigung/Besch%C3%A4ftigtendatenschutz/FAQ_Besch%C3%A4ftigtendatenschutz.html", "pinpoint": "FAQ Beschäftigtendatenschutz — Videoüberwachung" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "DE-MARKETING-01",
@@ -172,9 +172,9 @@
       "gdprEquivalent": "Arts. 6(1)(a), 7 GDPR (consent standard)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.gesetze-im-internet.de/ttdsg/__25.html", "pinpoint": "§ 25(1)–(2) TDDDG" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [

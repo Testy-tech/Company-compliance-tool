@@ -64,9 +64,9 @@
       "gdprEquivalent": "Art. 30 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 30" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-DPO_REP-01",
@@ -85,9 +85,9 @@
       "gdprEquivalent": "Art. 37–39 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 37(1), (2), (7)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-TRANSFER-01",
@@ -111,9 +111,9 @@
         { "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 44–49; Art. 83(5)(c)" },
         { "url": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en", "pinpoint": "List of adequacy decisions (checked 2026-09-27)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-BREACH-01",
@@ -132,9 +132,9 @@
       "gdprEquivalent": "Arts. 33–34 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 33–34" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-IMPACT-01",
@@ -152,9 +152,9 @@
       "gdprEquivalent": "Arts. 35–36 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 35–36" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-VENDORS-01",
@@ -172,9 +172,9 @@
       "gdprEquivalent": "Art. 28 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 28" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-EMPLOYEE-01",
@@ -198,9 +198,9 @@
         { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1970-05-20;300", "pinpoint": "Art. 4(1)–(3)" },
         { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Arts. 114, 171" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-EMPLOYEE-02",
@@ -222,9 +222,9 @@
         { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1970-05-20;300", "pinpoint": "Art. 8" },
         { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 113" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-AI-01",
@@ -248,9 +248,9 @@
         { "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1997-05-26;152", "pinpoint": "Art. 1-bis" },
         { "url": "https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00143/sg", "pinpoint": "L. 132/2025, Art. 11(2)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-SENSITIVE-01",
@@ -269,9 +269,9 @@
       "gdprEquivalent": "Art. 9 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 2-septies(1), (7), (8)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-SENSITIVE-02",
@@ -289,9 +289,9 @@
       "gdprEquivalent": "Art. 10 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 2-octies(1), (3)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-MARKETING-01",
@@ -310,9 +310,9 @@
       "gdprEquivalent": "Arts. 6, 7, 21 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2003-06-30;196", "pinpoint": "Art. 130(1)–(4)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-NOTICE-01",
@@ -330,9 +330,9 @@
       "gdprEquivalent": "Arts. 13–14 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Arts. 12–14" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-RIGHTS-01",
@@ -348,9 +348,9 @@
       "gdprEquivalent": "Arts. 12(3), 15–22 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 12(3); Arts. 15–22" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IT-SECURITY-01",
@@ -365,9 +365,9 @@
       "gdprEquivalent": "Art. 32 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "pinpoint": "Art. 32" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [

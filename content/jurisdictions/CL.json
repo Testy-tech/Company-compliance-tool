@@ -67,9 +67,9 @@
         { "url": "https://obtienearchivo.bcn.cl/obtienearchivo?id=repositorio%2F10221%2F37137%2F1%2FInforme_12_25_Ley_Datos_Personales_rev.pdf", "pinpoint": "BCN synthesis, §11 (Infracciones y sanciones) and §15" },
         { "url": "https://www.economia.gob.cl/2026/09/01/gobierno-propone-ampliar-plazo-para-implementar-nueva-ley-de-proteccion-de-datos-y-institucionalidad.htm", "pinpoint": "Ministry of Economy announcement, 1 Sept 2026" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-LEGAL_BASIS-01",
@@ -88,9 +88,9 @@
       "gdprEquivalent": "Art. 6 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 12–13" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-NOTICE-01",
@@ -109,9 +109,9 @@
       "gdprEquivalent": "Arts. 13–14 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 14 ter" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-RIGHTS-01",
@@ -131,9 +131,9 @@
       "gdprEquivalent": "Arts. 12(3), 15–21 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 4–11 (esp. Art. 11)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-BREACH-01",
@@ -153,9 +153,9 @@
       "gdprEquivalent": "Arts. 33–34 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 14 sexies" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-IMPACT-01",
@@ -174,9 +174,9 @@
       "gdprEquivalent": "Art. 35 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 15 ter" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-SENSITIVE-01",
@@ -195,9 +195,9 @@
       "gdprEquivalent": "Arts. 9, 13 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 16, 16 ter" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-TRANSFER-01",
@@ -217,9 +217,9 @@
       "gdprEquivalent": "Chapter V GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 27–28; Art. 14 ter(h)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-AI-01",
@@ -235,9 +235,9 @@
       "gdprEquivalent": "Art. 22 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Art. 8 bis" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-DPO_REP-01",
@@ -258,9 +258,9 @@
         { "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 49–52" },
         { "url": "https://obtienearchivo.bcn.cl/obtienearchivo?id=repositorio%2F10221%2F37137%2F1%2FInforme_12_25_Ley_Datos_Personales_rev.pdf", "pinpoint": "BCN synthesis, §13" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CL-SECURITY-01",
@@ -276,9 +276,9 @@
       "gdprEquivalent": "Arts. 25, 32 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf", "pinpoint": "Law 19.628 as amended, Arts. 14 bis, 14 quáter, 14 quinquies" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [

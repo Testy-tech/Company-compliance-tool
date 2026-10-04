@@ -90,9 +90,9 @@
       "gdprEquivalent": "Art. 6 GDPR (no Art. 6(1)(f) equivalent)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 13" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-NOTICE-01",
@@ -114,9 +114,9 @@
         { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 17" },
         { "url": "https://www.gov.cn/zhengce/content/202409/content_6977766.htm", "pinpoint": "NDSR Art. 21" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-LEGAL_BASIS-02",
@@ -135,9 +135,9 @@
       "gdprEquivalent": "Arts. 13(1)(e), 26 GDPR",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 13, 23, 55(1)(3)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-SENSITIVE-01",
@@ -157,9 +157,9 @@
       "gdprEquivalent": "Art. 9 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 28–30, 55(1)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-IMPACT-01",
@@ -178,9 +178,9 @@
       "gdprEquivalent": "Art. 35 GDPR (DPIA)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 55–56" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-TRANSFER-01",
@@ -200,9 +200,9 @@
       "gdprEquivalent": "Chapter V GDPR (different model: no adequacy)",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 13, 38(3), 39, 55(4)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-TRANSFER-02",
@@ -221,9 +221,9 @@
       "gdprEquivalent": "Art. 49 GDPR derogations (loosely comparable)",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Art. 5(2) and final para." }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-TRANSFER-03",
@@ -262,9 +262,9 @@
         { "url": "https://www.cac.gov.cn/2026-09/11/c_1790876549989064.htm", "pinpoint": "CAC Q&A (Sept 2026), Q1–Q3" },
         { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 38, 66" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-TRANSFER-04",
@@ -301,9 +301,9 @@
       "gdprEquivalent": "None (GDPR has no prior approval of transfers)",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Arts. 7, 13–14" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-LOCALIZATION-01",
@@ -320,9 +320,9 @@
       "priority": "medium",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 40" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "unverified"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-LOCALIZATION-02",
@@ -340,9 +340,9 @@
       "gdprEquivalent": "Art. 48 GDPR (comparable principle)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 41" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-DPO_REP-01",
@@ -366,9 +366,9 @@
         { "url": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm", "pinpoint": "Audit Measures Art. 12" },
         { "url": "https://www.cac.gov.cn/2025-07/18/c_1754553420421538.htm", "pinpoint": "CAC Announcement on PI protection officer reporting (18 July 2025)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-GOVERNANCE-01",
@@ -389,9 +389,9 @@
         { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 54" },
         { "url": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm", "pinpoint": "Audit Measures Arts. 3–6 and Annex" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-VENDORS-01",
@@ -409,9 +409,9 @@
       "gdprEquivalent": "Art. 28 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 21, 55(3)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-BREACH-01",
@@ -434,9 +434,9 @@
         { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 57" },
         { "url": "https://www.cac.gov.cn/2025-09/15/c_1759583017717009.htm", "pinpoint": "Incident Reporting Measures Arts. 4–5; Annex (grading guide), 'relatively major' item 5" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-RIGHTS-01",
@@ -454,9 +454,9 @@
       "gdprEquivalent": "Arts. 12, 15–21 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 44–50" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-AI-01",
@@ -475,9 +475,9 @@
       "gdprEquivalent": "Arts. 21(2), 22 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Arts. 24, 55(2)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-SECURITY-01",
@@ -500,9 +500,9 @@
         { "url": "https://www.gov.cn/zhengce/content/202409/content_6977766.htm", "pinpoint": "NDSR Arts. 28–30" },
         { "url": "https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", "pinpoint": "CBDF Provisions Art. 2" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "CN-EMPLOYEE-01",
@@ -524,9 +524,9 @@
         { "url": "https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm", "pinpoint": "PIPL Art. 26" },
         { "url": "https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm", "pinpoint": "Audit Measures Annex, item 11" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [],

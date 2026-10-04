@@ -56,9 +56,9 @@
         { "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 1(2)–(4)" },
         { "url": "https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=156054&ModuleId=3&reg=3&lang=2", "pinpoint": "PIB press note, 17 Nov 2025 (penalty amounts)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-GOVERNANCE-02",
@@ -74,9 +74,9 @@
       "gdprEquivalent": "Arts. 9, 32 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf", "pinpoint": "DPDP Act s. 44(2)(a) (omits IT Act s. 43A on commencement)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "unverified"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-LEGAL_BASIS-01",
@@ -95,9 +95,9 @@
       "gdprEquivalent": "Art. 6 GDPR (no Art. 6(1)(f) equivalent)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf", "pinpoint": "DPDP Act ss. 4, 6, 7(i)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-NOTICE-01",
@@ -113,9 +113,9 @@
       "gdprEquivalent": "Arts. 7, 13 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 3" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-SECURITY-01",
@@ -139,9 +139,9 @@
         { "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 6(1)" },
         { "url": "https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf", "pinpoint": "DPDP Act s. 8(5); Schedule" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-BREACH-01",
@@ -161,9 +161,9 @@
       "gdprEquivalent": "Arts. 33–34 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 7(1)–(2)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-RECORDS-01",
@@ -179,9 +179,9 @@
       "gdprEquivalent": "Art. 5(1)(e) GDPR (storage limitation)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 8(1)–(3)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-DPO_REP-01",
@@ -203,9 +203,9 @@
         { "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 9" },
         { "url": "https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf", "pinpoint": "DPDP Act s. 10(2)(a)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-RIGHTS-01",
@@ -221,9 +221,9 @@
       "gdprEquivalent": "Arts. 12(3), 15–17 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 14(1)–(4)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-TRANSFER-01",
@@ -245,9 +245,9 @@
         { "url": "https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf", "pinpoint": "DPDP Act s. 16(1)–(2)" },
         { "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules rr. 13(4), 15" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "IN-CHILDREN-01",
@@ -264,9 +264,9 @@
       "gdprEquivalent": "Art. 8 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf", "pinpoint": "DPDP Rules r. 10" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [

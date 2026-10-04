@@ -89,9 +89,9 @@
         { "url": "https://cppa.ca.gov/faq.html", "pinpoint": "FAQ — thresholds; expiry of employee/B2B exemptions on 31 Dec 2022" },
         { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "CPI-adjusted thresholds effective 1 Jan 2025" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-RIGHTS-01",
@@ -114,9 +114,9 @@
         { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code §§ 1798.105, 1798.106, 1798.110, 1798.130(a)(2)" },
         { "url": "https://cppa.ca.gov/pdf/things_to_know_before_2026_updates.pdf", "pinpoint": "CalPrivacy '7 Things to Know Before 2026', items 3–5; Regs. § 7023(c), (i)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-MARKETING-01",
@@ -138,9 +138,9 @@
         { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code §§ 1798.120, 1798.135" },
         { "url": "https://cppa.ca.gov/pdf/things_to_know_before_2026_updates.pdf", "pinpoint": "Item 2; Regs. §§ 7025(c)(6), 7026(g)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-SENSITIVE-01",
@@ -161,9 +161,9 @@
         { "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code § 1798.121; § 1798.140(ae)" },
         { "url": "https://cppa.ca.gov/pdf/things_to_know_before_2026_updates.pdf", "pinpoint": "Item 7; Regs. § 7027(m)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-VENDORS-01",
@@ -178,9 +178,9 @@
       "gdprEquivalent": "Art. 28 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf", "pinpoint": "Civ. Code § 1798.100(d)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-IMPACT-01",
@@ -200,9 +200,9 @@
       "gdprEquivalent": "Art. 35 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", "pinpoint": "Regs. §§ 7150(b), 7155(b)–(c), 7157(a)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-AI-01",
@@ -221,9 +221,9 @@
       "gdprEquivalent": "Art. 22 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", "pinpoint": "Regs. § 7001(ddd) ('significant decision'); § 7200(a)–(b)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-SECURITY-01",
@@ -243,9 +243,9 @@
       "gdprEquivalent": "Art. 32(1)(d) GDPR (testing)",
       "gdprDelta": "new",
       "sources": [{ "url": "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", "pinpoint": "Regs. §§ 7120(b), 7121(a)–(b)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-CA-BREACH-01",
@@ -269,9 +269,9 @@
         { "url": "https://oag.ca.gov/privacy/databreach/reporting", "pinpoint": "AG breach reporting page" },
         { "url": "https://cppa.ca.gov/regulations/cpi_adjustment.html", "pinpoint": "§ 1798.150(a)(1)(A) damages range" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [

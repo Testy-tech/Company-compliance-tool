@@ -75,9 +75,9 @@
         { "url": "https://www.texasattorneygeneral.gov/consumer-protection/file-consumer-complaint/consumer-privacy-rights/biometric-identifier-act", "pinpoint": "AG overview of Bus. & Com. Code § 503.001" },
         { "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm", "pinpoint": "HB 149 § 2 amending § 503.001(a), (b-1), (e), (f)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-BREACH-01",
@@ -99,9 +99,9 @@
         { "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/SB00768F.htm", "pinpoint": "SB 768 § 1 amending § 521.053(i)" },
         { "url": "https://www.texasattorneygeneral.gov/consumer-protection/data-breach-reporting", "pinpoint": "OAG Data Breach Reporting page" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-SENSITIVE-02",
@@ -116,9 +116,9 @@
       "gdprEquivalent": "Art. 9(2)(a) GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.001(7), 541.002(a), 541.101(b)(4)" }],
-      "lastVerified": "2026-10-03",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-SENSITIVE-03",
@@ -137,9 +137,9 @@
       "gdprEquivalent": "Art. 9(2)(a) GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.002(b), 541.107, 541.001(28)–(29), 541.154–.155" }],
-      "lastVerified": "2026-10-03",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-RIGHTS-01",
@@ -155,9 +155,9 @@
       "gdprEquivalent": "Arts. 12(3), 15–21 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§§ 541.002(a), 541.051, 541.052" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-IMPACT-01",
@@ -172,9 +172,9 @@
       "gdprEquivalent": "Art. 35 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§ 541.105(a)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-VENDORS-01",
@@ -189,9 +189,9 @@
       "gdprEquivalent": "Art. 28 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://capitol.texas.gov/tlodocs/88R/billtext/html/HB00004F.htm", "pinpoint": "§ 541.104(b)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "US-TX-AI-01",
@@ -212,9 +212,9 @@
         { "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm", "pinpoint": "HB 149 (TRAIGA)" },
         { "url": "https://capitol.texas.gov/tlodocs/89R/analysis/html/HB00149S.htm", "pinpoint": "Senate committee bill analysis" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [],

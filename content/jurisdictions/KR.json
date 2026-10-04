@@ -45,9 +45,9 @@
         { "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=FILE_000000000827247&fileSn=0", "pinpoint": "PIPA Art. 31(1)–(2) (official English text, 2016 version; duty retained)" },
         { "url": "https://law.go.kr/lsBylInfoPLinkR.do?bylBrNo=00&bylCls=BE&bylEfYd=&bylNo=0001&lsNm=%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4+%EB%B3%B4%ED%98%B8%EB%B2%95+%EC%8B%9C%ED%96%89%EB%A0%B9&lsiSeq=2100000238444", "pinpoint": "Enforcement Decree Annex 1 (Art. 32(4)), added 12 Mar 2024" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-LEGAL_BASIS-01",
@@ -65,9 +65,9 @@
       "gdprEquivalent": "Art. 6 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://elaw.klri.re.kr/eng_mobile/viewer.do?hseq=62389&type=part&key=4", "pinpoint": "PIPA Art. 15(1) (Act No. 19234)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-LEGAL_BASIS-02",
@@ -86,9 +86,9 @@
       "gdprEquivalent": "Arts. 6, 26, 28 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://elaw.klri.re.kr/eng_mobile/viewer.do?hseq=62389&type=part&key=4", "pinpoint": "PIPA Art. 17(1)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-TRANSFER-01",
@@ -111,9 +111,9 @@
         { "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=ATCH_000000000881225&fileSn=2", "pinpoint": "PIPC Guidelines on applying PIPA to foreign business operators (Apr 2024): PIPA Art. 28-8(1)–(2); Art. 64-2" },
         { "url": "https://commission.europa.eu/news-and-media/news/joint-press-statement-commissioner-michael-mcgrath-and-chairperson-haksoo-ko-entry-force-korean-2025-09-16_en", "pinpoint": "Joint EU–PIPC statement on entry into force of Korea's equivalence decision on the EU (16 Sept 2025)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-BREACH-01",
@@ -132,9 +132,9 @@
       "gdprEquivalent": "Arts. 33–34 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=ATCH_000000000881225&fileSn=2", "pinpoint": "PIPC Guidelines (Apr 2024): PIPA Art. 34; Enforcement Decree Arts. 39–40" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-RIGHTS-01",
@@ -150,9 +150,9 @@
       "gdprEquivalent": "Arts. 12(3), 15 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=ATCH_000000000881225&fileSn=2", "pinpoint": "PIPC Guidelines (Apr 2024): PIPA Art. 35(3); Enforcement Decree Art. 41(4)–(5)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-SENSITIVE-01",
@@ -170,9 +170,9 @@
       "gdprEquivalent": "Art. 87 GDPR (national identification numbers)",
       "gdprDelta": "new",
       "sources": [{ "url": "https://www.privacy.go.kr/cmm/fms/FileDown.do?atchFileId=FILE_000000000827247&fileSn=0", "pinpoint": "PIPA Art. 24-2(1) (official English text, 2016 version)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "KR-AI-01",
@@ -190,9 +190,9 @@
       "gdprEquivalent": "Art. 22 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://elaw.klri.re.kr/eng_service/lawView.do?hseq=53044&lang=ENG", "pinpoint": "PIPA Art. 37-2 (not retrieved)" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "unverified"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [],

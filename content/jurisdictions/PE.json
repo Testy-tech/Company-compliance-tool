@@ -43,9 +43,9 @@
         { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 42.1–42.2; Arts. 132(4), 133(13)" },
         { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Arts. 34, 39" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-TRANSFER-01",
@@ -68,9 +68,9 @@
         { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Art. 15" },
         { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 18–21 (esp. 21.2)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-LEGAL_BASIS-01",
@@ -92,9 +92,9 @@
         { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Arts. 13, 14" },
         { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 8, 9, 13" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-DPO_REP-01",
@@ -114,9 +114,9 @@
       "gdprEquivalent": "Arts. 37–39 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 37–39; Primera Disposición Complementaria Final" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-BREACH-01",
@@ -136,9 +136,9 @@
       "gdprEquivalent": "Arts. 33–34 GDPR (72h)",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 34–36" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-RIGHTS-01",
@@ -157,9 +157,9 @@
       "gdprEquivalent": "Arts. 12(3), 15–21 GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 69; Art. 133(1); Cuarta Disposición Complementaria Final" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-MARKETING-01",
@@ -175,9 +175,9 @@
       "gdprEquivalent": "Art. 21(2)–(3) GDPR",
       "gdprDelta": "partial",
       "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 26" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-NOTICE-01",
@@ -195,9 +195,9 @@
         { "url": "https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf", "pinpoint": "Law 29733 Art. 18" },
         { "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Arts. 132(5), 133(2)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "PE-IMPACT-01",
@@ -212,9 +212,9 @@
       "gdprEquivalent": "Art. 35 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://cdn.www.gob.pe/uploads/document/file/7568330/6426760-decreto-supremo-n-016-2024-jus-reglamento-de-la-ley-n-29733-ley-de-proteccion-de-datos-personales-publicado-nov-2024.pdf", "pinpoint": "Reglamento Art. 40.1" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [

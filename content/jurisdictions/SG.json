@@ -44,9 +44,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 11(3), (5)" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), paras. 21.5–21.6" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-GOVERNANCE-01",
@@ -65,9 +65,9 @@
       "gdprEquivalent": "Arts. 5(2), 24 GDPR",
       "gdprDelta": "covered",
       "sources": [{ "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 12" }],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-LEGAL_BASIS-01",
@@ -89,9 +89,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "ss. 13–17; First Schedule, Part 3, para. 1" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), 'Legitimate interests exception' and Annex C" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-EMPLOYEE-01",
@@ -112,9 +112,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "s. 20(4)–(5)" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), fn. 14" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-SENSITIVE-01",
@@ -136,9 +136,9 @@
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/advisory-guidelines-for-nric-numbers---310818.pdf", "pinpoint": "Advisory Guidelines for NRIC and other National Identification Numbers (issued 31 Aug 2018, effective 1 Sep 2019)" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/press-room/2019/media-release-on-reminder-on-nric-advisory-guidelines.pdf", "pinpoint": "PDPC media release (2019)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-TRANSFER-01",
@@ -161,9 +161,9 @@
         { "url": "https://sso.agc.gov.sg/SL/PDPA2012-S63-2021", "pinpoint": "PDP Regulations 2021, Part 3" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), paras. 19.3–19.7" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-BREACH-01",
@@ -186,9 +186,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "Part 6A, ss. 26A–26E" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), paras. 20.3–20.4, 20.22–20.23" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-RIGHTS-01",
@@ -209,9 +209,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "ss. 21–22" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), para. 15.18" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-SECURITY-01",
@@ -232,9 +232,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "ss. 24–25; s. 48J" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/ag-on-key-concepts/advisory-guidelines-on-key-concepts-in-the-pdpa-17-may-2022.pdf", "pinpoint": "Advisory Guidelines on Key Concepts (rev. 29 Apr 2026), ch. 21 (enforcement overview)" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     },
     {
       "id": "SG-MARKETING-01",
@@ -255,9 +255,9 @@
         { "url": "https://sso.agc.gov.sg/Act/PDPA2012", "pinpoint": "Part 9 (ss. 36–48); s. 37(5); Eighth Schedule" },
         { "url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/advisory-guidelines-on-the-dnc-provisions-1-feb-2021.pdf", "pinpoint": "Advisory Guidelines on the Do Not Call Provisions" }
       ],
-      "lastVerified": "2026-09-27",
-      "verifiedBy": "claude-research (pending counsel review)",
-      "confidence": "needs_review"
+      "lastVerified": "2026-10-04",
+      "verifiedBy": "Oluwatofunmisin Akinwumi",
+      "confidence": "verified"
     }
   ],
   "upcomingChanges": [],
