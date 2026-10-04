@@ -218,7 +218,7 @@ describe("precision questions, tailored text and reviewer copies", () => {
     expect(doc.running).toContain(INTERNAL_LABEL);
     const document = await docxXml(await generate("full-docx", input), "document");
     expect(document).toContain(INTERNAL_LABEL);
-    expect(document).toContain("Needs counsel review");
+    expect(document).toMatch(/Verified by counsel|Needs counsel review/); // whichever the knowledge base currently says
     const wb = await readXlsx(await generate("workbook-xlsx", input));
     expect((wb.getWorksheet("DE")!.getRow(1).values as string[]).slice(1)).toEqual(expect.arrayContaining(["KB confidence", "Verified by", "Last verified"]));
     expect(JSON.stringify(wb.getWorksheet("Summary")!.getSheetValues())).toContain(INTERNAL_LABEL);

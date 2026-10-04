@@ -1,4 +1,4 @@
-import { cpSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -11,7 +11,12 @@ import { logExcerpt, reviewQueue } from "./queue";
 import { applyReview, renderReviewLog, reviewConsoleEnabled, type ReviewDeps } from "./review";
 
 const kbDir = path.join(process.cwd(), "content", "jurisdictions");
-const original = readFileSync(path.join(kbDir, "CN.json"), "utf8");
+const onDisk = readFileSync(path.join(kbDir, "CN.json"), "utf8");
+// The tests start from an unreviewed copy of the China file, whatever the review state of the real one.
+const original = onDisk
+  .replace(/"confidence": "verified"/g, '"confidence": "needs_review"')
+  .replace(/^(\s+"verifiedBy": )"[^"]*"/gm, '$1"claude-research (pending counsel review)"')
+  .replace(/^(\s+"lastVerified": )"[^"]*"/gm, '$1"2026-09-27"');
 const cn = jurisdictionSchema.parse(JSON.parse(original));
 const target = cn.obligations.find((o) => o.id === "CN-TRANSFER-04")!;
 
@@ -89,6 +94,7 @@ describe("applyReview", () => {
   beforeEach(() => {
     dir = mkdtempSync(path.join(tmpdir(), "review-"));
     cpSync(kbDir, path.join(dir, "kb"), { recursive: true });
+    writeFileSync(path.join(dir, "kb", "CN.json"), original, "utf8");
     deps = {
       kbDir: path.join(dir, "kb"),
       logJson: path.join(dir, "review-log.json"),
@@ -271,6 +277,6 @@ describe("the console is development-only", () => {
     const { POST: exportLog } = await import("@/app/api/admin/review/export/route");
     expect((await exportLog()).status).toBe(404);
     // and nothing was written
-    expect(readFileSync(path.join(kbDir, "CN.json"), "utf8")).toBe(original);
+    expect(readFileSync(path.join(kbDir, "CN.json"), "utf8")).toBe(onDisk);
   });
 });
