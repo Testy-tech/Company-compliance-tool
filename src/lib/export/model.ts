@@ -2,6 +2,7 @@ import type { ObligationResult, OpenQuestion, Report } from "@/lib/engine/types"
 import type { Intake } from "@/lib/intake/schema";
 import { obligationCategories, type Jurisdiction } from "@/lib/kb/schema";
 import { deadlines, heatCell, mostUrgent } from "@/lib/report/derive";
+import { DEMO_BANNER } from "@/lib/demo";
 import { categoryLabels, confidenceLabels, formatDate, governanceModelLabels, ownerLabels, priorityLabels, priorityRank } from "@/lib/report/labels";
 
 /*
@@ -46,6 +47,8 @@ export type ExportInput = {
   /** Present only if the user opted in to tailoring; items switched back to standard text are left out. */
   tailored?: Tailored;
   reviewer: boolean;
+  /** DEMO_NOTICE: every export carries the demonstration banner. */
+  demo?: boolean;
 };
 
 export const INTERNAL_LABEL = "Internal — reviewer copy";
@@ -72,6 +75,7 @@ function cover(input: ExportInput, reportType: ReportType): Block[] {
   const { report, intake, reviewer } = input;
   return [
     p(COVER_PLACEHOLDER, "placeholder"),
+    ...(input.demo ? [{ kind: "paragraph", runs: [{ text: DEMO_BANNER, bold: true }] } satisfies Block] : []),
     {
       kind: "facts",
       rows: [
@@ -375,7 +379,7 @@ function glossary(input: ExportInput): Block[] {
 
 /* ── Documents ────────────────────────────────────────────────────────────── */
 
-const running = (input: ExportInput, type: ReportType) => `${input.intake.company.label} · ${type} · assessed ${formatDate(input.report.assessmentDate)}${input.reviewer ? ` · ${INTERNAL_LABEL}` : ""}`;
+const running = (input: ExportInput, type: ReportType) => `${input.intake.company.label} · ${type} · assessed ${formatDate(input.report.assessmentDate)}${input.reviewer ? ` · ${INTERNAL_LABEL}` : ""}${input.demo ? ` · ${DEMO_BANNER}` : ""}`;
 
 const base = (input: ExportInput, reportType: ReportType, blocks: Block[]): ExportDoc => ({
   title: "Privacy obligations report",

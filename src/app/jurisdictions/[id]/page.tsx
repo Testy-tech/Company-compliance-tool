@@ -7,6 +7,8 @@ import { SectionHeading } from "@/components/legal/section-heading";
 import { Button } from "@/components/ui/button";
 import { coveredJurisdictions } from "@/lib/intake/schema";
 import { datesToWatch, describe, displayDate, lawStatusLabels, obligationsByCategory, sources } from "@/lib/kb/library";
+import { DemoBanner } from "@/components/site/demo-banner";
+import { demoNoticeOn } from "@/lib/demo";
 import { libraryIsPublic, publishable } from "@/lib/kb/publication";
 import { knowledgeBase } from "@/lib/kb/repository";
 import type { JurisdictionId } from "@/lib/kb/schema";
@@ -53,6 +55,7 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
   if (!j) notFound();
   const dates = datesToWatch(j);
   const isPublic = libraryIsPublic();
+  const demo = demoNoticeOn();
   const { shown, reviewed, pending } = publishable(j.obligations, isPublic);
   // Only what is shown on the page is grouped and cited.
   const visible = { ...j, obligations: shown };
@@ -69,9 +72,11 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
       </p>
       <h1 className="mt-3 text-3xl font-semibold text-primary sm:text-4xl">Data protection in {j.name}</h1>
       <hr className="rule-brass mt-5 w-16" />
+      {demo ? <DemoBanner className="mt-6 max-w-prose" /> : null}
       <p className="mt-6 max-w-prose text-muted-foreground">{j.scopeNotes}</p>
       <p className="marginal-note mt-4 max-w-prose">
-        Informational, not legal advice. {reviewed} of {j.obligations.length} obligations for this jurisdiction have been reviewed by qualified counsel; {pending}{" "}
+        Informational, not legal advice. {reviewed} of {j.obligations.length} obligations for this jurisdiction{" "}
+        {demo ? "have had a preliminary review and are not yet verified by counsel" : "have been reviewed by qualified counsel"}; {pending}{" "}
         {pending === 1 ? "is" : "are"} still under review{isPublic ? " and marked as such below" : " and not shown yet"}.
       </p>
 
@@ -219,6 +224,7 @@ export default async function Page({ params }: PageProps<"/jurisdictions/[id]">)
                       </span>
                     ))}{" "}
                     · last verified {formatDate(o.lastVerified)}
+                    {demo && o.confidence === "verified" ? " · preliminary review" : ""}
                     {o.confidence === "needs_review" ? " · under review by counsel" : ""}
                     {o.confidence === "unverified" ? " · official text not confirmed; do not rely on this entry" : ""}
                   </p>

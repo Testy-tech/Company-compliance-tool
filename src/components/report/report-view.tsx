@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 
 import { Pencil, Printer } from "lucide-react";
 import { AlertDialog } from "radix-ui";
 
+import { DemoBanner } from "@/components/site/demo-banner";
 import { Button } from "@/components/ui/button";
 import { assessmentSignature, buildTailorRequests } from "@/lib/ai/build-request";
 import type { StoredDevelopments } from "@/lib/ai/developments";
@@ -34,7 +35,7 @@ const today = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
 
-type Props = { kb: Jurisdiction[]; fx: FxTable };
+type Props = { kb: Jurisdiction[]; fx: FxTable; /** DEMO_NOTICE: banner here and in every export. */ demo: boolean };
 
 export function ReportView(props: Props) {
   // The assessment lives in sessionStorage, so the report is computed on the client only.
@@ -43,7 +44,7 @@ export function ReportView(props: Props) {
   return <ReportBody {...props} />;
 }
 
-function ReportBody({ kb, fx }: Props) {
+function ReportBody({ kb, fx, demo }: Props) {
   const store = useMemo(() => new SessionIntakeStore(), []);
   const [saved, setSaved] = useState<IntakeDraft | null>(() => store.load());
   const [state, setState] = useState(() => store.loadReportState());
@@ -199,7 +200,7 @@ function ReportBody({ kb, fx }: Props) {
   const { intake } = assessment.data;
   // Tailored text goes into exports only if the user opted in, and not for items switched back to standard text.
   const exportTailored = state.aiConsent ? Object.fromEntries(Object.entries(tailored).filter(([id]) => !state.showStandard[id])) : {};
-  const exportInput = { report, intake, kb, reviewer: state.reviewerMode, tailored: Object.keys(exportTailored).length ? exportTailored : undefined };
+  const exportInput = { report, intake, kb, demo, reviewer: state.reviewerMode, tailored: Object.keys(exportTailored).length ? exportTailored : undefined };
   const kbOf = (id: string) => kb.find((j) => j.id === id)!;
   const reviewer = state.reviewerMode;
   const allIds = report.jurisdictions.flatMap((j) => j.results.map((r) => r.obligation.id));
@@ -212,6 +213,7 @@ function ReportBody({ kb, fx }: Props) {
         <h1 className="mt-3 text-3xl font-semibold text-primary sm:text-4xl">{intake.company.label}</h1>
         <hr className="rule-brass mt-5 w-16" />
 
+        {demo ? <DemoBanner className="mt-6" /> : null}
         <aside aria-label="Not legal advice" className="mt-6 rounded-lg border border-brass-rule bg-card p-4 text-sm">
           <p>
             <strong className="font-semibold">This report is not legal advice.</strong> It is generated from your answers and a knowledge base that is still

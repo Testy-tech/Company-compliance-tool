@@ -1,6 +1,7 @@
 import ExcelJS from "exceljs";
 
 import { deadlines } from "@/lib/report/derive";
+import { DEMO_BANNER } from "@/lib/demo";
 import { categoryLabels, confidenceLabels, formatDate, ownerLabels, priorityLabels } from "@/lib/report/labels";
 
 import { ASSUMPTION, DISCLAIMER, INTERNAL_LABEL, questionnaireRows, TAILORED, type ExportInput } from "./model";
@@ -50,6 +51,7 @@ function listValidation(ws: ExcelJS.Worksheet, column: number, rows: number, opt
 function aboutRows(input: ExportInput, document: string): [string, string][] {
   const { report, intake, reviewer } = input;
   return [
+    ...(input.demo ? ([["Notice", DEMO_BANNER]] as [string, string][]) : []),
     ["Prepared for", intake.company.label],
     ["Document", document],
     ["Assessed as of", formatDate(report.assessmentDate)],

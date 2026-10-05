@@ -4,6 +4,7 @@ import { DeltaBadge } from "@/components/legal/delta-badge";
 import { evaluate } from "@/lib/engine/evaluate";
 import { referenceAssessment } from "@/lib/engine/fixtures";
 import { loadKnowledge } from "@/lib/kb/load";
+import { demoNoticeOn } from "@/lib/demo";
 import { isReviewed, libraryIsPublic } from "@/lib/kb/publication";
 import { mostUrgent } from "@/lib/report/derive";
 import { formatDate, ownerLabels, priorityLabels } from "@/lib/report/labels";
@@ -22,6 +23,7 @@ export async function SampleReportPreview() {
   const deltas = (["covered", "partial", "new"] as const).map((d) => ({ delta: d, value: summary.byDelta[d] }));
   // Publication gate: until the library is released, only counsel-reviewed items are shown by name.
   const isPublic = libraryIsPublic();
+  const demo = demoNoticeOn();
   const all = report.jurisdictions.flatMap((j) => j.results);
   const reviewedCount = all.filter((r) => isReviewed(r.obligation)).length;
   const top = mostUrgent(report, all.length).filter((r) => isPublic || isReviewed(r.obligation)).slice(0, 3);
@@ -69,12 +71,12 @@ export async function SampleReportPreview() {
         </div>
 
         <p className="text-xs text-muted-foreground">
-          <span className="font-medium text-foreground tabular-nums">{reviewedCount}</span> of {all.length} items reviewed by counsel ·{" "}
+          <span className="font-medium text-foreground tabular-nums">{reviewedCount}</span> of {all.length} items {demo ? "in preliminary review" : "reviewed by counsel"} ·{" "}
           <span className="font-medium text-foreground tabular-nums">{all.length - reviewedCount}</span> pending review
         </p>
 
         <div>
-          <p className="eyebrow">Most urgent{isPublic ? "" : " (reviewed items)"}</p>
+          <p className="eyebrow">Most urgent{isPublic ? "" : demo ? " (preliminary review)" : " (reviewed items)"}</p>
           {top.length === 0 ? (
             <p className="mt-2 text-sm text-muted-foreground">
               Item titles appear here once counsel has reviewed them. Your own report lists every item, each marked with its review status.

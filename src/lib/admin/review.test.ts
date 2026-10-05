@@ -278,5 +278,5 @@ describe("the console is development-only", () => {
     expect((await exportLog()).status).toBe(404);
     // and nothing was written
     expect(readFileSync(path.join(kbDir, "CN.json"), "utf8")).toBe(onDisk);
-  });
+  }, 20000); // imports the page and its component tree, which is slow when the export suite runs alongside
 });

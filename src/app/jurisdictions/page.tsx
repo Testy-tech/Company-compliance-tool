@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import { DemoBanner } from "@/components/site/demo-banner";
+import { demoNoticeOn, PRELIMINARY } from "@/lib/demo";
 import { datesToWatch, lawStatusLabels } from "@/lib/kb/library";
 import { libraryIsPublic, publishable, reviewSplit } from "@/lib/kb/publication";
 import { knowledgeBase } from "@/lib/kb/repository";
@@ -19,17 +21,21 @@ export default async function Page() {
   const kb = await knowledgeBase.list();
   const isPublic = libraryIsPublic();
   const split = reviewSplit(kb);
+  const demo = demoNoticeOn();
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <p className="eyebrow">Library</p>
       <h1 className="mt-3 text-3xl font-semibold text-primary sm:text-4xl">Jurisdictions</h1>
       <hr className="rule-brass mt-5 w-16" />
+      {demo ? <DemoBanner className="mt-6 max-w-prose" /> : null}
       <p className="mt-6 max-w-prose text-lg text-muted-foreground">
         {kb.length} jurisdictions and {split.total} obligations, each written in plain language and tied to an official source. The United States is covered state by
         state; California and Texas are in so far.
       </p>
       <p className="marginal-note mt-4 max-w-prose">
-        {split.reviewed} of {split.total} obligations have been reviewed by qualified counsel; {split.pending} are still under review.{" "}
+        {demo
+          ? `${split.reviewed} of ${split.total} obligations have had a preliminary review and are not yet verified by counsel; ${split.pending} are still under review.`
+          : `${split.reviewed} of ${split.total} obligations have been reviewed by qualified counsel; ${split.pending} are still under review.`}{" "}
         {isPublic ? "Entries under review are marked as such." : "Only reviewed obligations are shown here; the rest appear once their review is complete."} This is
         information, not legal advice.
       </p>
@@ -49,7 +55,7 @@ export default async function Page() {
               <dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1 text-sm">
                 <dt className="text-muted-foreground">Obligations</dt>
                 <dd className="tabular-nums">
-                  {publishable(j.obligations, isPublic).reviewed} reviewed · {publishable(j.obligations, isPublic).pending} under review
+                  {publishable(j.obligations, isPublic).reviewed} {demo ? PRELIMINARY.toLowerCase() : "reviewed"} · {publishable(j.obligations, isPublic).pending} under review
                 </dd>
                 {pending.length ? (
                   <>

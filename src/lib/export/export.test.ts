@@ -13,6 +13,7 @@ import type { FxTable } from "@/lib/intake/money";
 import { jurisdictionSchema } from "@/lib/kb/schema";
 
 import { docxDocument } from "./docx";
+import { DEMO_BANNER } from "@/lib/demo";
 import { exportFileName, EXPORTS, type ExportId } from "./files";
 import { buildExecutiveReport, buildFullReport, buildQuestionnaire, COVER_PLACEHOLDER, INTERNAL_LABEL, questionnaireRows, type ExportDoc, type ExportInput } from "./model";
 import { pdfDefinition, pdfPageCount } from "./pdf";
@@ -186,6 +187,35 @@ for (const variant of ["unknown", "low"] as const) {
     });
   });
 }
+
+describe("demonstration notice", () => {
+  it("puts the banner in every export when on, and nowhere when off", async () => {
+    const on = inputFor("low", { demo: true });
+    for (const doc of [buildExecutiveReport(on), buildFullReport(on), buildQuestionnaire(on)]) {
+      expect(doc.running).toContain(DEMO_BANNER);
+      expect(JSON.stringify(doc.blocks.slice(0, 3))).toContain(DEMO_BANNER);
+    }
+    for (const id of ["full-docx", "questionnaire-docx"] as const) {
+      const bytes = await generate(id, on);
+      expect(await docxXml(bytes, "document")).toContain(DEMO_BANNER);
+      expect(await docxXml(bytes, "header1")).toContain(DEMO_BANNER);
+    }
+    expect(JSON.stringify((await readXlsx(await generate("workbook-xlsx", on))).getWorksheet("Summary")!.getSheetValues())).toContain(DEMO_BANNER);
+    expect(JSON.stringify((await readXlsx(await generate("questionnaire-xlsx", on))).getWorksheet("About")!.getSheetValues())).toContain(DEMO_BANNER);
+    expect((await generate("executive-pdf", on)).length).toBeGreaterThan(1000);
+
+    const off = inputFor("low");
+    expect(JSON.stringify(buildFullReport(off))).not.toContain(DEMO_BANNER);
+    expect(await docxXml(await generate("full-docx", off), "document")).not.toContain(DEMO_BANNER);
+    expect(JSON.stringify((await readXlsx(await generate("workbook-xlsx", off))).getWorksheet("Summary")!.getSheetValues())).not.toContain(DEMO_BANNER);
+  });
+
+  it("keeps the raw confidence values in a reviewer export", async () => {
+    const doc = buildFullReport(inputFor("low", { demo: true, reviewer: true }));
+    expect(JSON.stringify(doc.blocks)).toMatch(/Reviewer: (Verified by counsel|Needs counsel review|Unverified)/);
+    expect(JSON.stringify(doc.blocks)).not.toContain("Reviewer: Preliminary review");
+  });
+});
 
 describe("precision questions, tailored text and reviewer copies", () => {
   it("asks a precision question as yes/no in the questionnaire", () => {

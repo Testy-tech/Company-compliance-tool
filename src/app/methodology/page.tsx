@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/legal/section-heading";
 import { aiConfig } from "@/lib/ai/config";
 import { euTransfers } from "@/lib/kb/eu-transfers";
+import { demoNoticeOn } from "@/lib/demo";
 import { reviewSplit } from "@/lib/kb/publication";
 import { knowledgeBase } from "@/lib/kb/repository";
 import { formatDate } from "@/lib/report/labels";
@@ -24,6 +25,7 @@ export default async function Page() {
   const count = (c: string) => obligations.filter((o) => o.confidence === c).length;
   const reviewed = kb.map((j) => j.lastReviewed).sort();
   const split = reviewSplit(kb);
+  const demo = demoNoticeOn();
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -53,7 +55,8 @@ export default async function Page() {
             relied on.
           </li>
           <li>
-            <strong className="font-semibold">Where it stands today.</strong> {split.reviewed} of {split.total} obligations have been reviewed by counsel and{" "}
+            <strong className="font-semibold">Where it stands today.</strong> {split.reviewed} of {split.total} obligations{" "}
+            {demo ? "have had a preliminary review (not yet verified by counsel) and" : "have been reviewed by counsel and"}{" "}
             {split.pending} are pending ({count("needs_review")} awaiting review, {count("unverified")} unverified). Until counsel has reviewed an entry, treat it as
             a lead to check, not a conclusion. Public pages show reviewed entries only until the library is released.
           </li>
@@ -176,7 +179,7 @@ export default async function Page() {
         </SectionHeading>
         <List>
           <li>
-            This is an informational tool, not legal advice. {split.reviewed === 0 ? "No entry has yet been verified by counsel." : `${split.pending} of ${split.total} entries are still awaiting counsel review.`}
+            This is an informational tool, not legal advice. {demo || split.reviewed === 0 ? "No entry has yet been verified by counsel." : `${split.pending} of ${split.total} entries are still awaiting counsel review.`}
           </li>
           <li>Ten jurisdictions are covered. In the United States only California and Texas are. Other countries you list are shown as not assessed.</li>
           <li>The focus is general data protection law. Sector rules (for example financial, health or telecoms regulation) are mostly out of scope.</li>
