@@ -12,20 +12,20 @@
     {
       "title": "Ley N° 21.719, que regula la protección y el tratamiento de los datos personales y crea la Agencia de Protección de Datos Personales",
       "shortName": "Law 21.719",
-      "citation": "Ley 21.719, Diario Oficial 13 Dec 2024 (rewrites Law 19.628 as the 'Ley sobre protección de los datos personales')",
+      "citation": "Ley 21.719, Diario Oficial 13 Dec 2024 (rewrites Law 19.628 as the 'Ley sobre protección de los datos personales'); fourth transitional article amended by Ley 21.806, art. 54 (Diario Oficial 5 February 2026; https://www.bcn.cl/leychile/navegar?idNorma=1221118)",
       "officialUrl": "https://www.diariooficial.interior.gob.cl/publicaciones/2024/12/13/44023/01/2583630.pdf",
       "status": "enacted_not_in_force",
       "effectiveDate": "2026-12-01",
       "effectiveDateConfidence": "verified",
       "effectiveDateSource": {
         "url": "https://www.leychile.cl/Consulta/obtxml?opt=7&idNorma=1209272",
-        "pinpoint": "Law 21.719, first transitional article (consolidated text on Ley Chile, article version dated 13 December 2024): first day of the 24th month after publication"
+        "pinpoint": "Law 21.719, first transitional article (consolidated text on Ley Chile, article version dated 13 December 2024): first day of the 24th month after publication. Not amended by Ley 21.806, whose art. 54 changes only the fourth transitional article"
       },
       "effectiveDateNote": "Postponement bill (Boletín 18.623-07) pending in the Senate, first constitutional stage, government urgency"
     }
   ],
   "regulators": [
-    { "name": "Agencia de Protección de Datos Personales (created by Law 21.719; first Board appointed within 60 days before entry into force)", "url": "https://www.bcn.cl/leychile/navegar?idNorma=1209272" }
+    { "name": "Agencia de Protección de Datos Personales (created by Law 21.719; first Board to be designated six months before entry into force, under the fourth transitional article as amended by Ley 21.806, art. 54)", "url": "https://www.bcn.cl/leychile/navegar?idNorma=1209272" }
   ],
   "officialDomains": ["bcn.cl", "leychile.cl", "diariooficial.interior.gob.cl", "gob.cl", "camara.cl", "senado.cl"],
   "scopeNotes": "IMMINENT CHANGE: Law 21.719 rewrites Law 19.628 into a GDPR-like regime with an independent Data Protection Agency and fines of up to 20,000 UTM, or for large companies up to 2%–4% of annual revenue. Under its first transitory article it enters into force on the first day of the 24th month after publication, i.e. 1 December 2026. On 1 September 2026 the Government announced a bill to postpone entry into force to 1 December 2027; until that bill is enacted, 1 December 2026 remains the legal date. Until then, the 1999 Law 19.628 applies (consent-based, with limited enforcement). The new law recognises legitimate interests, contract and legal obligation as legal bases, requires public transparency information, breach reporting, DPIAs for high-risk processing and safeguards for international transfers.",
@@ -38,9 +38,9 @@
     },
     {
       "title": "The Agency's first Board is not yet confirmed",
-      "text": "On 20 May 2026 the Senate did not reach the two-thirds majority needed to confirm the three people proposed for the first Board of the Data Protection Agency. Until a Board is in place, how much supervisory capacity the Agency will have at entry into force is uncertain. This is context for planning; it does not change any obligation below.",
-      "source": { "url": "https://www.senado.cl/comunicaciones/noticias/desestiman-propuesta-de-consejeros-para-la-agencia-de-proteccion-de-datos", "pinpoint": "Senate news item on the vote of 20 May 2026; Law 21.719, fourth transitional article (first Board appointments)" },
-      "lastVerified": "2026-10-03"
+      "text": "On 20 May 2026 the Senate did not reach the two-thirds majority needed to confirm the three people proposed for the first Board of the Data Protection Agency. The fourth transitional article, as amended in February 2026, set the first designation for six months before entry into force and limits what a Board may do before that date. Until a Board is in place, how much supervisory capacity the Agency will have at entry into force is uncertain. This is context for planning; it does not change any obligation below.",
+      "source": { "url": "https://www.senado.cl/comunicaciones/noticias/desestiman-propuesta-de-consejeros-para-la-agencia-de-proteccion-de-datos", "pinpoint": "Senate news item on the vote of 20 May 2026; Law 21.719, fourth transitional article (first Board appointments), as amended by Ley 21.806, art. 54 (Diario Oficial 5 February 2026; https://www.bcn.cl/leychile/navegar?idNorma=1221118)" },
+      "lastVerified": "2026-10-05"
     }
   ],
   "obligations": [

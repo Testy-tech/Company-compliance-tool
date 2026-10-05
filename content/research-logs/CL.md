@@ -60,10 +60,42 @@ A verification run of the developments search with a look-back to 1 January 2025
 
 **KB changes.** The effective date of Law 21.719 is marked `needs_review` with the note "Entry-into-force date subject to amending legislation, under review", shown next to the date in the report, exports and library page. Two context notes were added for the jurisdiction (date may move; first Board not confirmed). No obligation was changed.
 
-**For counsel:** confirm the amending article of Law 21.806 from the Diario Oficial; confirm whether the bill has moved; decide whether titles that mention 1 December 2026 should be reworded if it is enacted.
+**For counsel:** ~~confirm the amending article of Law 21.806 from the Diario Oficial~~ (done 2026-10-05, see below); confirm whether the bill has moved; decide whether titles that mention 1 December 2026 should be reworded if it is enacted.
 
 ## Decisions of 2026-10-04
 
 - **Effective date confirmed.** By decision of the reviewing owner, the 1 December 2026 effective date of Law 21.719 is recorded as `verified`, cited to the first transitional article of the consolidated text on Ley Chile (article version dated 13 December 2024). The "under review" wording was removed.
 - **Postponement bill as a watch entry.** The bill (Boletín 18.623-07) is recorded under upcoming changes with its source and a last-verified date of 2026-10-03, and is shown as a note next to the date. The item title that mentions 1 December 2026 was restored.
-- **TODO — Law 21.806 citation.** The article of Law 21.806 that amended the fourth transitional article of Law 21.719 is still not cited, because the amending text could not be loaded. To be completed from the Diario Oficial PDF (5 February 2026) once it is added to `docs/sources/`.
+- **Law 21.806 citation: resolved on 2026-10-05** (see the next section).
+
+## Law 21.806, article 54 (2026-10-05)
+
+**Source.** The official text of Law 21.806 from BCN Ley Chile (idNorma 1221118; promulgated 2 February 2026, published in the Diario Oficial on 5 February 2026), saved as `docs/sources/Ley-21806.pdf`. I extracted the text and searched it for every reference to Law 21.719. Official URL: https://www.bcn.cl/leychile/navegar?idNorma=1221118
+
+**Provisions that concern Law 21.719.** There are three, all in a row; only the first amends it.
+
+- **Article 54** amends the fourth transitional article of Law 21.719 (first Board of the Agency) and nothing else in that law:
+  1. *First paragraph.* The first designation no longer covers the Board's President and Vice-President; it is set for six months before entry into force instead of within the sixty days before it; and the President and Vice-President are to be chosen at the Board's first session.
+  2. *Second paragraph.* The President of the Republic's proposal must be made as a single slate in a window of 80 to 60 days before that deadline. If the Senate has not decided by the deadline, the proposal counts as accepted (the article says it "se entenderá aceptada sin más trámite").
+  3. *Third paragraph, replaced.* Board members count as appointed from the Senate's agreement or from the deadline passing, whether or not the formal decree has issued. Until Law 21.719 is in force, the Board may only carry out a limited set of functions (those of article 30 bis letters a, b, g and h, and article 30 ter), and any instruction or general rule it issues binds only from entry into force.
+  4. *Fourth paragraph.* The ninety days for proposing the Agency's statutes become consecutive days and run from the Board's appointment rather than from entry into force.
+  5. *New final paragraph.* Members of the ministerial advisory commission on implementing the new law (created by Decree 12 of 2025 of the Ministry General Secretariat of the Presidency) cannot sit on the first Board.
+- **Article 55** does not amend Law 21.719. It has the Undersecretariat of Economy provide technical and administrative support to the Board members before the law is in force.
+- **Article 56** does not amend it either. It funds article 54 from the Ministry of Economy's budget.
+
+No other article of Law 21.806 mentions Law 21.719. One later article (124) lets a human-rights body process personal data for a specific search function "under the data protection rules in force"; it changes nothing in Law 21.719.
+
+**Comparison with the consolidated Law 21.719** (Ley Chile XML, fetched again on 2026-10-05). The fourth transitional article, version dated 5 February 2026, contains each of the five changes above and nothing further. This also settles the open point from 2026-10-03: the six-month timing, the proposal window, the silence rule, the limit on pre-commencement functions and the advisory-commission bar are all new; the staggered two, four and six-year terms and the vote on the slate as a unit were already there.
+
+**Effect on entry into force and phase-ins: none.**
+
+- The first transitional article (entry into force on the first day of the 24th month after publication, i.e. 1 December 2026) keeps its original version date of 13 December 2024 and is not mentioned by Law 21.806.
+- The second (regulations), sixth (twelve months of written warnings for smaller companies) and seventh (public bodies' policies within eighteen months) transitional articles are likewise unchanged.
+- Article 54 moves dates in the Agency's own set-up (when the Board is designated, when its statutes are due), not any date that binds a company. Its third paragraph confirms rather than changes the position: nothing the Board issues binds before entry into force.
+
+**KB changes.** The citation to Law 21.806, art. 54 was added to the Law 21.719 entry, to the note on its effective-date source, to the regulator entry and to the context note on the first Board. The regulator entry said the first Board was appointed within sixty days before entry into force; that was the original rule and is now corrected to six months. No obligation was changed.
+
+**For counsel.**
+
+- Six months before 1 December 2026 was 1 June 2026, and the Senate voted the slate down on 20 May 2026. The silence rule applies only where the Senate has not decided, so on its face it did not operate; what the amended article requires after a rejection, and by when, is not something I could determine from the text. Please confirm.
+- Law 21.806 has no commencement rule specific to article 54 that I could find, so I have treated it as in force from publication.
