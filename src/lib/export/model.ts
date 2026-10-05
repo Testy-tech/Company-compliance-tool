@@ -2,8 +2,8 @@ import type { ObligationResult, OpenQuestion, Report } from "@/lib/engine/types"
 import type { Intake } from "@/lib/intake/schema";
 import { obligationCategories, type Jurisdiction } from "@/lib/kb/schema";
 import { deadlines, heatCell, mostUrgent } from "@/lib/report/derive";
-import { DEMO_BANNER } from "@/lib/demo";
-import { categoryLabels, confidenceLabels, formatDate, governanceModelLabels, ownerLabels, priorityLabels, priorityRank } from "@/lib/report/labels";
+import { DEMO_BANNER, reviewerConfidence } from "@/lib/demo";
+import { categoryLabels, formatDate, governanceModelLabels, ownerLabels, priorityLabels, priorityRank } from "@/lib/report/labels";
 
 /*
  * Format-neutral document model for the PDF and DOCX exports. The report and
@@ -325,7 +325,7 @@ function itemBlocks(r: ObligationResult, input: ExportInput): Block[] {
     blocks.push({ kind: "list", ordered: false, items: tailored.considerations });
   }
   blocks.push(p(`Last verified ${formatDate(o.lastVerified)}`, "small"));
-  if (input.reviewer) blocks.push(p(`Reviewer: ${confidenceLabels[o.confidence]} · ${o.id} · verified by ${o.verifiedBy}`, "reviewer"));
+  if (input.reviewer) blocks.push(p(`Reviewer: ${reviewerConfidence(o.confidence, Boolean(input.demo))} · ${o.id} · verified by ${o.verifiedBy}`, "reviewer"));
   return blocks;
 }
 

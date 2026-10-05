@@ -1,8 +1,8 @@
 import ExcelJS from "exceljs";
 
 import { deadlines } from "@/lib/report/derive";
-import { DEMO_BANNER } from "@/lib/demo";
-import { categoryLabels, confidenceLabels, formatDate, ownerLabels, priorityLabels } from "@/lib/report/labels";
+import { DEMO_BANNER, reviewerConfidence } from "@/lib/demo";
+import { categoryLabels, formatDate, ownerLabels, priorityLabels } from "@/lib/report/labels";
 
 import { ASSUMPTION, DISCLAIMER, INTERNAL_LABEL, questionnaireRows, TAILORED, type ExportInput } from "./model";
 
@@ -156,7 +156,7 @@ export function buildWorkbook(input: ExportInput): ExcelJS.Workbook {
         o.sources.map((x) => x.url).join("\n"),
         numbered(o.actionSteps),
         ...(hasTailored ? [t?.explanation ?? "", t ? numbered(t.steps) : "", (t?.considerations ?? []).map((x) => `• ${x}`).join("\n")] : []),
-        ...(reviewer ? [confidenceLabels[o.confidence], o.verifiedBy, o.lastVerified] : []),
+        ...(reviewer ? [reviewerConfidence(o.confidence, Boolean(input.demo)), o.verifiedBy, o.lastVerified] : []),
       ];
     });
     const ws = tableSheet(wb, j.jurisdiction, columns, rows);

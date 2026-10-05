@@ -13,7 +13,7 @@ import type { FxTable } from "@/lib/intake/money";
 import { jurisdictionSchema } from "@/lib/kb/schema";
 
 import { docxDocument } from "./docx";
-import { DEMO_BANNER } from "@/lib/demo";
+import { DEMO_BANNER, MARKED_PRELIMINARY } from "@/lib/demo";
 import { exportFileName, EXPORTS, type ExportId } from "./files";
 import { buildExecutiveReport, buildFullReport, buildQuestionnaire, COVER_PLACEHOLDER, INTERNAL_LABEL, questionnaireRows, type ExportDoc, type ExportInput } from "./model";
 import { pdfDefinition, pdfPageCount } from "./pdf";
@@ -210,10 +210,20 @@ describe("demonstration notice", () => {
     expect(JSON.stringify((await readXlsx(await generate("workbook-xlsx", off))).getWorksheet("Summary")!.getSheetValues())).not.toContain(DEMO_BANNER);
   });
 
-  it("keeps the raw confidence values in a reviewer export", async () => {
-    const doc = buildFullReport(inputFor("low", { demo: true, reviewer: true }));
-    expect(JSON.stringify(doc.blocks)).toMatch(/Reviewer: (Verified by counsel|Needs counsel review|Unverified)/);
-    expect(JSON.stringify(doc.blocks)).not.toContain("Reviewer: Preliminary review");
+  it("qualifies verified entries in a reviewer export while on, and shows the plain value when off", async () => {
+    const verified = (list: typeof kb) => list.map((j) => ({ ...j, obligations: j.obligations.map((o) => ({ ...o, confidence: "verified" as const })) }));
+    const on = { ...inputFor("low", { demo: true, reviewer: true }), kb: verified(kb) };
+    on.report = evaluate(referenceAssessment("low"), on.kb, fx);
+    const blocks = JSON.stringify(buildFullReport(on).blocks);
+    expect(blocks).toContain(`Reviewer: ${MARKED_PRELIMINARY}`);
+    expect(blocks).not.toContain("Verified by counsel");
+    const sheet = JSON.stringify((await readXlsx(await generate("workbook-xlsx", on))).getWorksheet("DE")!.getSheetValues());
+    expect(sheet).toContain(MARKED_PRELIMINARY);
+    expect(sheet).not.toContain("Verified by counsel");
+
+    const off = { ...on, demo: false };
+    expect(JSON.stringify(buildFullReport(off).blocks)).toContain("Reviewer: Verified by counsel");
+    expect(JSON.stringify((await readXlsx(await generate("workbook-xlsx", off))).getWorksheet("DE")!.getSheetValues())).toContain("Verified by counsel");
   });
 });
 

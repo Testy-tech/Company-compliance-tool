@@ -323,6 +323,7 @@ function ReportBody({ kb, fx, demo }: Props) {
             kb={kbOf(j.jurisdiction)}
             gdprBaseline={report.gdprBaseline}
             reviewer={reviewer}
+            demo={demo}
             checklist={state.checklist}
             onToggle={toggleDone}
             tailored={tailored}

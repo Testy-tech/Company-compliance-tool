@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { DEMO_BANNER, demoNoticeOn, PRELIMINARY, shownConfidence } from "./demo";
+import { DEMO_BANNER, demoNoticeOn, PRELIMINARY, reviewerConfidence, shownConfidence } from "./demo";
 
 describe("demonstration notice", () => {
   it("is on unless DEMO_NOTICE is set to false", () => {
@@ -17,6 +17,12 @@ describe("demonstration notice", () => {
     expect(shownConfidence("verified", false)).toBe("Verified by counsel");
     expect(shownConfidence("needs_review", true)).toBe("Needs counsel review");
     expect(shownConfidence("unverified", true)).toMatch(/^Unverified/);
+  });
+
+  it("qualifies a verified entry for reviewers while on", () => {
+    expect(reviewerConfidence("verified", true)).toBe("Marked verified (preliminary)");
+    expect(reviewerConfidence("verified", false)).toBe("Verified by counsel");
+    expect(reviewerConfidence("needs_review", true)).toBe("Needs counsel review");
   });
 
   it("uses the agreed banner text", () => {

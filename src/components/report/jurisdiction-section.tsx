@@ -5,10 +5,11 @@ import { Sparkles } from "lucide-react";
 import { Popover } from "radix-ui";
 
 import { DeltaBadge } from "@/components/legal/delta-badge";
+import { reviewerConfidence } from "@/lib/demo";
 import type { JurisdictionReport, ObligationResult } from "@/lib/engine/types";
 import type { DefinedTerm, Jurisdiction } from "@/lib/kb/schema";
 import {
-  categoryLabels, confidenceLabels, formatDate, jurisdictionAnchor, obligationAnchor, ownerLabels, priorityLabels, questionAnchor,
+  categoryLabels, formatDate, jurisdictionAnchor, obligationAnchor, ownerLabels, priorityLabels, questionAnchor,
 } from "@/lib/report/labels";
 import { cn } from "@/lib/utils";
 
@@ -79,6 +80,8 @@ type ItemProps = {
   terms: readonly DefinedTerm[];
   gdprBaseline: boolean;
   reviewer: boolean;
+  /** DEMO_NOTICE: reviewer labels are qualified while it is on. */
+  demo: boolean;
   done: boolean;
   onToggle: (id: string, done: boolean) => void;
   /** AI-tailored wording for this item, if the user opted in and it passed validation. */
@@ -87,7 +90,7 @@ type ItemProps = {
   onShowStandard: (id: string, standard: boolean) => void;
 };
 
-function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle, tailored, showStandard, onShowStandard }: ItemProps) {
+function ObligationItem({ result, terms, gdprBaseline, reviewer, demo, done, onToggle, tailored, showStandard, onShowStandard }: ItemProps) {
   const o = result.obligation;
   const anchor = obligationAnchor(o.id);
   const useTailored = !!tailored && !showStandard;
@@ -236,7 +239,7 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle,
           <div className="mt-3 rounded-lg border border-dashed p-3 text-xs">
             <p className="eyebrow">Reviewer</p>
             <p className="mt-1.5">
-              <span className={cn("font-medium", o.confidence !== "verified" && "text-status-new")}>{confidenceLabels[o.confidence]}</span> · {o.id} · verified by {o.verifiedBy}
+              <span className={cn("font-medium", o.confidence !== "verified" && "text-status-new")}>{reviewerConfidence(o.confidence, demo)}</span> · {o.id} · verified by {o.verifiedBy}
             </p>
             <p className="mt-1">
               <Link href={`/research-log/${result.jurisdiction}`} className="underline underline-offset-4">
@@ -258,7 +261,7 @@ function ObligationItem({ result, terms, gdprBaseline, reviewer, done, onToggle,
 /* ── One jurisdiction ─────────────────────────────────────────────────────── */
 
 export function JurisdictionSection({
-  index, section, kb, gdprBaseline, reviewer, checklist, onToggle, tailored, showStandard, onShowStandard, developments,
+  index, section, kb, gdprBaseline, reviewer, demo, checklist, onToggle, tailored, showStandard, onShowStandard, developments,
 }: {
   tailored: Record<string, Tailored>;
   showStandard: Record<string, boolean>;
@@ -269,6 +272,8 @@ export function JurisdictionSection({
   kb: Jurisdiction;
   gdprBaseline: boolean;
   reviewer: boolean;
+  /** DEMO_NOTICE: reviewer labels are qualified while it is on. */
+  demo: boolean;
   checklist: Record<string, boolean>;
   onToggle: (id: string, done: boolean) => void;
 }) {
@@ -331,6 +336,7 @@ export function JurisdictionSection({
             terms={kb.definedTerms}
             gdprBaseline={gdprBaseline}
             reviewer={reviewer}
+            demo={demo}
             done={!!checklist[r.obligation.id]}
             onToggle={onToggle}
             tailored={tailored[r.obligation.id]}
